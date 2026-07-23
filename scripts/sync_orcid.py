@@ -6,12 +6,17 @@ import re
 ORCID_ID = "0000-0002-1418-3448"
 ORCID_URL = f"https://pub.orcid.org/v3.0/{ORCID_ID}/works"
 PUBLICATIONS_FILE = os.path.join(os.path.dirname(__file__), "..", "publications.json")
-SCRIPT_JS_FILE = os.path.join(os.path.dirname(__file__), "..", "script.js")
 
 def normalize_text(text):
     if not text:
         return ""
-    return re.sub(r'[^a-zA-Z0-9]', '', text.lower())
+    # Strip non-alphanumeric characters for clean string comparison
+    return re.sub(r'[^a-z0-9]', '', text.lower())
+
+def normalize_doi(doi):
+    if not doi:
+        return ""
+    return doi.strip().lower().replace("https://doi.org/", "").replace("http://doi.org/", "").replace("doi:", "")
 
 def determine_category(title):
     t = title.lower()
@@ -22,6 +27,29 @@ def determine_category(title):
     if 'case report' in t:
         return 'case-report'
     return 'recon'
+
+def is_duplicate(new_item, existing_items):
+    new_title_norm = normalize_text(new_item.get('title', ''))
+    new_doi_norm = normalize_doi(new_item.get('doi', ''))
+
+    for ex in existing_items:
+        ex_title_norm = normalize_text(ex.get('title', ''))
+        ex_doi_norm = normalize_doi(ex.get('doi', ''))
+
+        # 1. DOI Matching
+        if new_doi_norm and ex_doi_norm and new_doi_norm == ex_doi_norm:
+            return True
+
+        # 2. Normalized Title Exact Matching
+        if new_title_norm and ex_title_norm and new_title_norm == ex_title_norm:
+            return True
+
+        # 3. Substring/Prefix Similarity Matching (handles slight subtitle punctuation diffs)
+        if len(new_title_norm) > 20 and len(ex_title_norm) > 20:
+            if new_title_norm.startswith(ex_title_norm[:30]) or ex_title_norm.startswith(new_title_norm[:30]):
+                return True
+
+    return False
 
 def fetch_orcid_works():
     req = urllib.request.Request(ORCID_URL, headers={'Accept': 'application/json'})
@@ -62,7 +90,7 @@ def fetch_orcid_works():
 
                 extracted.append({
                     'title': title_val,
-                    'authors': 'Kwon H, et al.',  # default placeholder for new ORCID imports
+                    'authors': 'Kwon H, et al.',
                     'journal': journal_val or 'Peer-Reviewed Journal',
                     'year': year_val or '2025',
                     'volume': 'In press',
@@ -84,30 +112,25 @@ def main():
     orcid_works = fetch_orcid_works()
     print(f"Fetched {len(orcid_works)} works from ORCID API.")
 
-    existing_titles = {normalize_text(p['title']): p for p in existing}
-    
-    updated = False
     new_items = []
     
     for ow in reversed(orcid_works):
-        norm = normalize_text(ow['title'])
-        if norm not in existing_titles:
-            new_id = len(existing) + len(new_items) + 1
-            ow['id'] = new_id
+        if not is_duplicate(ow, existing) and not is_duplicate(ow, new_items):
+            ow['id'] = len(existing) + len(new_items) + 1
             new_items.append(ow)
-            updated = True
-            print(f"Added new publication from ORCID: {ow['title']}")
+            print(f"Added new unique publication: {ow['title']}")
 
     if new_items:
         combined = existing + new_items
-        # Re-index IDs
         for i, p in enumerate(combined):
             p['id'] = i + 1
             
         with open(PUBLICATIONS_FILE, 'w', encoding='utf-8') as f:
             json.dump(combined, f, ensure_ascii=False, indent=2)
             
-        print(f"Successfully added {len(new_items)} new publications.")
+        print(f"Successfully added {len(new_items)} new unique publications.")
+    else:
+        print("No new unique publications found. Database is completely up to date.")
 
 if __name__ == '__main__':
     main()
