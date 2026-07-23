@@ -403,6 +403,50 @@ a:hover {
   margin-top: 8px;
 }
 
+/* Academic Grid & Cards */
+.academic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.academic-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 20px 24px;
+}
+
+.academic-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+}
+
+.academic-sublist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.academic-sublist li strong {
+  font-size: 0.93rem;
+  color: var(--text-primary);
+}
+
+.academic-sublist .subtext {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
 /* Simple Footer & Contact */
 .contact-grid {
   display: grid;
