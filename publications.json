@@ -24,7 +24,7 @@
   {
     "id": 3,
     "title": "AI-driven eyeball exposure rate (EER) analysis: A useful tool for assessing ptosis surgery effectiveness",
-    "authors": "Lee B, Xu L, Oh S-H, Ha Y, Kwon H, Lee KC, et al.",
+    "authors": "Lee B, Xu L, Oh S-H, Ha Y, Kwon H, Lee KC, Kim SY, Seo CW, Kim S, Song SH",
     "journal": "PLOS ONE",
     "year": "2025",
     "volume": "20(3):e0319577",
@@ -35,7 +35,7 @@
   {
     "id": 4,
     "title": "Anterolateral thigh free flap using modified turbocharging method: a case report",
-    "authors": "Ha Y, Kim D, Kwon H, Kim S, Song SH, Oh S-H, et al.",
+    "authors": "Ha Y, Kim D, Kwon H, Kim S, Song SH, Oh S-H, Kim J-H, Yang HJ, Kyung H",
     "journal": "Frontiers in Surgery",
     "year": "2024",
     "volume": "11:1273843",
@@ -57,7 +57,7 @@
   {
     "id": 6,
     "title": "The effect of botulinum toxin A on NADPH oxidase system and ischemia reperfusion injury",
-    "authors": "Kyung HW, Lee S, Kwon H, Kim S, Kim JH, Song SH, et al.",
+    "authors": "Kyung HW, Lee S, Kwon H, Kim S, Kim JH, Song SH, Oh S-H, Yang HJ, Ha Y",
     "journal": "Plastic and Reconstructive Surgery",
     "year": "2024",
     "volume": "154(1):100e–111e",
@@ -90,7 +90,7 @@
   {
     "id": 9,
     "title": "Customized reconstruction of lower eyelid defects",
-    "authors": "Kwon H, Song B, Ha Y, Kim S, Oh S-H, Seo Y-J, et al.",
+    "authors": "Kwon H, Song B, Ha Y, Kim S, Oh S-H, Seo Y-J, Song SH",
     "journal": "Journal of Craniofacial Surgery",
     "year": "2024",
     "volume": "35(1):233–236",
@@ -123,7 +123,7 @@
   {
     "id": 12,
     "title": "Smartphone-based LiDAR application for easy and accurate wound size measurement",
-    "authors": "Song B, Kim J, Kwon H, Kim S, Oh S-H, Ha Y, et al.",
+    "authors": "Song B, Kim J, Kwon H, Kim S, Oh S-H, Ha Y, Song S-H",
     "journal": "Journal of Clinical Medicine",
     "year": "2023",
     "volume": "12(18):6042",
@@ -156,7 +156,7 @@
   {
     "id": 15,
     "title": "Reconstruction of complex knee wounds with a distally based gracilis flap and gastrocnemius myocutaneous flap: A case report",
-    "authors": "Kwon H, Lee S, Kim S, Song SH, Oh S-H, Kim J-H, et al.",
+    "authors": "Kwon H, Lee S, Kim S, Song SH, Oh S-H, Kim J-H, Kyung H, Yang HJ, Ha Y",
     "journal": "Frontiers in Surgery",
     "year": "2023",
     "volume": "10:1109936",
@@ -167,7 +167,7 @@
   {
     "id": 16,
     "title": "Aesthetic removal of foreign body granulomas of forehead via pretrichial approach",
-    "authors": "Kwon H, Ko G, Choi J, Ha Y, Kim S, Kim J-H, et al.",
+    "authors": "Kwon H, Ko G, Choi J, Ha Y, Kim S, Kim J-H, Oh S-H, Song SH",
     "journal": "Journal of Craniofacial Surgery",
     "year": "2022",
     "volume": "33(5):1591–1595",
@@ -178,7 +178,7 @@
   {
     "id": 17,
     "title": "Minimally invasive removal of facial foreign body granulomas",
-    "authors": "Choi J, Ko G, Kwon H, Ha Y, Kim S, Kyung H, et al.",
+    "authors": "Choi J, Ko G, Kwon H, Ha Y, Kim S, Kyung H, Oh S-H, Song SH",
     "journal": "Archives of Aesthetic Plastic Surgery",
     "year": "2022",
     "volume": "28(1):24–30",
@@ -200,7 +200,7 @@
   {
     "id": 19,
     "title": "Bilateral interdigitated pacman flap for round and oval facial defects",
-    "authors": "Oh S-H, Kwon H, Kim SJ, Kyung H, Seo YJ, Lew DH, et al.",
+    "authors": "Oh S-H, Kwon H, Kim SJ, Kyung H, Seo YJ, Lew DH, Song SH",
     "journal": "Journal of Cranio-Maxillofacial Surgery",
     "year": "2018",
     "volume": "46(6):1032–1036",
@@ -232,7 +232,7 @@
   },
   {
     "title": "The Effect of a Collagen-Elastin Implantation on Infraorbital Hallowing in Lower Lid Surgery for Aging Patients",
-    "authors": "Kyoung H, Park J, Lee B, Kim J, Oh S-H, Kim S, et al.",
+    "authors": "Kyoung H, Park J, Lee B, Kim J, Oh S-H, Kim S, Ha Y, Kwon H, Lee K, Song SH",
     "journal": "Journal of Craniofacial Surgery",
     "year": "2025",
     "volume": "In press",
@@ -243,7 +243,7 @@
   },
   {
     "title": "Factors influencing the choice of a free-flap donor site in lower extremity reconstruction from an aesthetic perspective: a cross-sectional analysis of public sentiment from an internet-based questionnaire",
-    "authors": "Yang HJ, Kim J, Song B, Kwon H, Kim S, Song SH, et al.",
+    "authors": "Yang HJ, Kim J, Song B, Kwon H, Kim S, Song SH, Oh S-H, Ha Y",
     "journal": "Archives of Hand and Microsurgery",
     "year": "2025",
     "volume": "In press",
@@ -254,7 +254,7 @@
   },
   {
     "title": "Advancing nipple volume measurement using Gaussian splatting: Achieving comparable accuracy to current standards",
-    "authors": "Kim D, Oh SK, Heo J, Oh HS, You B, Kim M, et al.",
+    "authors": "Kim D, Oh SK, Heo J, Oh HS, You B, Kim M, Kwon H, Lee D, Oh S-H",
     "journal": "Journal of Plastic, Reconstructive &amp; Aesthetic Surgery",
     "year": "2026",
     "volume": "In press",
