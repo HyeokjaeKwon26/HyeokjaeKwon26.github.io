@@ -389,6 +389,20 @@ a:hover {
   text-decoration: underline;
 }
 
+.year-heading {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 32px 0 16px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.year-heading:first-child {
+  margin-top: 8px;
+}
+
 /* Simple Footer & Contact */
 .contact-grid {
   display: grid;
