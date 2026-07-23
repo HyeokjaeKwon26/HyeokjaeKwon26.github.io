@@ -1,13 +1,25 @@
-// Academic Publications Handler with Dynamic ORCID Auto-Sync Support
+// Academic Portfolio & Publications Engine (Optimized)
 let publications = [];
 let currentCategory = 'all';
 let searchQuery = '';
 
+// DOM Elements Cache
+let containerEl, searchInputEl, toastEl, themeBtnEl;
+
 document.addEventListener('DOMContentLoaded', () => {
+  cacheDOMElements();
   initTheme();
   loadPublications();
   setupEventListeners();
+  setupScrollSpy();
 });
+
+function cacheDOMElements() {
+  containerEl = document.getElementById('pub-list-container');
+  searchInputEl = document.getElementById('pub-search-input');
+  toastEl = document.getElementById('toast');
+  themeBtnEl = document.getElementById('theme-toggle-btn');
+}
 
 function initTheme() {
   const savedTheme = localStorage.getItem('theme') || 'light';
@@ -24,9 +36,8 @@ function toggleTheme() {
 }
 
 function updateThemeIcon(theme) {
-  const btn = document.getElementById('theme-toggle-btn');
-  if (!btn) return;
-  btn.innerHTML = theme === 'dark' ? '<i class="ri-sun-line"></i>' : '<i class="ri-moon-line"></i>';
+  if (!themeBtnEl) return;
+  themeBtnEl.innerHTML = theme === 'dark' ? '<i class="ri-sun-line"></i>' : '<i class="ri-moon-line"></i>';
 }
 
 async function loadPublications() {
@@ -37,20 +48,18 @@ async function loadPublications() {
       const allTab = document.querySelector('.tab-btn[data-filter="all"]');
       if (allTab) allTab.innerText = `All (${publications.length})`;
       renderPublications();
-      return;
     }
   } catch (e) {
-    console.log('Using default publications data');
+    console.error('Error loading publications data:', e);
   }
 }
 
 function renderPublications() {
-  const container = document.getElementById('pub-list-container');
-  if (!container) return;
+  if (!containerEl) return;
 
+  const query = searchQuery.toLowerCase().trim();
   const filtered = publications.filter(pub => {
     const matchesCategory = currentCategory === 'all' || pub.category === currentCategory;
-    const query = searchQuery.toLowerCase();
     const matchesSearch = !query || 
       pub.title.toLowerCase().includes(query) ||
       pub.authors.toLowerCase().includes(query) ||
@@ -61,16 +70,12 @@ function renderPublications() {
   });
 
   if (filtered.length === 0) {
-    container.innerHTML = `<div style="padding: 24px 0; color: var(--text-muted);">No publications found matching your search.</div>`;
+    containerEl.innerHTML = `<div style="padding: 24px 0; color: var(--text-muted);">No publications found matching your search.</div>`;
     return;
   }
 
-  // Sort publications by year descending (most recent first)
-  filtered.sort((a, b) => {
-    const yearA = parseInt(a.year) || 9999;
-    const yearB = parseInt(b.year) || 9999;
-    return yearB - yearA;
-  });
+  // Sort by year descending (newest first)
+  filtered.sort((a, b) => (parseInt(b.year) || 9999) - (parseInt(a.year) || 9999));
 
   let html = '';
   let currentYearGroup = '';
@@ -97,7 +102,7 @@ function renderPublications() {
           <a href="${pub.url}" target="_blank" rel="noopener noreferrer" class="pub-link-btn">
             [DOI / Publisher Link]
           </a>
-          <button class="pub-link-btn" onclick="copyCitation('${pub.id}')">
+          <button class="pub-link-btn copy-btn" data-id="${pub.id}">
             [Copy Citation]
           </button>
         </div>
@@ -105,7 +110,7 @@ function renderPublications() {
     `;
   });
 
-  container.innerHTML = html;
+  containerEl.innerHTML = html;
 }
 
 function copyCitation(id) {
@@ -114,33 +119,37 @@ function copyCitation(id) {
 
   const citation = `${pub.authors}. ${pub.title}. ${pub.journal}. ${pub.year};${pub.volume}. https://doi.org/${pub.doi}`;
   
-  navigator.clipboard.writeText(citation).then(() => {
-    showToast('Citation copied to clipboard');
-  });
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(citation).then(() => showToast('Citation copied to clipboard'));
+  }
 }
 
 function showToast(message) {
-  const toast = document.getElementById('toast');
-  if (!toast) return;
-  toast.innerText = message;
-  toast.classList.add('show');
-  setTimeout(() => {
-    toast.classList.remove('show');
-  }, 2500);
+  if (!toastEl) return;
+  toastEl.innerText = message;
+  toastEl.classList.add('show');
+  setTimeout(() => toastEl.classList.remove('show'), 2500);
+}
+
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
 }
 
 function setupEventListeners() {
-  const themeBtn = document.getElementById('theme-toggle-btn');
-  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+  if (themeBtnEl) themeBtnEl.addEventListener('click', toggleTheme);
 
-  const searchInput = document.getElementById('pub-search-input');
-  if (searchInput) {
-    searchInput.addEventListener('input', (e) => {
+  if (searchInputEl) {
+    searchInputEl.addEventListener('input', debounce((e) => {
       searchQuery = e.target.value;
       renderPublications();
-    });
+    }, 150));
   }
 
+  // Category filter tabs
   const tabBtns = document.querySelectorAll('.tab-btn');
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -150,4 +159,39 @@ function setupEventListeners() {
       renderPublications();
     });
   });
+
+  // Event Delegation for Copy Citation Buttons
+  if (containerEl) {
+    containerEl.addEventListener('click', (e) => {
+      const copyBtn = e.target.closest('.copy-btn');
+      if (copyBtn) {
+        const id = copyBtn.getAttribute('data-id');
+        copyCitation(id);
+      }
+    });
+  }
+}
+
+// Active Nav Link ScrollSpy via IntersectionObserver
+function setupScrollSpy() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  if (!sections.length || !navLinks.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" });
+
+  sections.forEach(sec => observer.observe(sec));
 }
