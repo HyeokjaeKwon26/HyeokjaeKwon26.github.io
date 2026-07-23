@@ -9,8 +9,7 @@ const publications = [
     volume: "104(29):e43410",
     doi: "10.1097/MD.0000000000043410",
     url: "https://doi.org/10.1097/MD.0000000000043410",
-    category: "case-report",
-    tags: ["Case Report", "Anesthesia", "Complication"]
+    category: "case-report"
   },
   {
     id: 2,
@@ -21,8 +20,7 @@ const publications = [
     volume: "In press",
     doi: "10.1097/SCS.0000000000011579",
     url: "https://doi.org/10.1097/SCS.0000000000011579",
-    category: "recon",
-    tags: ["Lower Lid Reconstruction", "Midface Lifting", "Skin Graft"]
+    category: "recon"
   },
   {
     id: 3,
@@ -33,8 +31,7 @@ const publications = [
     volume: "In press",
     doi: "10.1097/SCS.0000000000011579",
     url: "https://doi.org/10.1097/SCS.0000000000011579",
-    category: "recon",
-    tags: ["Infraorbital Hollowing", "Collagen-Elastin", "Lower Lid Surgery"]
+    category: "recon"
   },
   {
     id: 4,
@@ -45,8 +42,7 @@ const publications = [
     volume: "20(3):e0319577",
     doi: "10.1371/journal.pone.0319577",
     url: "https://doi.org/10.1371/journal.pone.0319577",
-    category: "ai",
-    tags: ["AI / Machine Learning", "Eyeball Exposure Rate", "Ptosis Surgery"]
+    category: "ai"
   },
   {
     id: 5,
@@ -57,8 +53,7 @@ const publications = [
     volume: "11:1273843",
     doi: "10.3389/fsurg.2024.1273843",
     url: "https://doi.org/10.3389/fsurg.2024.1273843",
-    category: "recon",
-    tags: ["ALT Free Flap", "Turbocharging", "Microvascular Surgery"]
+    category: "recon"
   },
   {
     id: 6,
@@ -69,8 +64,7 @@ const publications = [
     volume: "12(28):6204–6216",
     doi: "10.12998/wjcc.v12.i28.6204",
     url: "http://dx.doi.org/10.12998/wjcc.v12.i28.6204",
-    category: "tech",
-    tags: ["Virtual Reality (VR)", "Patient Education", "Nursing Burnout"]
+    category: "tech"
   },
   {
     id: 7,
@@ -81,8 +75,7 @@ const publications = [
     volume: "154(1):100e–111e",
     doi: "10.1097/PRS.0000000000010956",
     url: "https://doi.org/10.1097/PRS.0000000000010956",
-    category: "tech",
-    tags: ["Botulinum Toxin A", "Ischemia Reperfusion", "NADPH Oxidase"]
+    category: "tech"
   },
   {
     id: 8,
@@ -93,8 +86,7 @@ const publications = [
     volume: "12(20):4446–4451",
     doi: "10.12998/wjcc.v12.i20.4446",
     url: "http://dx.doi.org/10.12998/wjcc.v12.i20.4446",
-    category: "case-report",
-    tags: ["Diabetic Foot Ulcers", "PDRN Injection", "Wound Healing"]
+    category: "case-report"
   },
   {
     id: 9,
@@ -105,8 +97,7 @@ const publications = [
     volume: "29(2):127–131",
     doi: "10.12790/ahm.24.0005",
     url: "https://doi.org/10.12790/ahm.24.0005",
-    category: "recon",
-    tags: ["Free Flap Surgery", "Embolization", "Flap Perfusion"]
+    category: "recon"
   },
   {
     id: 10,
@@ -117,8 +108,7 @@ const publications = [
     volume: "35(1):233–236",
     doi: "10.1097/SCS.0000000000009807",
     url: "https://doi.org/10.1097/SCS.0000000000009807",
-    category: "recon",
-    tags: ["Eyelid Reconstruction", "Oculoplastic Surgery", "Customized Flap"]
+    category: "recon"
   },
   {
     id: 11,
@@ -129,8 +119,7 @@ const publications = [
     volume: "12(23):7466",
     doi: "10.3390/jcm12237466",
     url: "https://doi.org/10.3390/jcm12237466",
-    category: "ai",
-    tags: ["Deep Learning", "Infrared Imaging", "MRD-1 Measurement"]
+    category: "ai"
   },
   {
     id: 12,
@@ -141,8 +130,7 @@ const publications = [
     volume: "29(4):226–229",
     doi: "10.14730/aaps.2023.00941",
     url: "https://doi.org/10.14730/aaps.2023.00941",
-    category: "recon",
-    tags: ["TDAP Free Flap", "Melanocytic Nevus", "Aesthetic Reconstruction"]
+    category: "recon"
   },
   {
     id: 13,
@@ -153,8 +141,7 @@ const publications = [
     volume: "12(18):6042",
     doi: "10.3390/jcm12186042",
     url: "https://doi.org/10.3390/jcm12186042",
-    category: "tech",
-    tags: ["LiDAR Tech", "Smartphone App", "Wound Size Measurement"]
+    category: "tech"
   },
   {
     id: 14,
@@ -165,8 +152,7 @@ const publications = [
     volume: "37:1401–1407",
     doi: "10.1007/s10877-023-00988-5",
     url: "https://doi.org/10.1007/s10877-023-00988-5",
-    category: "tech",
-    tags: ["Virtual Reality (VR)", "Randomized Trial (RCT)", "Preoperative Anxiety"]
+    category: "tech"
   },
   {
     id: 15,
@@ -177,8 +163,7 @@ const publications = [
     volume: "34(1):2171260",
     doi: "10.1080/09546634.2023.2171260",
     url: "https://doi.org/10.1080/09546634.2023.2171260",
-    category: "tech",
-    tags: ["Stromal Vascular Fraction (SVF)", "Scar Revision", "Prospective Study"]
+    category: "tech"
   },
   {
     id: 16,
@@ -189,8 +174,7 @@ const publications = [
     volume: "10:1109936",
     doi: "10.3389/fsurg.2023.1109936",
     url: "http://doi.org/10.3389/fsurg.2023.1109936",
-    category: "recon",
-    tags: ["Knee Reconstruction", "Gracilis Flap", "Gastrocnemius Flap"]
+    category: "recon"
   },
   {
     id: 17,
@@ -201,8 +185,7 @@ const publications = [
     volume: "33(5):1591–1595",
     doi: "10.1097/SCS.0000000000008530",
     url: "http://doi.org/10.1097/SCS.0000000000008530",
-    category: "recon",
-    tags: ["Aesthetic Surgery", "Granuloma Removal", "Pretrichial Approach"]
+    category: "recon"
   },
   {
     id: 18,
@@ -213,8 +196,7 @@ const publications = [
     volume: "28(1):24–30",
     doi: "10.14730/aaps.2021.00346",
     url: "https://doi.org/10.14730/aaps.2021.00346",
-    category: "recon",
-    tags: ["Minimally Invasive", "Facial Granuloma", "Aesthetic Plastic Surgery"]
+    category: "recon"
   },
   {
     id: 19,
@@ -225,8 +207,7 @@ const publications = [
     volume: "45(4):325–332",
     doi: "10.5999/aps.2018.00311",
     url: "http://doi.org/10.5999/aps.2018.00311",
-    category: "recon",
-    tags: ["Facial Trauma", "Zygoma Fracture", "Transconjunctival Approach"]
+    category: "recon"
   },
   {
     id: 20,
@@ -237,8 +218,7 @@ const publications = [
     volume: "46(6):1032–1036",
     doi: "10.1016/j.jcms.2018.04.012",
     url: "https://doi.org/10.1016/j.jcms.2018.04.012",
-    category: "recon",
-    tags: ["Pacman Flap", "Facial Reconstruction", "Flap Design"]
+    category: "recon"
   },
   {
     id: 21,
@@ -249,8 +229,7 @@ const publications = [
     volume: "14(1):37–43",
     doi: "10.22467/jwmr.2017.00220",
     url: "https://doi.org/10.22467/jwmr.2017.00220",
-    category: "recon",
-    tags: ["Local Flaps", "Defect Reconstruction", "Wound Management"]
+    category: "recon"
   },
   {
     id: 22,
@@ -261,8 +240,7 @@ const publications = [
     volume: "76(1):165–168",
     doi: "10.1016/j.joms.2017.07.145",
     url: "https://doi.org/10.1016/j.joms.2017.07.145",
-    category: "recon",
-    tags: ["Rhinoplasty", "Columellar Strut", "Trans-septal Suture"]
+    category: "recon"
   }
 ];
 
@@ -273,10 +251,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   renderPublications();
   setupEventListeners();
-  setupScrollSpy();
 });
 
-// Theme Management
 function initTheme() {
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
@@ -294,12 +270,9 @@ function toggleTheme() {
 function updateThemeIcon(theme) {
   const btn = document.getElementById('theme-toggle-btn');
   if (!btn) return;
-  btn.innerHTML = theme === 'dark' 
-    ? '<i class="ri-sun-line"></i>' 
-    : '<i class="ri-moon-line"></i>';
+  btn.innerHTML = theme === 'dark' ? '<i class="ri-sun-line"></i>' : '<i class="ri-moon-line"></i>';
 }
 
-// Publication Filtering & Search
 function renderPublications() {
   const container = document.getElementById('pub-list-container');
   if (!container) return;
@@ -311,54 +284,34 @@ function renderPublications() {
       pub.title.toLowerCase().includes(query) ||
       pub.authors.toLowerCase().includes(query) ||
       pub.journal.toLowerCase().includes(query) ||
-      pub.year.includes(query) ||
-      pub.tags.some(t => t.toLowerCase().includes(query));
+      pub.year.includes(query);
       
     return matchesCategory && matchesSearch;
   });
 
   if (filtered.length === 0) {
-    container.innerHTML = `
-      <div style="text-align: center; padding: 48px; color: var(--text-subtle);">
-        <i class="ri-search-line" style="font-size: 2rem; margin-bottom: 12px; display: block;"></i>
-        <p style="font-size: 1.1rem; font-weight: 600;">No publications found</p>
-        <p style="font-size: 0.9rem;">Try adjusting your search terms or filters.</p>
-      </div>
-    `;
+    container.innerHTML = `<div style="padding: 24px 0; color: var(--text-muted);">No publications found matching your search.</div>`;
     return;
   }
 
-  container.innerHTML = filtered.map((pub, idx) => {
-    // Format authors to highlight Kwon H
-    const formattedAuthors = pub.authors.replace(
-      /Kwon H/g,
-      '<strong>Kwon H</strong>'
-    );
-
-    let tagClass = 'tag-recon';
-    if (pub.category === 'ai') tagClass = 'tag-ai';
-    if (pub.category === 'tech') tagClass = 'tag-vr';
+  container.innerHTML = filtered.map((pub) => {
+    const formattedAuthors = pub.authors.replace(/Kwon H/g, '<strong>Kwon H</strong>');
 
     return `
-      <div class="pub-card" data-category="${pub.category}">
-        <div class="pub-index">${pub.id}</div>
-        <div class="pub-details">
-          <h3 class="pub-title">${pub.title}</h3>
-          <div class="pub-authors">${formattedAuthors}</div>
-          <div class="pub-journal">
-            <strong>${pub.journal}</strong>. ${pub.year}; ${pub.volume}.
-          </div>
-          <div class="pub-tags">
-            ${pub.tags.map(t => `<span class="pub-tag ${tagClass}">${t}</span>`).join('')}
-          </div>
-          <div class="pub-actions">
-            <a href="${pub.url}" target="_blank" rel="noopener noreferrer" class="pub-link-btn">
-              <i class="ri-external-link-line"></i> Publisher Link (DOI)
-            </a>
-            <button class="pub-link-btn" onclick="copyCitation('${pub.id}')">
-              <i class="ri-file-copy-line"></i> Copy Citation
-            </button>
-          </div>
+      <div class="pub-item">
+        <div class="pub-number">[${pub.id}]</div>
+        <div class="pub-title-text">${pub.title}</div>
+        <div class="pub-authors-text">${formattedAuthors}</div>
+        <div class="pub-meta-text">
+          <strong>${pub.journal}</strong>. ${pub.year}; ${pub.volume}.
+        </div>
+        <div class="pub-links">
+          <a href="${pub.url}" target="_blank" rel="noopener noreferrer" class="pub-link-btn">
+            [DOI / Publisher Link]
+          </a>
+          <button class="pub-link-btn" onclick="copyCitation('${pub.id}')">
+            [Copy Citation]
+          </button>
         </div>
       </div>
     `;
@@ -372,9 +325,7 @@ function copyCitation(id) {
   const citation = `${pub.authors}. ${pub.title}. ${pub.journal}. ${pub.year};${pub.volume}. https://doi.org/${pub.doi}`;
   
   navigator.clipboard.writeText(citation).then(() => {
-    showToast('Citation copied to clipboard!');
-  }).catch(() => {
-    showToast('Failed to copy citation.');
+    showToast('Citation copied to clipboard');
   });
 }
 
@@ -385,18 +336,13 @@ function showToast(message) {
   toast.classList.add('show');
   setTimeout(() => {
     toast.classList.remove('show');
-  }, 3000);
+  }, 2500);
 }
 
-// Event Listeners
 function setupEventListeners() {
-  // Theme Toggle Button
   const themeBtn = document.getElementById('theme-toggle-btn');
-  if (themeBtn) {
-    themeBtn.addEventListener('click', toggleTheme);
-  }
+  if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
 
-  // Search Input
   const searchInput = document.getElementById('pub-search-input');
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -405,46 +351,13 @@ function setupEventListeners() {
     });
   }
 
-  // Filter Tabs
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  filterBtns.forEach(btn => {
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
+      tabBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentCategory = btn.getAttribute('data-filter');
       renderPublications();
-    });
-  });
-
-  // Mobile Hamburger Toggle
-  const hamburger = document.getElementById('hamburger-btn');
-  const navMenu = document.getElementById('nav-menu');
-  if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-    });
-  }
-}
-
-// Active Nav Link Spy
-function setupScrollSpy() {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop - 100;
-      if (window.scrollY >= sectionTop) {
-        current = section.getAttribute('id');
-      }
-    });
-
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${current}`) {
-        link.classList.add('active');
-      }
     });
   });
 }
