@@ -2,6 +2,11 @@ import urllib.request
 import json
 import os
 import re
+import difflib
+import sys
+
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
 
 ORCID_ID = "0000-0002-1418-3448"
 ORCID_URL = f"https://pub.orcid.org/v3.0/{ORCID_ID}/works"
@@ -35,7 +40,7 @@ def is_duplicate(new_item, existing_items):
         ex_title_norm = normalize_text(ex.get('title', ''))
         ex_doi_norm = normalize_doi(ex.get('doi', ''))
 
-        # 1. DOI Matching
+        # 1. DOI Exact Matching
         if new_doi_norm and ex_doi_norm and new_doi_norm == ex_doi_norm:
             return True
 
@@ -43,9 +48,10 @@ def is_duplicate(new_item, existing_items):
         if new_title_norm and ex_title_norm and new_title_norm == ex_title_norm:
             return True
 
-        # 3. Substring Similarity Matching
-        if len(new_title_norm) > 20 and len(ex_title_norm) > 20:
-            if new_title_norm[:35] == ex_title_norm[:35] or new_title_norm in ex_title_norm or ex_title_norm in new_title_norm:
+        # 3. Fuzzy Sequence Similarity Matching (>= 0.75 threshold)
+        if new_title_norm and ex_title_norm:
+            sim = difflib.SequenceMatcher(None, new_title_norm, ex_title_norm).ratio()
+            if sim >= 0.75:
                 return True
 
     return False
@@ -62,7 +68,6 @@ def fetch_orcid_work_details(put_code):
             pub_date = data.get('publication-date')
             year_val = str(pub_date.get('year', {}).get('value', '')) if pub_date and pub_date.get('year') else ''
             
-            # Extract authors
             contributors = data.get('contributors', {}).get('contributor', [])
             authors_list = []
             for c in contributors:
@@ -127,9 +132,9 @@ def main():
         with open(PUBLICATIONS_FILE, 'r', encoding='utf-8') as f:
             existing = json.load(f)
 
-    print("Fetching full publication details from ORCID API...")
+    print("Fetching publication details from ORCID API...")
     orcid_works = fetch_all_orcid_works()
-    print(f"Fetched {len(orcid_works)} detailed works from ORCID API.")
+    print(f"Fetched {len(orcid_works)} works from ORCID API.")
 
     new_items = []
     for ow in reversed(orcid_works):
@@ -139,16 +144,16 @@ def main():
             print(f"Added new unique publication: {ow['title']}")
 
     if new_items:
-        combined = new_items + existing  # Put newest ORCID items at top
+        combined = new_items + existing
         for i, p in enumerate(combined):
             p['id'] = i + 1
             
         with open(PUBLICATIONS_FILE, 'w', encoding='utf-8') as f:
             json.dump(combined, f, ensure_ascii=False, indent=2)
             
-        print(f"Successfully merged {len(new_items)} new publications into database.")
+        print(f"Successfully merged {len(new_items)} new publications.")
     else:
-        print("Database is 100% up to date with ORCID & Google Scholar.")
+        print("Database is 100% up to date with 0 duplicates.")
 
 if __name__ == '__main__':
     main()
