@@ -49,6 +49,58 @@ def normalize_doi(doi):
         return ""
     return doi.strip().lower().replace("https://doi.org/", "").replace("http://doi.org/", "").replace("doi:", "")
 
+def format_author_name(author):
+    family = author.get('family', '').strip()
+    given = author.get('given', '').strip()
+    
+    if not family and not given:
+        return ""
+    if not given:
+        return family
+    if not family:
+        return given
+        
+    parts = given.replace('.', '').split()
+    initials_parts = []
+    for p in parts:
+        subparts = p.split('-')
+        init_sub = "-".join([sp[0].upper() for sp in subparts if sp])
+        if init_sub:
+            initials_parts.append(init_sub)
+    initials = "".join(initials_parts)
+    
+    return f"{family} {initials}".strip()
+
+def fetch_authors_from_crossref(doi):
+    if not doi:
+        return None
+    clean_doi = doi.strip().replace("https://doi.org/", "").replace("http://doi.org/", "").replace("doi:", "")
+    url = f"https://api.crossref.org/works/{clean_doi}"
+    req = urllib.request.Request(url, headers={'User-Agent': 'AcademicWeb/1.0 (mailto:kwon.hyeokjae@cnuh.co.kr)'})
+    try:
+        with urllib.request.urlopen(req, timeout=10) as res:
+            data = json.loads(res.read().decode('utf-8'))
+            authors_data = data.get('message', {}).get('author', [])
+            if not authors_data:
+                return None
+                
+            formatted_list = []
+            for a in authors_data:
+                formatted = format_author_name(a)
+                if formatted:
+                    formatted_list.append(formatted)
+            return formatted_list
+    except Exception:
+        return None
+
+def apply_et_al_rule(authors_list):
+    if not authors_list:
+        return "Kwon H, et al."
+    if len(authors_list) <= 6:
+        return ", ".join(authors_list)
+    else:
+        return ", ".join(authors_list[:6]) + ", et al."
+
 def determine_category(title):
     t = title.lower()
     if any(k in t for k in ['ai', 'deep learning', 'machine learning', 'exposure rate', 'eer', 'infrared', 'gaussian splatting']):
@@ -67,15 +119,10 @@ def is_duplicate(new_item, existing_items):
         ex_title_norm = normalize_text(ex.get('title', ''))
         ex_doi_norm = normalize_doi(ex.get('doi', ''))
 
-        # 1. DOI Exact Matching
         if new_doi_norm and ex_doi_norm and new_doi_norm == ex_doi_norm:
             return True
-
-        # 2. Normalized Title Exact Matching
         if new_title_norm and ex_title_norm and new_title_norm == ex_title_norm:
             return True
-
-        # 3. Fuzzy Sequence Similarity Matching (>= 0.75 threshold)
         if new_title_norm and ex_title_norm:
             sim = difflib.SequenceMatcher(None, new_title_norm, ex_title_norm).ratio()
             if sim >= 0.75:
@@ -95,14 +142,6 @@ def fetch_orcid_work_details(put_code):
             pub_date = data.get('publication-date')
             year_val = str(pub_date.get('year', {}).get('value', '')) if pub_date and pub_date.get('year') else ''
             
-            contributors = data.get('contributors', {}).get('contributor', [])
-            authors_list = []
-            for c in contributors:
-                cname = c.get('credit-name', {}).get('value', '') if c.get('credit-name') else ''
-                if cname:
-                    authors_list.append(cname)
-            authors_str = ", ".join(authors_list) if authors_list else "Kwon H, et al."
-            
             doi_val = ''
             url_val = ''
             ext_ids = data.get('external-ids', {}).get('external-id', [])
@@ -114,6 +153,19 @@ def fetch_orcid_work_details(put_code):
 
             if not url_val and data.get('url'):
                 url_val = data.get('url', {}).get('value', '')
+
+            # Query CrossRef for full author list if DOI is present
+            crossref_authors = fetch_authors_from_crossref(doi_val) if doi_val else None
+            if crossref_authors:
+                authors_str = apply_et_al_rule(crossref_authors)
+            else:
+                contributors = data.get('contributors', {}).get('contributor', [])
+                authors_list = []
+                for c in contributors:
+                    cname = c.get('credit-name', {}).get('value', '') if c.get('credit-name') else ''
+                    if cname:
+                        authors_list.append(cname)
+                authors_str = apply_et_al_rule(authors_list) if authors_list else "Kwon H, et al."
 
             full_journal = expand_journal_name(journal_val)
 
@@ -182,7 +234,7 @@ def main():
             
         print(f"Successfully merged {len(new_items)} new publications.")
     else:
-        print("Database is 100% up to date with full journal names.")
+        print("Database is 100% up to date with full author lists.")
 
 if __name__ == '__main__':
     main()
