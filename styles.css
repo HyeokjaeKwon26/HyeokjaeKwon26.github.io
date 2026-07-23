@@ -48,6 +48,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 84px;
   font-family: var(--font-sans);
   color: var(--text-secondary);
   background-color: var(--bg-primary);
@@ -263,6 +264,11 @@ a:hover {
 .section {
   padding: 48px 0;
   border-bottom: 1px solid var(--border-color);
+  scroll-margin-top: 84px;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
 }
 
 .section-title {
