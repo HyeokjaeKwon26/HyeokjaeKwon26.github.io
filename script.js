@@ -65,12 +65,29 @@ function renderPublications() {
     return;
   }
 
-  container.innerHTML = filtered.map((pub) => {
+  // Sort publications by year descending (most recent first)
+  filtered.sort((a, b) => {
+    const yearA = parseInt(a.year) || 9999;
+    const yearB = parseInt(b.year) || 9999;
+    return yearB - yearA;
+  });
+
+  let html = '';
+  let currentYearGroup = '';
+  let globalIndex = 1;
+
+  filtered.forEach((pub) => {
+    const pubYear = pub.year || 'Recent';
+    if (pubYear !== currentYearGroup) {
+      currentYearGroup = pubYear;
+      html += `<h3 class="year-heading">${currentYearGroup}</h3>`;
+    }
+
     const formattedAuthors = pub.authors.replace(/Kwon H/g, '<strong>Kwon H</strong>');
 
-    return `
+    html += `
       <div class="pub-item">
-        <div class="pub-number">[${pub.id}]</div>
+        <div class="pub-number">[${globalIndex++}]</div>
         <div class="pub-title-text">${pub.title}</div>
         <div class="pub-authors-text">${formattedAuthors}</div>
         <div class="pub-meta-text">
@@ -86,7 +103,9 @@ function renderPublications() {
         </div>
       </div>
     `;
-  }).join('');
+  });
+
+  container.innerHTML = html;
 }
 
 function copyCitation(id) {
