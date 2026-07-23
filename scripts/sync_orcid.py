@@ -12,6 +12,33 @@ ORCID_ID = "0000-0002-1418-3448"
 ORCID_URL = f"https://pub.orcid.org/v3.0/{ORCID_ID}/works"
 PUBLICATIONS_FILE = os.path.join(os.path.dirname(__file__), "..", "publications.json")
 
+JOURNAL_MAP = {
+    "J Craniofac Surg": "Journal of Craniofacial Surgery",
+    "Plast Reconstr Surg": "Plastic and Reconstructive Surgery",
+    "Front Surg": "Frontiers in Surgery",
+    "World J Clin Cases": "World Journal of Clinical Cases",
+    "Arch Hand Microsurg": "Archives of Hand and Microsurgery",
+    "J Clin Med": "Journal of Clinical Medicine",
+    "Arch Aesthetic Plast Surg": "Archives of Aesthetic Plastic Surgery",
+    "J Clin Monit Comput": "Journal of Clinical Monitoring and Computing",
+    "J Dermatol Treat": "Journal of Dermatological Treatment",
+    "Arch Plast Surg": "Archives of Plastic Surgery",
+    "J Craniomaxillofac Surg": "Journal of Cranio-Maxillofacial Surgery",
+    "J Wound Manag Res": "Journal of Wound Management and Research",
+    "J Oral Maxillofac Surg": "Journal of Oral and Maxillofacial Surgery",
+    "PLoS One": "PLOS ONE",
+    "Medicine (Baltimore)": "Medicine",
+    "Journal of Plastic, Reconstructive & Aesthetic Surgery": "Journal of Plastic, Reconstructive & Aesthetic Surgery",
+    "Archives of Hand and Microsurgery": "Archives of Hand and Microsurgery",
+    "Archives of Hand & Microsurgery": "Archives of Hand and Microsurgery"
+}
+
+def expand_journal_name(journal_str):
+    if not journal_str:
+        return "Peer-Reviewed Journal"
+    clean = journal_str.strip()
+    return JOURNAL_MAP.get(clean, clean)
+
 def normalize_text(text):
     if not text:
         return ""
@@ -88,10 +115,12 @@ def fetch_orcid_work_details(put_code):
             if not url_val and data.get('url'):
                 url_val = data.get('url', {}).get('value', '')
 
+            full_journal = expand_journal_name(journal_val)
+
             return {
                 'title': title_val,
                 'authors': authors_str,
-                'journal': journal_val or 'Peer-Reviewed Journal',
+                'journal': full_journal,
                 'year': year_val or '2025',
                 'volume': 'In press',
                 'doi': doi_val,
@@ -153,7 +182,7 @@ def main():
             
         print(f"Successfully merged {len(new_items)} new publications.")
     else:
-        print("Database is 100% up to date with 0 duplicates.")
+        print("Database is 100% up to date with full journal names.")
 
 if __name__ == '__main__':
     main()
