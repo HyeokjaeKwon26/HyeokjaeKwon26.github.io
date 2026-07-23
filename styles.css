@@ -48,7 +48,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 84px;
+  scroll-padding-top: 64px;
   font-family: var(--font-sans);
   color: var(--text-secondary);
   background-color: var(--bg-primary);
@@ -262,13 +262,13 @@ a:hover {
 
 /* Sections */
 .section {
-  padding: 48px 0;
+  padding: 40px 0;
   border-bottom: 1px solid var(--border-color);
-  scroll-margin-top: 84px;
+  scroll-margin-top: 64px;
 }
 
 section[id] {
-  scroll-margin-top: 84px;
+  scroll-margin-top: 64px;
 }
 
 .section-title {
