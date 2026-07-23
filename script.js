@@ -34,6 +34,8 @@ async function loadPublications() {
     const response = await fetch('publications.json');
     if (response.ok) {
       publications = await response.json();
+      const allTab = document.querySelector('.tab-btn[data-filter="all"]');
+      if (allTab) allTab.innerText = `All (${publications.length})`;
       renderPublications();
       return;
     }
