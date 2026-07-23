@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hyeokjae Kwon, M.D., Ph.D. | Academic & Clinical Portfolio</title>
+  <meta name="description" content="Official website of Dr. Hyeokjae Kwon, M.D., Ph.D. - Visiting Professor at Massachusetts General Hospital and Clinical Assistant Professor at Chungnam National University Hospital. Specialist in Plastic & Reconstructive Surgery, AI Clinical Analysis, and Medical Informatics.">
+  
+  <!-- Remix Icon CDN for modern icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="nav-brand">
+        <img src="assets/profile.jpg" alt="Dr. Hyeokjae Kwon" class="brand-avatar-mini">
+        <div>
+          Hyeokjae Kwon, M.D., Ph.D.
+          <span class="brand-subtitle">Mass General Visiting Prof / CNUH Asst Prof</span>
+        </div>
+      </a>
+      
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="#hero" class="nav-link active">About</a></li>
+        <li><a href="#experience" class="nav-link">Experience</a></li>
+        <li><a href="#research" class="nav-link">Research Focus</a></li>
+        <li><a href="#publications" class="nav-link">Publications</a></li>
+        <li><a href="#honors" class="nav-link">Honors & Certs</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn-icon" id="theme-toggle-btn" aria-label="Toggle theme">
+          <i class="ri-moon-line"></i>
+        </button>
+        <a href="https://scholar.google.com/citations?user=ouc34HsAAAAJ" target="_blank" rel="noopener" class="btn-primary">
+          <i class="ri-graduation-cap-line"></i> Scholar
+        </a>
+        <button class="hamburger" id="hamburger-btn" aria-label="Open menu">
+          <i class="ri-menu-line"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge-container">
+            <span class="featured-badge-mgh">
+              <i class="ri-hospital-line"></i> Visiting Professor @ Massachusetts General Hospital (2026.03 ~ Present)
+            </span>
+            <span class="featured-badge">
+              <i class="ri-verified-badge-line"></i> Clinical Assistant Professor @ CNUH
+            </span>
+          </div>
+          
+          <h1 class="hero-title">
+            Hyeokjae Kwon, <span class="gradient-text">M.D., Ph.D.</span>
+          </h1>
+          
+          <p class="hero-subtitle">
+            Surgeon, Computer Scientist & Biomedical Informatics Innovator
+          </p>
+
+          <div class="pill-tags">
+            <span class="pill-tag highlight"><i class="ri-code-s-slash-line"></i> KAIST CS Alumnus (B.S.)</span>
+            <span class="pill-tag highlight"><i class="ri-stethoscope-line"></i> M.D., Ph.D. in Medicine</span>
+            <span class="pill-tag"><i class="ri-brain-line"></i> AI Clinical Analysis</span>
+            <span class="pill-tag"><i class="ri-focus-3-line"></i> 3D Reconstruction & Microvascular Surgery</span>
+            <span class="pill-tag"><i class="ri-glasses-line"></i> VR Preoperative Tech</span>
+          </div>
+
+          <p class="hero-description">
+            Uniquely bridging advanced <strong>Computer Science (KAIST)</strong> and <strong>Plastic & Reconstructive Surgery</strong>. Specializing in AI-driven facial defect reconstruction, deep learning medical image analysis, virtual reality (VR) surgical education, and microvascular free flap procedures.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">
+              <i class="ri-mail-send-line"></i> Get in Touch
+            </a>
+            <a href="https://scholar.google.com/citations?user=ouc34HsAAAAJ" target="_blank" rel="noopener" class="btn-outline">
+              <i class="ri-external-link-line"></i> Google Scholar
+            </a>
+            <a href="https://www.linkedin.com/in/hyeokjae-kwon-85701724/" target="_blank" rel="noopener" class="btn-outline">
+              <i class="ri-linkedin-box-line"></i> LinkedIn
+            </a>
+          </div>
+
+          <div class="hero-socials">
+            <a href="mailto:kwon.hyeokjae@cnuh.co.kr" class="social-link" title="Email Dr. Kwon">
+              <i class="ri-mail-line"></i>
+            </a>
+            <a href="tel:+821026010642" class="social-link" title="Call Mobile">
+              <i class="ri-phone-line"></i>
+            </a>
+            <a href="https://scholar.google.com/citations?user=ouc34HsAAAAJ" target="_blank" rel="noopener" class="social-link" title="Google Scholar">
+              <i class="ri-graduation-cap-fill"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/hyeokjae-kwon-85701724/" target="_blank" rel="noopener" class="social-link" title="LinkedIn Profile">
+              <i class="ri-linkedin-fill"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-image-wrapper">
+          <div class="profile-card">
+            <div class="profile-img-container">
+              <img src="assets/profile.jpg" alt="Dr. Hyeokjae Kwon, M.D., Ph.D." class="profile-img">
+            </div>
+            <div class="profile-card-footer">
+              <div class="profile-name">Hyeokjae Kwon, M.D., Ph.D.</div>
+              <div class="profile-role">Department of Plastic & Reconstructive Surgery</div>
+            </div>
+
+            <!-- Floating Status Badges -->
+            <div class="floating-badge floating-badge-top">
+              <div class="badge-icon-wrap">
+                <i class="ri-hospital-fill"></i>
+              </div>
+              <div>
+                <div style="font-size:0.75rem; color:var(--text-subtle);">Appointment</div>
+                <div>Mass General Hospital</div>
+              </div>
+            </div>
+
+            <div class="floating-badge floating-badge-bottom">
+              <div class="badge-icon-wrap">
+                <i class="ri-award-fill"></i>
+              </div>
+              <div>
+                <div style="font-size:0.75rem; color:var(--text-subtle);">Background</div>
+                <div>KAIST CS + M.D., Ph.D.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Metrics Counter Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">22+</div>
+          <div class="stat-label">Peer-Reviewed Publications</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Academic & Clinical Posts (MGH / CNUH)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">CS+MD</div>
+          <div class="stat-label">KAIST Computer Science & CNU Medicine</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">KOSMI</div>
+          <div class="stat-label">Certified Biomedical Informatics Specialist</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Experiences & Education Section -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Career & Credentials</span>
+        <h2 class="section-title">Professional Experience & Education</h2>
+        <p class="section-subtitle">A journey spanning elite computer science training at KAIST to reconstructive surgical excellence and visiting research at Mass General Hospital.</p>
+      </div>
+
+      <div class="timeline-grid">
+        <!-- Professional Experiences Column -->
+        <div>
+          <h3 class="timeline-column-title">
+            <i class="ri-briefcase-line" style="color:var(--primary-600);"></i> Professional Experiences
+          </h3>
+          <div class="timeline">
+            
+            <div class="timeline-item highlight-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">Mar. 2026 ~ Present</span>
+                <h4 class="timeline-title">Visiting Professor</h4>
+                <div class="timeline-org">Massachusetts General Hospital (MGH)</div>
+                <p class="timeline-desc">Boston, MA, USA — Collaborative clinical and surgical research on advanced medical innovation and patient outcomes.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item highlight-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">Mar. 2024 ~ Present</span>
+                <h4 class="timeline-title">Clinical Assistant Professor</h4>
+                <div class="timeline-org">Chungnam National University Hospital</div>
+                <p class="timeline-desc">Department of Plastic & Reconstructive Surgery, Daejeon, South Korea.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">May 2022 ~ Feb. 2024</span>
+                <h4 class="timeline-title">Clinical Fellow</h4>
+                <div class="timeline-org">Chungnam National University Hospital</div>
+                <p class="timeline-desc">Department of Plastic & Reconstructive Surgery, Daejeon, South Korea.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">Apr. 2021 ~ Apr. 2022</span>
+                <h4 class="timeline-title">Army Medical Officer</h4>
+                <div class="timeline-org">1115th Engineer Group, Second Operations Command</div>
+                <p class="timeline-desc">Republic of Korea Army.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">Apr. 2019 ~ Apr. 2021</span>
+                <h4 class="timeline-title">Army Medical Officer</h4>
+                <div class="timeline-org">7th Airborne Special Forces Brigade</div>
+                <p class="timeline-desc">Republic of Korea Army.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">Mar. 2015 ~ Feb. 2019</span>
+                <h4 class="timeline-title">Residency in Plastic & Reconstructive Surgery</h4>
+                <div class="timeline-org">Chungnam National University Hospital</div>
+                <p class="timeline-desc">Daejeon, South Korea.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">Mar. 2014 ~ Feb. 2015</span>
+                <h4 class="timeline-title">Medical Internship</h4>
+                <div class="timeline-org">Chungnam National University Hospital</div>
+                <p class="timeline-desc">Daejeon, South Korea.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Education Column -->
+        <div>
+          <h3 class="timeline-column-title">
+            <i class="ri-book-open-line" style="color:var(--accent-cyan);"></i> Education
+          </h3>
+          <div class="timeline">
+
+            <div class="timeline-item highlight-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">2021.09 ~ 2023.08</span>
+                <h4 class="timeline-title">Ph.D. in Medicine</h4>
+                <div class="timeline-org">Chungnam National University</div>
+                <p class="timeline-desc">South Korea — Doctoral research focusing on advanced reconstructive surgical techniques and quantitative clinical evaluation.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">2010.03 ~ 2014.02</span>
+                <h4 class="timeline-title">M.D. / M.S. in Medicine</h4>
+                <div class="timeline-org">Chungnam National University</div>
+                <p class="timeline-desc">South Korea — School of Medicine.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item highlight-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">2006.03 ~ 2010.02</span>
+                <h4 class="timeline-title">B.S. in Computer Science</h4>
+                <div class="timeline-org">KAIST (Korea Advanced Institute of Science & Technology)</div>
+                <p class="timeline-desc">South Korea — Fundamental foundation in algorithms, machine learning, computer vision, and computational architecture.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Focus Pillars -->
+  <section class="stats-section" id="research">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Interdisciplinary Research</span>
+        <h2 class="section-title">Core Research Focus Areas</h2>
+        <p class="section-subtitle">Integrating computational models, deep learning vision, and virtual reality into surgical practice.</p>
+      </div>
+
+      <div class="pillar-grid">
+        <div class="pillar-card">
+          <div class="pillar-icon">
+            <i class="ri-brain-line"></i>
+          </div>
+          <h3 class="pillar-title">AI & Deep Learning Medical Vision</h3>
+          <p class="pillar-desc">
+            Developing deep learning frameworks for automated facial parameter assessment, infrared image analysis for MRD-1 measurement, and AI-driven eyeball exposure rate (EER) evaluation.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">
+            <i class="ri-smartphone-line"></i>
+          </div>
+          <h3 class="pillar-title">VR & LiDAR Medical Sensors</h3>
+          <p class="pillar-desc">
+            Pioneering mobile LiDAR application for precise real-time wound size measurement and immersive Virtual Reality (VR) preoperative education reducing patient anxiety.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">
+            <i class="ri-scissors-2-line"></i>
+          </div>
+          <h3 class="pillar-title">Microvascular Reconstructive Surgery</h3>
+          <p class="pillar-desc">
+            Customized lower eyelid reconstruction, thin thoracodorsal artery perforator (TDAP) flaps, turbocharging anterolateral thigh (ALT) free flaps, and flap perfusion monitoring.
+          </p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-icon">
+            <i class="ri-sparkles-line"></i>
+          </div>
+          <h3 class="pillar-title">Aesthetic & Facial Trauma Surgery</h3>
+          <p class="pillar-desc">
+            Minimally invasive facial granuloma removal via pretrichial approach, midface lifting, and extended transconjunctival open reduction of complex zygoma fractures.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications Section -->
+  <section id="publications">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Scholarly Output</span>
+        <h2 class="section-title">Peer-Reviewed Publications</h2>
+        <p class="section-subtitle">22 published papers across international leading journals in surgery, AI, and medical informatics.</p>
+      </div>
+
+      <div class="pub-controls">
+        <div class="search-box">
+          <i class="ri-search-line search-icon"></i>
+          <input type="text" id="pub-search-input" class="search-input" placeholder="Search by title, author, journal, keyword (e.g. AI, VR, Flap, 2025)...">
+        </div>
+
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-filter="all">All Publications (22)</button>
+          <button class="filter-btn" data-filter="ai">AI & Deep Learning</button>
+          <button class="filter-btn" data-filter="tech">VR & Medical Tech</button>
+          <button class="filter-btn" data-filter="recon">Reconstructive Surgery</button>
+          <button class="filter-btn" data-filter="case-report">Case Reports</button>
+        </div>
+      </div>
+
+      <div class="pub-list" id="pub-list-container">
+        <!-- Rendered dynamically by script.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Honors, Certifications & Memberships -->
+  <section class="stats-section" id="honors">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Recognition & Credentials</span>
+        <h2 class="section-title">Honors, Certifications & Memberships</h2>
+      </div>
+
+      <div class="honors-grid">
+        <div class="honor-box">
+          <div class="honor-box-header">
+            <i class="ri-trophy-line" style="color:var(--primary-600);"></i>
+            <h3>Honors & Awards</h3>
+          </div>
+          <ul class="honor-list">
+            <li class="honor-item">
+              <i class="ri-award-line honor-icon"></i>
+              <div>
+                <div class="honor-title">Excellence Award for Medical Record Documentation</div>
+                <div class="honor-sub">Feb. 2024 — Chungnam National University Hospital</div>
+              </div>
+            </li>
+            <li class="honor-item">
+              <i class="ri-award-line honor-icon"></i>
+              <div>
+                <div class="honor-title">Outstanding Reviewer Award</div>
+                <div class="honor-sub">Mar. 2023 — Journal of Wound Management and Research (JWMR)</div>
+              </div>
+            </li>
+            <li class="honor-item">
+              <i class="ri-award-line honor-icon"></i>
+              <div>
+                <div class="honor-title">Excellent Research Award</div>
+                <div class="honor-sub">Aug. 2022 — Graduate School of Chungnam National University</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="honor-box">
+          <div class="honor-box-header">
+            <i class="ri-shield-check-line" style="color:var(--accent-teal);"></i>
+            <h3>Certifications</h3>
+          </div>
+          <ul class="honor-list">
+            <li class="honor-item">
+              <i class="ri-checkbox-circle-line honor-icon"></i>
+              <div>
+                <div class="honor-title">Fellow of Korea Wound Academy (FKWA)</div>
+                <div class="honor-sub">Nov. 2024 — Korean Wound Management Society</div>
+              </div>
+            </li>
+            <li class="honor-item">
+              <i class="ri-checkbox-circle-line honor-icon"></i>
+              <div>
+                <div class="honor-title">Certified Physician in Biomedical Informatics</div>
+                <div class="honor-sub">Dec. 2022 — Korea Society of Medical Informatics (KOSMI)</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="honor-box">
+          <div class="honor-box-header">
+            <i class="ri-community-line" style="color:var(--accent-indigo);"></i>
+            <h3>Memberships & Reviewer</h3>
+          </div>
+          <ul class="honor-list">
+            <li class="honor-item">
+              <i class="ri-user-star-line honor-icon"></i>
+              <div>
+                <div class="honor-title">Regular Member</div>
+                <div class="honor-sub">Korean Society of Plastic and Reconstructive Surgeons (KSPRS)</div>
+              </div>
+            </li>
+            <li class="honor-item">
+              <i class="ri-user-star-line honor-icon"></i>
+              <div>
+                <div class="honor-title">Regular Member</div>
+                <div class="honor-sub">Korean Wound Management Society</div>
+              </div>
+            </li>
+            <li class="honor-item">
+              <i class="ri-edit-box-line honor-icon"></i>
+              <div>
+                <div class="honor-title">Journal Reviewer</div>
+                <div class="honor-sub">JWMR & Archives of Plastic Surgery (APS)</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Footer Section -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="contact-card">
+        <span class="section-tag">Connect</span>
+        <h2 class="section-title">Get in Touch</h2>
+        <p class="section-subtitle">Interested in medical AI research collaboration, surgical consultations, or academic exchange?</p>
+
+        <div class="contact-methods">
+          <div class="contact-item">
+            <div class="contact-icon"><i class="ri-mail-line"></i></div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">
+              <a href="mailto:kwon.hyeokjae@cnuh.co.kr">kwon.hyeokjae@cnuh.co.kr</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon"><i class="ri-phone-line"></i></div>
+            <div class="contact-label">Office Phone</div>
+            <div class="contact-value">+82 42-280-7380</div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon"><i class="ri-cellphone-line"></i></div>
+            <div class="contact-label">Mobile</div>
+            <div class="contact-value">+82 10-2601-0642</div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:center; gap:16px; flex-wrap:wrap;">
+          <a href="https://scholar.google.com/citations?user=ouc34HsAAAAJ" target="_blank" rel="noopener" class="btn-primary">
+            <i class="ri-graduation-cap-line"></i> Google Scholar Profile
+          </a>
+          <a href="https://www.linkedin.com/in/hyeokjae-kwon-85701724/" target="_blank" rel="noopener" class="btn-outline">
+            <i class="ri-linkedin-box-line"></i> Connect on LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-content">
+      <div>
+        © <span id="year">2026</span> Hyeokjae Kwon, M.D., Ph.D. All rights reserved.
+      </div>
+      <div>
+        Chungnam National University Hospital & Massachusetts General Hospital
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">Citation copied to clipboard!</div>
+
+  <!-- Custom JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
