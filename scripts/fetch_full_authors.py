@@ -58,10 +58,10 @@ def fetch_authors_from_crossref(doi):
 def apply_et_al_rule(authors_list):
     if not authors_list:
         return "Kwon H, et al."
-    if len(authors_list) <= 6:
+    if len(authors_list) <= 13:
         return ", ".join(authors_list)
     else:
-        return ", ".join(authors_list[:6]) + ", et al."
+        return ", ".join(authors_list[:13]) + ", et al."
 
 def main():
     with open(PUBLICATIONS_FILE, 'r', encoding='utf-8') as f:
