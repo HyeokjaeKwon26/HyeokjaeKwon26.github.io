@@ -31,7 +31,7 @@ function updateThemeIcon(theme) {
 
 async function loadPublications() {
   try {
-    const response = await fetch('publications.json');
+    const response = await fetch('publications.json?v=' + Date.now());
     if (response.ok) {
       publications = await response.json();
       const allTab = document.querySelector('.tab-btn[data-filter="all"]');
