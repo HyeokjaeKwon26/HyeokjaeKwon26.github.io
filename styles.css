@@ -186,15 +186,34 @@ a:hover {
 .hero-affiliations {
   list-style: none;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .hero-affiliations li {
-  font-size: 0.92rem;
+  font-size: 0.93rem;
   color: var(--text-secondary);
-  margin-bottom: 4px;
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+
+.hero-affiliations li i {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.hero-affiliations li strong {
+  color: var(--text-primary);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.affiliation-date {
+  color: var(--text-muted);
+  font-size: 0.88rem;
 }
 
 .hero-bio {
