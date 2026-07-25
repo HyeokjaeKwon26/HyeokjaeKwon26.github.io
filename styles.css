@@ -507,6 +507,30 @@ footer {
   text-align: center;
 }
 
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.visitor-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.visitor-counter img {
+  height: 20px;
+  border-radius: 3px;
+  opacity: 0.85;
+  transition: var(--transition);
+}
+
+.visitor-counter img:hover {
+  opacity: 1;
+}
+
 /* Toast */
 .toast {
   position: fixed;
