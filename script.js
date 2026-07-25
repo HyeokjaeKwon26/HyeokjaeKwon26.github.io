@@ -120,7 +120,15 @@ function copyCitation(id) {
   const citation = `${pub.authors}. ${pub.title}. ${pub.journal}. ${pub.year};${pub.volume}. https://doi.org/${pub.doi}`;
   
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(citation).then(() => showToast('Citation copied to clipboard'));
+    navigator.clipboard.writeText(citation).then(() => {
+      showToast('Citation copied to clipboard');
+      if (typeof gtag === 'function') {
+        gtag('event', 'copy_citation', {
+          'event_category': 'Engagement',
+          'event_label': pub.title
+        });
+      }
+    });
   }
 }
 
