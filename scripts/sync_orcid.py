@@ -71,7 +71,7 @@ def format_author_name(author):
     
     return f"{family} {initials}".strip()
 
-def fetch_authors_from_crossref(doi):
+def fetch_crossref_metadata(doi):
     if not doi:
         return None
     clean_doi = doi.strip().replace("https://doi.org/", "").replace("http://doi.org/", "").replace("doi:", "")
@@ -79,17 +79,40 @@ def fetch_authors_from_crossref(doi):
     req = urllib.request.Request(url, headers={'User-Agent': 'AcademicWeb/1.0 (mailto:kwon.hyeokjae@cnuh.co.kr)'})
     try:
         with urllib.request.urlopen(req, timeout=10) as res:
-            data = json.loads(res.read().decode('utf-8'))
-            authors_data = data.get('message', {}).get('author', [])
-            if not authors_data:
-                return None
-                
-            formatted_list = []
+            data = json.loads(res.read().decode('utf-8')).get('message', {})
+            authors_data = data.get('author', [])
+            formatted_authors = []
             for a in authors_data:
-                formatted = format_author_name(a)
-                if formatted:
-                    formatted_list.append(formatted)
-            return formatted_list
+                fa = format_author_name(a)
+                if fa:
+                    formatted_authors.append(fa)
+                    
+            volume = data.get('volume', '')
+            issue = data.get('issue', '')
+            page = data.get('page', '')
+            vol_str = ""
+            if volume:
+                vol_str = volume
+                if issue:
+                    vol_str += f"({issue})"
+                if page:
+                    vol_str += f":{page}"
+                    
+            date_parts = None
+            if 'published-print' in data and 'date-parts' in data['published-print']:
+                date_parts = data['published-print']['date-parts'][0]
+            elif 'published-online' in data and 'date-parts' in data['published-online']:
+                date_parts = data['published-online']['date-parts'][0]
+            elif 'created' in data and 'date-parts' in data['created']:
+                date_parts = data['created']['date-parts'][0]
+                
+            year_val = str(date_parts[0]) if date_parts and date_parts[0] else None
+
+            return {
+                'authors': formatted_authors,
+                'volume': vol_str,
+                'year': year_val
+            }
     except Exception:
         return None
 
@@ -154,10 +177,10 @@ def fetch_orcid_work_details(put_code):
             if not url_val and data.get('url'):
                 url_val = data.get('url', {}).get('value', '')
 
-            # Query CrossRef for full author list if DOI is present
-            crossref_authors = fetch_authors_from_crossref(doi_val) if doi_val else None
-            if crossref_authors:
-                authors_str = apply_et_al_rule(crossref_authors)
+            crossref = fetch_crossref_metadata(doi_val) if doi_val else None
+            
+            if crossref and crossref.get('authors'):
+                authors_str = apply_et_al_rule(crossref['authors'])
             else:
                 contributors = data.get('contributors', {}).get('contributor', [])
                 authors_list = []
@@ -167,6 +190,10 @@ def fetch_orcid_work_details(put_code):
                         authors_list.append(cname)
                 authors_str = apply_et_al_rule(authors_list) if authors_list else "Kwon H, et al."
 
+            volume_val = (crossref.get('volume') if crossref and crossref.get('volume') else '') or 'In press'
+            if crossref and crossref.get('year'):
+                year_val = crossref['year']
+
             full_journal = expand_journal_name(journal_val)
 
             return {
@@ -174,7 +201,7 @@ def fetch_orcid_work_details(put_code):
                 'authors': authors_str,
                 'journal': full_journal,
                 'year': year_val or '2025',
-                'volume': 'In press',
+                'volume': volume_val,
                 'doi': doi_val,
                 'url': url_val or (f"https://doi.org/{doi_val}" if doi_val else f"https://orcid.org/{ORCID_ID}"),
                 'category': determine_category(title_val)
@@ -213,6 +240,17 @@ def main():
         with open(PUBLICATIONS_FILE, 'r', encoding='utf-8') as f:
             existing = json.load(f)
 
+    print("Refreshing live volume, issue, and page numbers via CrossRef API...")
+    for p in existing:
+        doi = p.get('doi', '')
+        if doi:
+            crossref = fetch_crossref_metadata(doi)
+            if crossref:
+                if crossref.get('volume'):
+                    p['volume'] = crossref['volume']
+                if crossref.get('year'):
+                    p['year'] = crossref['year']
+
     print("Fetching publication details from ORCID API...")
     orcid_works = fetch_all_orcid_works()
     print(f"Fetched {len(orcid_works)} works from ORCID API.")
@@ -224,17 +262,14 @@ def main():
             new_items.append(ow)
             print(f"Added new unique publication: {ow['title']}")
 
-    if new_items:
-        combined = new_items + existing
-        for i, p in enumerate(combined):
-            p['id'] = i + 1
-            
-        with open(PUBLICATIONS_FILE, 'w', encoding='utf-8') as f:
-            json.dump(combined, f, ensure_ascii=False, indent=2)
-            
-        print(f"Successfully merged {len(new_items)} new publications.")
-    else:
-        print("Database is 100% up to date with full author lists.")
+    combined = new_items + existing
+    for i, p in enumerate(combined):
+        p['id'] = i + 1
+        
+    with open(PUBLICATIONS_FILE, 'w', encoding='utf-8') as f:
+        json.dump(combined, f, ensure_ascii=False, indent=2)
+        
+    print(f"Successfully updated publication database. Total: {len(combined)} publications.")
 
 if __name__ == '__main__':
     main()
