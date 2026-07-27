@@ -1,5 +1,28 @@
+# Environment & Secrets
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.token
+*.p12
+
+# Node & Package Managers
 node_modules/
 package-lock.json
-package.json
-*.js
+
+# Temporary & Log Files
+*.log
+*.tmp
+temp/
+scratch/
 extracted_media/
+
+# OS & IDE Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Allow tracked JavaScript files
+!script.js
