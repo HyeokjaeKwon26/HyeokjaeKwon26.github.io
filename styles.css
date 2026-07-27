@@ -562,21 +562,34 @@ footer {
 
   /* Header & Navbar */
   .navbar {
-    padding: 12px 0;
+    padding: 8px 0;
   }
 
   .nav-container {
+    height: auto !important;
+    min-height: 56px;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 6px;
     justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-brand {
+    max-width: calc(100% - 48px);
   }
 
   .nav-brand-name {
-    font-size: 1.05rem;
+    font-size: 1.02rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .nav-brand-sub {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .nav-menu {
@@ -587,7 +600,8 @@ footer {
     padding-bottom: 6px;
     gap: 14px;
     border-top: 1px solid var(--border-color);
-    padding-top: 8px;
+    padding-top: 6px;
+    margin-top: 2px;
     -webkit-overflow-scrolling: touch;
   }
 
