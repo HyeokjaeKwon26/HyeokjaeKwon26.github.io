@@ -12,174 +12,273 @@
 
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #111827;
-      --text-sub: #374151;
-      --text-muted: #6b7280;
-      --border: #e5e7eb;
+      --bg-canvas: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
       --navy: #0f2942;
+      --navy-light: #1e3a5f;
+      --accent-blue: #2563eb;
+      --border-color: #e2e8f0;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
       font-family: 'Inter', -apple-system, sans-serif;
-      color: var(--text);
-      background: #f3f4f6;
+      color: var(--text-main);
+      background-color: var(--bg-canvas);
       line-height: 1.6;
-      font-size: 14px;
+      font-size: 13.5px;
+      -webkit-font-smoothing: antialiased;
     }
 
+    /* Floating Control Bar */
     .top-bar {
       position: sticky;
       top: 0;
-      background: #0f2942;
-      color: #fff;
-      padding: 12px 24px;
+      background: var(--navy);
+      color: #ffffff;
+      padding: 12px 28px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 12px rgba(15, 41, 66, 0.2);
     }
-    .top-bar h2 { font-size: 1rem; font-weight: 600; font-family: 'Inter', sans-serif; }
+    .top-bar h2 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
     .top-bar-btns { display: flex; gap: 12px; }
     .top-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
+      padding: 8px 16px;
       border-radius: 6px;
       font-size: 0.85rem;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .btn-print { background: #2563eb; color: #fff; border: none; }
-    .btn-print:hover { background: #1d4ed8; }
-    .btn-back { background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
-    .btn-back:hover { background: rgba(255,255,255,0.25); }
+    .btn-download-pdf { background: #2563eb; color: #ffffff; border: none; }
+    .btn-download-pdf:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn-back { background: rgba(255, 255, 255, 0.12); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.25); }
+    .btn-back:hover { background: rgba(255, 255, 255, 0.22); }
 
+    /* Executive Academic CV Card */
     .cv-container {
-      max-width: 820px;
-      margin: 32px auto;
-      background: #fff;
-      padding: 48px 56px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-      border-radius: 4px;
+      max-width: 860px;
+      margin: 36px auto;
+      background: var(--bg-card);
+      padding: 56px 64px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
     }
 
-    .cv-header {
-      text-align: center;
-      padding-bottom: 24px;
+    /* Header & Photo Section */
+    .cv-header-layout {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding-bottom: 28px;
       border-bottom: 2px solid var(--navy);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
+
+    .cv-photo-wrapper {
+      flex-shrink: 0;
+    }
+
+    .cv-photo {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--navy);
+      box-shadow: 0 4px 12px rgba(15, 41, 66, 0.15);
+      background-color: #f1f5f9;
+    }
+
+    .cv-header-info { flex: 1; }
+
     .cv-name {
       font-family: 'Newsreader', Georgia, serif;
-      font-size: 2.2rem;
+      font-size: 2.3rem;
       font-weight: 700;
       color: var(--navy);
       letter-spacing: -0.5px;
-      margin-bottom: 4px;
+      line-height: 1.15;
+      margin-bottom: 6px;
     }
-    .cv-title {
+
+    .cv-title-rank {
       font-size: 1.05rem;
       font-weight: 600;
-      color: var(--text-sub);
-      margin-bottom: 8px;
+      color: var(--navy-light);
+      margin-bottom: 12px;
     }
-    .cv-contact {
-      display: flex;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-      font-size: 0.88rem;
-      color: var(--text-muted);
-    }
-    .cv-contact a { color: var(--navy); text-decoration: none; font-weight: 500; }
-    .cv-contact a:hover { text-decoration: underline; }
 
-    .cv-section { margin-bottom: 28px; }
+    .cv-contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      font-size: 0.86rem;
+      color: var(--text-sub);
+    }
+
+    .cv-contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cv-contact-item i { color: var(--navy); font-size: 1rem; }
+    .cv-contact-item a { color: var(--navy); text-decoration: none; font-weight: 500; }
+    .cv-contact-item a:hover { text-decoration: underline; }
+
+    /* Sections */
+    .cv-section { margin-bottom: 32px; }
+
     .cv-section-title {
       font-family: 'Newsreader', Georgia, serif;
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: var(--navy);
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      padding-bottom: 4px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 16px;
+      padding-bottom: 6px;
+      border-bottom: 1.5px solid var(--navy);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .cv-item {
       display: grid;
-      grid-template-columns: 160px 1fr;
+      grid-template-columns: 165px 1fr;
       gap: 16px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
+
     .cv-date {
       font-size: 0.85rem;
       font-weight: 600;
-      color: var(--navy);
+      color: var(--navy-light);
       white-space: nowrap;
     }
-    .cv-role { font-weight: 600; color: var(--text); }
-    .cv-org { color: var(--text-sub); font-size: 0.9rem; }
-    .cv-desc { color: var(--text-muted); font-size: 0.85rem; margin-top: 2px; }
 
+    .cv-role { font-weight: 700; color: var(--text-main); font-size: 0.95rem; }
+    .cv-org { color: var(--text-sub); font-size: 0.88rem; font-weight: 500; }
+    .cv-desc { color: var(--text-muted); font-size: 0.84rem; margin-top: 2px; }
+
+    /* Publications */
     .cv-pub-item {
-      margin-bottom: 12px;
-      font-size: 0.9rem;
-      line-height: 1.5;
+      margin-bottom: 14px;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      padding-left: 28px;
+      position: relative;
     }
-    .cv-pub-num { font-weight: 600; color: var(--navy); display: inline-block; width: 28px; }
-    .cv-pub-authors strong { color: var(--navy); }
 
-    /* Print Styles */
+    .cv-pub-num {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .cv-pub-authors strong { color: var(--navy); font-weight: 700; }
+    .cv-pub-doi { color: var(--text-muted); font-size: 0.82rem; }
+
+    /* Print & Export Rules */
     @media print {
-      body { background: #fff; font-size: 12pt; }
-      .top-bar { display: none !important; }
-      .cv-container {
-        max-width: 100%;
-        margin: 0;
-        padding: 0;
-        box-shadow: none;
+      @page {
+        size: A4 portrait;
+        margin: 15mm 15mm 15mm 15mm;
       }
+      
+      html, body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 11pt !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .top-bar { display: none !important; }
+
+      .cv-container {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+
+      .cv-photo {
+        border-color: #0f2942 !important;
+        box-shadow: none !important;
+      }
+
+      .cv-name { color: #0f2942 !important; }
+      .cv-section-title {
+        color: #0f2942 !important;
+        border-bottom-color: #0f2942 !important;
+      }
+
       .cv-section { page-break-inside: avoid; }
       .cv-pub-item { page-break-inside: avoid; }
+      .cv-item { page-break-inside: avoid; }
+
       a { text-decoration: none !important; color: inherit !important; }
     }
   </style>
 </head>
 <body>
 
+  <!-- Floating Control Bar -->
   <div class="top-bar">
-    <h2><i class="ri-file-user-line"></i> Hyeokjae Kwon, M.D., Ph.D. — Curriculum Vitae</h2>
+    <h2><i class="ri-file-user-line"></i> Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae</h2>
     <div class="top-bar-btns">
-      <a href="index.html" class="top-btn btn-back"><i class="ri-arrow-left-line"></i> Back to Website</a>
-      <button onclick="window.print()" class="top-btn btn-print"><i class="ri-printer-line"></i> Print / Save as PDF</button>
+      <a href="index.html" class="top-btn btn-back"><i class="ri-arrow-left-line"></i> Return to Website</a>
+      <button onclick="window.print()" class="top-btn btn-download-pdf"><i class="ri-download-2-line"></i> Save / Download PDF</button>
     </div>
   </div>
 
   <div class="cv-container">
     
-    <!-- Header -->
-    <header class="cv-header">
-      <h1 class="cv-name">Hyeokjae Kwon, M.D., Ph.D.</h1>
-      <div class="cv-title">Visiting Professor, MGH | Clinical Assistant Professor, CNUH</div>
-      <div class="cv-contact">
-        <span><i class="ri-mail-line"></i> kwon.hyeokjae@cnuh.co.kr</span>
-        <span><i class="ri-map-pin-line"></i> Boston, MA, USA / Daejeon, South Korea</span>
-        <span><i class="ri-global-line"></i> <a href="https://hyeokjaekwon26.github.io/" target="_blank">hyeokjaekwon26.github.io</a></span>
-        <span><i class="ri-fingerprint-line"></i> <a href="https://orcid.org/0000-0002-1418-3448" target="_blank">ORCID: 0000-0002-1418-3448</a></span>
+    <!-- Header with Profile Photo -->
+    <header class="cv-header-layout">
+      <div class="cv-photo-wrapper">
+        <img src="assets/profile.jpg" alt="Hyeokjae Kwon, M.D., Ph.D." class="cv-photo" />
+      </div>
+      <div class="cv-header-info">
+        <h1 class="cv-name">Hyeokjae Kwon, M.D., Ph.D.</h1>
+        <div class="cv-title-rank">Visiting Professor, MGH | Clinical Assistant Professor, CNUH</div>
+        <div class="cv-contact-grid">
+          <div class="cv-contact-item"><i class="ri-mail-line"></i> kwon.hyeokjae@cnuh.co.kr</div>
+          <div class="cv-contact-item"><i class="ri-map-pin-line"></i> Boston, MA, USA / Daejeon, South Korea</div>
+          <div class="cv-contact-item"><i class="ri-global-line"></i> <a href="https://hyeokjaekwon26.github.io/" target="_blank">hyeokjaekwon26.github.io</a></div>
+          <div class="cv-contact-item"><i class="ri-fingerprint-line"></i> <a href="https://orcid.org/0000-0002-1418-3448" target="_blank">ORCID: 0000-0002-1418-3448</a></div>
+        </div>
       </div>
     </header>
 
     <!-- Professional Experience -->
     <section class="cv-section">
-      <h2 class="cv-section-title">Academic & Clinical Appointments</h2>
+      <h2 class="cv-section-title"><i class="ri-briefcase-line"></i> Academic & Clinical Appointments</h2>
       
       <div class="cv-item">
         <div class="cv-date">Mar. 2026 ~ Present</div>
@@ -219,7 +318,7 @@
       <div class="cv-item">
         <div class="cv-date">Mar. 2014 ~ Feb. 2019</div>
         <div>
-          <div class="cv-role">Residency & Internship</div>
+          <div class="cv-role">Residency & Medical Internship</div>
           <div class="cv-org">Chungnam National University Hospital, Daejeon, South Korea</div>
         </div>
       </div>
@@ -227,7 +326,7 @@
 
     <!-- Education -->
     <section class="cv-section">
-      <h2 class="cv-section-title">Education</h2>
+      <h2 class="cv-section-title"><i class="ri-graduation-cap-line"></i> Education</h2>
       
       <div class="cv-item">
         <div class="cv-date">Sep. 2021 ~ Aug. 2023</div>
@@ -256,7 +355,7 @@
 
     <!-- Honors, Awards & Certifications -->
     <section class="cv-section">
-      <h2 class="cv-section-title">Honors, Awards & Certifications</h2>
+      <h2 class="cv-section-title"><i class="ri-award-line"></i> Honors, Awards & Certifications</h2>
       
       <div class="cv-item">
         <div class="cv-date">Nov. 2024</div>
@@ -300,19 +399,19 @@
       </div>
     </section>
 
-    <!-- Research Focus -->
+    <!-- Research Specializations -->
     <section class="cv-section">
-      <h2 class="cv-section-title">Research Focus & Specializations</h2>
-      <div style="font-size: 0.92rem; color: var(--text-sub); line-height: 1.7;">
+      <h2 class="cv-section-title"><i class="ri-lightbulb-line"></i> Research Focus & Specializations</h2>
+      <div style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.7;">
         • <strong>Medical AI & Computer Vision:</strong> AI-driven Eyeball Exposure Rate (EER) Analysis, 3D Gaussian Splatting for Surgical Measurement.<br>
         • <strong>Wound Care & Infection:</strong> Clinical outcomes in Chronic Wounds, Thermal/Infrared Sensing, Surgical Site Infection (SSI) Prevention.<br>
         • <strong>Digital Health & Education:</strong> Virtual Reality (VR) Preoperative Patient Education, Smartphone LiDAR Clinical Applications.
       </div>
     </section>
 
-    <!-- Peer-Reviewed Publications (Dynamic) -->
+    <!-- Peer-Reviewed Publications (Dynamic Auto-Sync) -->
     <section class="cv-section">
-      <h2 class="cv-section-title">Peer-Reviewed Publications</h2>
+      <h2 class="cv-section-title"><i class="ri-book-read-line"></i> Peer-Reviewed Publications</h2>
       <div id="cv-pub-list">
         <div style="color: var(--text-muted);">Loading live publication records...</div>
       </div>
@@ -323,7 +422,6 @@
   <script>
     // Auto-fetch publications.json for real-time live synchronization
     document.addEventListener('DOMContentLoaded', async () => {
-      // Auto-trigger print if ?print=1
       const urlParams = new URLSearchParams(window.location.search);
       const autoPrint = urlParams.get('print') === '1';
 
@@ -357,7 +455,7 @@
             <span class="cv-pub-authors">${authors}.</span>
             <strong>"${pub.title}."</strong>
             <em>${pub.journal}</em>. ${pub.year}; ${pub.volume}.
-            <span style="color: var(--text-muted); font-size: 0.8rem;">(DOI: ${pub.doi})</span>
+            <span class="cv-pub-doi">(DOI: ${pub.doi})</span>
           </div>
         `;
       });
