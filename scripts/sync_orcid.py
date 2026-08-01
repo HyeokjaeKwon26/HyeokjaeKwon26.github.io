@@ -108,10 +108,15 @@ def fetch_crossref_metadata(doi):
                 
             year_val = str(date_parts[0]) if date_parts and date_parts[0] else None
 
+            journal_title = None
+            if 'container-title' in data and data['container-title']:
+                journal_title = data['container-title'][0].strip()
+
             return {
                 'authors': formatted_authors,
                 'volume': vol_str,
-                'year': year_val
+                'year': year_val,
+                'journal': journal_title
             }
     except Exception:
         return None
@@ -194,7 +199,12 @@ def fetch_orcid_work_details(put_code):
             if crossref and crossref.get('year'):
                 year_val = crossref['year']
 
-            full_journal = expand_journal_name(journal_val)
+            if crossref and crossref.get('journal'):
+                raw_journal = crossref['journal']
+            else:
+                raw_journal = journal_val
+
+            full_journal = expand_journal_name(raw_journal)
 
             return {
                 'title': title_val,
