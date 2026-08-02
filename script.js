@@ -1,14 +1,185 @@
-// Academic Portfolio & Publications Engine (Optimized)
+// Academic Portfolio & Publications Engine (Optimized & Dual-Language i18n)
 let publications = [];
 let currentCategory = 'all';
 let searchQuery = '';
+let currentLang = 'en';
 
 // DOM Elements Cache
-let containerEl, searchInputEl, toastEl, themeBtnEl;
+let containerEl, searchInputEl, toastEl, themeBtnEl, langBtnEl;
+
+const TRANSLATIONS = {
+  en: {
+    brand_sub: "CNUH, MGH & Harvard Medical School",
+    nav_about: "About",
+    nav_experience: "Experience",
+    nav_education: "Education",
+    nav_publications: "Publications",
+    nav_honors: "Honors & Certs",
+    nav_contact: "Contact",
+    hero_title_sub: "Plastic and Reconstructive Surgeon & Computer Scientist",
+    role_visiting: "Visiting Professor",
+    org_visiting: "Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), USA",
+    role_clinical: "Clinical Assistant Professor",
+    org_clinical: "Dept. of Plastic & Reconstructive Surgery, Chungnam National University Hospital",
+    hero_bio: "Dr. Hyeokjae Kwon combines a unique interdisciplinary background in Computer Science (B.S., <strong>KAIST</strong>) and Medicine (M.D., Ph.D., <strong>Chungnam National University</strong>). His research integrates artificial intelligence, medical computer vision, and virtual reality preoperative education into plastic and reconstructive surgery, with dedicated research interests in chronic wounds and surgical site infections (SSI).",
+    btn_cv: "Academic CV (PDF)",
+    section_exp: "Professional Experience",
+    section_edu: "Education",
+    section_pub: "Publications",
+    section_honors: "Honors, Certifications & Activities",
+    section_contact: "Contact & Information",
+    
+    tab_all: "All",
+    tab_ai: "AI & Digital Health",
+    tab_tech: "VR & Medical Tech",
+    tab_recon: "Reconstructive Surgery",
+    search_placeholder: "Search publications (title, author, journal)...",
+    pub_empty: "No publications found matching your search.",
+    
+    card_honors: "Honors & Awards",
+    card_certs: "Certifications & Courses",
+    card_memberships: "Professional Memberships",
+    card_editorial: "Editorial & Reviewer Activities",
+    
+    contact_email: "Email",
+    contact_phone: "Office Phone",
+    contact_fax: "Fax",
+    contact_orcid: "ORCID",
+    footer_copy: "© 2026 Hyeokjae Kwon, M.D., Ph.D. | Chungnam National University Hospital, Massachusetts General Hospital & Harvard Medical School",
+    toast_copy: "Citation copied to clipboard",
+
+    // Specific Items
+    item_visiting_desc: "Collaborative research on clinical surgical innovation, medical AI, and surgical outcomes.",
+    item_cnuh_dept: "Department of Plastic and Reconstructive Surgery.",
+    item_fellow_role: "Clinical Fellow",
+    item_army_role: "Army Medical Officer",
+    item_army_1115: "1115th Corps of Engineers, Second Operations Command, ROK Army",
+    item_army_7th: "7th Airborne Special Forces Brigade, ROK Army",
+    item_residency_role: "Residency in Plastic & Reconstructive Surgery",
+    item_internship_role: "Medical Internship",
+    item_phd_role: "Ph.D. in Medicine (Plastic & Reconstructive Surgery)",
+    item_ms_role: "M.D. / M.S. in Medicine",
+    item_bs_role: "B.S. in Computer Science",
+
+    // Awards & Certs
+    award_med_record: "Excellence Award for Medical Record Documentation",
+    award_reviewer: "Outstanding Reviewer Award",
+    award_research: "Outstanding Research Award",
+    award_army_commend: "Brigadier General Commendation for Meritorious Service",
+    award_golden_bell: "3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz)",
+    award_hygiene: "Hospital Infection Control & Hand Hygiene Excellence Award",
+    cert_fkwa: "Fellow of the Korean Wound Academy (FKWA)",
+    cert_cpbmi: "Certified Physician in Biomedical Informatics (CPBMI)",
+    cert_hrdk: "Engineer Information Processing",
+    cert_board: "Board Certified Specialist in Plastic & Reconstructive Surgery",
+    cert_aocmf: "AOCMF Course — Management of Facial Trauma",
+    cert_license: "Medical Doctor (M.D.) License",
+    member_regular: "Regular Member",
+    reviewer_role: "Reviewer",
+    org_cnu_grad: "Graduate School of Chungnam National University",
+    kwms_name: "Korean Wound Management Society",
+    kosmi_name: "Korea Society of Medical Informatics (KOSMI)",
+    hrdk_name: "Human Resources Development Service of Korea (HRDK)",
+    mohw_name: "Ministry of Health and Welfare, Republic of Korea",
+    
+    // CV Page Specifics
+    btn_back: "Return to Website",
+    btn_pdf: "Save / Download PDF",
+    cv_title_rank: "Visiting Professor, MGH & Harvard Medical School | Clinical Assistant Professor, CNUH",
+    cv_sec_appointments: "Academic & Clinical Appointments",
+    cv_sec_focus: "Research Focus & Specializations",
+    cv_sec_pubs: "Peer-Reviewed Publications",
+    cv_focus_text: "• <strong>Medical AI & Computer Vision:</strong> AI-driven Eyeball Exposure Rate (EER) Analysis, 3D Gaussian Splatting for Surgical Measurement.<br>• <strong>Digital Health & Preoperative VR:</strong> VR Simulation Preoperative Education, Mobile Wound Management Systems.<br>• <strong>Clinical Surgical Innovation:</strong> Surgical Site Infection (SSI) Prevention, Chronic Wound Healing, Facial Trauma Reconstruction."
+  },
+  kr: {
+    brand_sub: "충남대병원, MGH & 하버드 의과대학",
+    nav_about: "소개",
+    nav_experience: "경력",
+    nav_education: "학력",
+    nav_publications: "논문 실적",
+    nav_honors: "수상 및 자격",
+    nav_contact: "문의",
+    hero_title_sub: "성형외과 전문의 & 컴퓨터 과학자",
+    role_visiting: "방문교수",
+    org_visiting: "매사추세츠 종합병원 (MGH) & 하버드 의과대학 (HMS), 미국",
+    role_clinical: "임상조교수",
+    org_clinical: "충남대학교병원 성형외과",
+    hero_bio: "권혁재 교수는 <strong>KAIST</strong> 전산학 학사와 <strong>충남대학교</strong> 의학사·석사·박사 학위를 보유한 융합형 연구자입니다. 성형외과 및 재건외과 영역에 인공지능(AI), 의료 컴퓨터 비전, 가상현실(VR) 수술 전 교육 기술을 융합하고 있으며, 만성 상처 치료 및 수술 부위 감염(SSI) 예방 연구를 집중적으로 수행하고 있습니다.",
+    btn_cv: "학술 이력서 (PDF)",
+    section_exp: "주요 경력",
+    section_edu: "학력",
+    section_pub: "논문 실적",
+    section_honors: "수상, 자격 및 학회 활동",
+    section_contact: "연락처 및 연구실 정보",
+    
+    tab_all: "전체",
+    tab_ai: "인공지능 & 디지털헬스",
+    tab_tech: "가상현실 & 의료기술",
+    tab_recon: "재건외과",
+    search_placeholder: "논문 검색 (제목, 저자, 저널명)...",
+    pub_empty: "검색 조건에 맞는 논문 실적이 없습니다.",
+    
+    card_honors: "수상 내역",
+    card_certs: "자격증 및 이수 과정",
+    card_memberships: "학회 활동",
+    card_editorial: "학술지 심사위원 활동",
+    
+    contact_email: "이메일",
+    contact_phone: "연구실 전화",
+    contact_fax: "팩스",
+    contact_orcid: "ORCID",
+    footer_copy: "© 2026 권혁재 (Hyeokjae Kwon, M.D., Ph.D.) | 충남대학교병원, 매사추세츠 종합병원 & 하버드 의과대학",
+    toast_copy: "인용문이 클립보드에 복사되었습니다",
+
+    // Specific Items
+    item_visiting_desc: "임상 수술 혁신, 의료 AI 및 수술 성과에 대한 공동 연구.",
+    item_cnuh_dept: "충남대학교병원 성형외과.",
+    item_fellow_role: "전임의 (펠로우)",
+    item_army_role: "육군 군의관",
+    item_army_1115: "대한민국 육군 제2작전사령부 제1115공병단",
+    item_army_7th: "대한민국 육군 제7공수특전여단",
+    item_residency_role: "성형외과 전공의 (레지던트)",
+    item_internship_role: "수련의 (인턴)",
+    item_phd_role: "의학박사 (성형외과학 전공)",
+    item_ms_role: "의학사 / 의학석사",
+    item_bs_role: "전산학 학사",
+
+    // Awards & Certs
+    award_med_record: "의무기록 작성 우수자상",
+    award_reviewer: "우수 심사위원상 (JWMR)",
+    award_research: "우수 연구상",
+    award_army_commend: "여단장 표창 (공로상)",
+    award_golden_bell: "전국 성형외과 전공의 지식경진대회 3위 (골든벨 퀴즈)",
+    award_hygiene: "손위생 우수직원상",
+    cert_fkwa: "대한창상학회 펠로우 (FKWA)",
+    cert_cpbmi: "의료정보학 전문의 (CPBMI)",
+    cert_hrdk: "정보처리기사",
+    cert_board: "성형외과 전문의 자격증 (보건복지부)",
+    cert_aocmf: "AOCMF 코스 — 안면외상 이수",
+    cert_license: "의사 면허증",
+    member_regular: "정회원",
+    reviewer_role: "심사위원 (Reviewer)",
+    org_cnu_grad: "충남대학교 대학원",
+    kwms_name: "대한창상학회",
+    kosmi_name: "대한의료정보학회",
+    hrdk_name: "한국산업인력공단",
+    mohw_name: "대한민국 보건복지부",
+
+    // CV Page Specifics
+    btn_back: "메인 웹사이트로 돌아가기",
+    btn_pdf: "PDF 저장 / 인쇄",
+    cv_title_rank: "방문교수 (MGH & 하버드 의대) | 임상조교수 (충남대병원)",
+    cv_sec_appointments: "경력 및 소속 (Academic & Clinical Appointments)",
+    cv_sec_focus: "주요 연구 분야 (Research Focus & Specializations)",
+    cv_sec_pubs: "학술지 논문 게재 실적 (Peer-Reviewed Publications)",
+    cv_focus_text: "• <strong>의료 AI & 컴퓨터 비전:</strong> AI 기반 안구 노출 비율(EER) 분석, 수술 계측용 3D Gaussian Splatting.<br>• <strong>디지털 헬스 & 수술전 VR:</strong> VR 시뮬레이션 수술전 환자 교육, 모바일 상처 관리 시스템.<br>• <strong>임상 수술 혁신:</strong> 수술 부위 감염(SSI) 예방, 만성 상처 치료, 안면 외상 재건 외과."
+  }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
   cacheDOMElements();
   initTheme();
+  initLanguage();
   loadPublications();
   setupEventListeners();
   setupScrollSpy();
@@ -19,6 +190,63 @@ function cacheDOMElements() {
   searchInputEl = document.getElementById('pub-search-input');
   toastEl = document.getElementById('toast');
   themeBtnEl = document.getElementById('theme-toggle-btn');
+  langBtnEl = document.getElementById('lang-toggle-btn');
+}
+
+function initLanguage() {
+  currentLang = localStorage.getItem('preferred_lang') || 'en';
+  applyLanguage(currentLang);
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'kr' : 'en';
+  localStorage.setItem('preferred_lang', currentLang);
+  applyLanguage(currentLang);
+}
+
+function applyLanguage(lang) {
+  const dict = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+  
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key]) {
+      el.innerHTML = dict[key];
+    }
+  });
+
+  // Update navbar language button label
+  const langTextEl = document.getElementById('lang-text');
+  if (langTextEl) {
+    langTextEl.innerText = lang === 'en' ? 'KR' : 'EN';
+  }
+
+  // Update CV page language button label
+  const cvLangTextEl = document.getElementById('cv-lang-text');
+  if (cvLangTextEl) {
+    cvLangTextEl.innerText = lang === 'en' ? '한국어' : 'English';
+  }
+
+  // Update search input placeholder
+  if (searchInputEl && dict['search_placeholder']) {
+    searchInputEl.placeholder = dict['search_placeholder'];
+  }
+
+  // Update filter tabs
+  const allTab = document.querySelector('.tab-btn[data-filter="all"]');
+  if (allTab) {
+    const count = publications.length || 24;
+    allTab.innerText = `${dict['tab_all']} (${count})`;
+  }
+
+  const aiTab = document.querySelector('.tab-btn[data-filter="ai"]');
+  if (aiTab) aiTab.innerText = dict['tab_ai'];
+
+  const techTab = document.querySelector('.tab-btn[data-filter="tech"]');
+  if (techTab) techTab.innerText = dict['tab_tech'];
+
+  const reconTab = document.querySelector('.tab-btn[data-filter="recon"]');
+  if (reconTab) reconTab.innerText = dict['tab_recon'];
 }
 
 function initTheme() {
@@ -149,6 +377,7 @@ function debounce(func, wait) {
 
 function setupEventListeners() {
   if (themeBtnEl) themeBtnEl.addEventListener('click', toggleTheme);
+  if (langBtnEl) langBtnEl.addEventListener('click', toggleLanguage);
 
   if (searchInputEl) {
     searchInputEl.addEventListener('input', debounce((e) => {

@@ -132,21 +132,26 @@
     <div class="container nav-container">
       <div class="nav-brand">
         <div class="nav-brand-name">Hyeokjae Kwon, M.D., Ph.D.</div>
-        <div class="nav-brand-sub">CNUH, MGH & Harvard Medical School</div>
+        <div class="nav-brand-sub" data-i18n="brand_sub">CNUH, MGH & Harvard Medical School</div>
       </div>
       
       <ul class="nav-menu">
-        <li><a href="#about" class="nav-link">About</a></li>
-        <li><a href="#experience" class="nav-link">Experience</a></li>
-        <li><a href="#education" class="nav-link">Education</a></li>
-        <li><a href="#publications" class="nav-link">Publications</a></li>
-        <li><a href="#honors" class="nav-link">Honors & Certs</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="#about" class="nav-link" data-i18n="nav_about">About</a></li>
+        <li><a href="#experience" class="nav-link" data-i18n="nav_experience">Experience</a></li>
+        <li><a href="#education" class="nav-link" data-i18n="nav_education">Education</a></li>
+        <li><a href="#publications" class="nav-link" data-i18n="nav_publications">Publications</a></li>
+        <li><a href="#honors" class="nav-link" data-i18n="nav_honors">Honors & Certs</a></li>
+        <li><a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a></li>
       </ul>
 
-      <button class="theme-btn" id="theme-toggle-btn" title="Toggle dark mode">
-        <i class="ri-moon-line"></i>
-      </button>
+      <div class="nav-actions">
+        <button class="lang-btn" id="lang-toggle-btn" title="Switch Language (EN/KR)">
+          <i class="ri-global-line"></i> <span id="lang-text">KR</span>
+        </button>
+        <button class="theme-btn" id="theme-toggle-btn" title="Toggle dark mode">
+          <i class="ri-moon-line"></i>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -160,30 +165,30 @@
         
         <div class="hero-info">
           <h1>Hyeokjae Kwon, M.D., Ph.D.</h1>
-          <div class="hero-title-sub">Plastic and Reconstructive Surgeon & Computer Scientist</div>
+          <div class="hero-title-sub" data-i18n="hero_title_sub">Plastic and Reconstructive Surgeon & Computer Scientist</div>
 
           <ul class="hero-affiliations">
             <li>
               <i class="ri-building-line" style="color:var(--text-muted);"></i>
               <div>
-                <strong>Visiting Professor</strong> — Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), USA <span class="affiliation-date">(Mar. 2026 ~ Present)</span>
+                <strong data-i18n="role_visiting">Visiting Professor</strong> — <span data-i18n="org_visiting">Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), USA</span> <span class="affiliation-date">(Mar. 2026 ~ Present)</span>
               </div>
             </li>
             <li>
               <i class="ri-hospital-line" style="color:var(--text-muted);"></i>
               <div>
-                <strong>Clinical Assistant Professor</strong> — Dept. of Plastic & Reconstructive Surgery, Chungnam National University Hospital
+                <strong data-i18n="role_clinical">Clinical Assistant Professor</strong> — <span data-i18n="org_clinical">Dept. of Plastic & Reconstructive Surgery, Chungnam National University Hospital</span>
               </div>
             </li>
           </ul>
 
-          <p class="hero-bio">
+          <p class="hero-bio" data-i18n="hero_bio">
             Dr. Hyeokjae Kwon combines a unique interdisciplinary background in Computer Science (B.S., <strong>KAIST</strong>) and Medicine (M.D., Ph.D., <strong>Chungnam National University</strong>). His research integrates artificial intelligence, medical computer vision, and virtual reality preoperative education into plastic and reconstructive surgery, with dedicated research interests in chronic wounds and surgical site infections (SSI).
           </p>
 
           <div class="hero-links">
             <a href="cv.html" target="_blank" class="btn-academic btn-primary" style="background: var(--accent-navy); color: #fff; border-color: var(--accent-navy);">
-              <i class="ri-file-text-line"></i> Academic CV (PDF)
+              <i class="ri-file-text-line"></i> <span data-i18n="btn_cv">Academic CV (PDF)</span>
             </a>
             <a href="https://orcid.org/0000-0002-1418-3448" target="_blank" rel="noopener" class="btn-academic">
               <i class="ri-fingerprint-line"></i> ORCID: 0000-0002-1418-3448
@@ -206,57 +211,57 @@
   <!-- Professional Experiences -->
   <section class="section" id="experience">
     <div class="container">
-      <h2 class="section-title">Professional Experience</h2>
+      <h2 class="section-title" data-i18n="section_exp">Professional Experience</h2>
       
       <div class="item-list">
 
         <div class="item-row">
           <div class="item-date current">Mar. 2026 ~ Present</div>
           <div class="item-content">
-            <h3>Visiting Professor</h3>
-            <div class="item-org">Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), Boston, MA, USA</div>
-            <div class="item-desc">Collaborative research on clinical surgical innovation, medical AI, and surgical outcomes.</div>
+            <h3 data-i18n="role_visiting">Visiting Professor</h3>
+            <div class="item-org" data-i18n="org_visiting">Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), Boston, MA, USA</div>
+            <div class="item-desc" data-i18n="item_visiting_desc">Collaborative research on clinical surgical innovation, medical AI, and surgical outcomes.</div>
           </div>
         </div>
 
         <div class="item-row">
           <div class="item-date current">Mar. 2024 ~ Present</div>
           <div class="item-content">
-            <h3>Clinical Assistant Professor</h3>
+            <h3 data-i18n="role_clinical">Clinical Assistant Professor</h3>
             <div class="item-org">Chungnam National University Hospital, Daejeon, South Korea</div>
-            <div class="item-desc">Department of Plastic and Reconstructive Surgery.</div>
+            <div class="item-desc" data-i18n="item_cnuh_dept">Department of Plastic and Reconstructive Surgery.</div>
           </div>
         </div>
 
         <div class="item-row">
           <div class="item-date">May. 2022 ~ Feb. 2024</div>
           <div class="item-content">
-            <h3>Clinical Fellow</h3>
+            <h3 data-i18n="item_fellow_role">Clinical Fellow</h3>
             <div class="item-org">Chungnam National University Hospital, Daejeon, South Korea</div>
-            <div class="item-desc">Department of Plastic and Reconstructive Surgery.</div>
+            <div class="item-desc" data-i18n="item_cnuh_dept">Department of Plastic and Reconstructive Surgery.</div>
           </div>
         </div>
 
         <div class="item-row">
           <div class="item-date">Apr. 2021 ~ Apr. 2022</div>
           <div class="item-content">
-            <h3>Army Medical Officer</h3>
-            <div class="item-org">1115th Corps of Engineers, Second Operations Command, ROK Army</div>
+            <h3 data-i18n="item_army_role">Army Medical Officer</h3>
+            <div class="item-org" data-i18n="item_army_1115">1115th Corps of Engineers, Second Operations Command, ROK Army</div>
           </div>
         </div>
 
         <div class="item-row">
           <div class="item-date">Apr. 2019 ~ Apr. 2021</div>
           <div class="item-content">
-            <h3>Army Medical Officer</h3>
-            <div class="item-org">7th Airborne Special Forces Brigade, ROK Army</div>
+            <h3 data-i18n="item_army_role">Army Medical Officer</h3>
+            <div class="item-org" data-i18n="item_army_7th">7th Airborne Special Forces Brigade, ROK Army</div>
           </div>
         </div>
 
         <div class="item-row">
           <div class="item-date">Mar. 2015 ~ Feb. 2019</div>
           <div class="item-content">
-            <h3>Residency in Plastic & Reconstructive Surgery</h3>
+            <h3 data-i18n="item_residency_role">Residency in Plastic & Reconstructive Surgery</h3>
             <div class="item-org">Chungnam National University Hospital, Daejeon, South Korea</div>
           </div>
         </div>
@@ -264,7 +269,7 @@
         <div class="item-row">
           <div class="item-date">Mar. 2014 ~ Feb. 2015</div>
           <div class="item-content">
-            <h3>Medical Internship</h3>
+            <h3 data-i18n="item_internship_role">Medical Internship</h3>
             <div class="item-org">Chungnam National University Hospital, Daejeon, South Korea</div>
           </div>
         </div>
@@ -276,14 +281,14 @@
   <!-- Education Section -->
   <section class="section" id="education">
     <div class="container">
-      <h2 class="section-title">Education</h2>
+      <h2 class="section-title" data-i18n="section_edu">Education</h2>
       
       <div class="item-list">
         
         <div class="item-row">
           <div class="item-date">Sep. 2021 ~ Aug. 2023</div>
           <div class="item-content">
-            <h3>Ph.D. in Medicine (Plastic & Reconstructive Surgery)</h3>
+            <h3 data-i18n="item_phd_role">Ph.D. in Medicine (Plastic & Reconstructive Surgery)</h3>
             <div class="item-org">Chungnam National University, South Korea</div>
           </div>
         </div>
@@ -291,7 +296,7 @@
         <div class="item-row">
           <div class="item-date">Mar. 2010 ~ Feb. 2014</div>
           <div class="item-content">
-            <h3>M.D. / M.S. in Medicine</h3>
+            <h3 data-i18n="item_ms_role">M.D. / M.S. in Medicine</h3>
             <div class="item-org">Chungnam National University, South Korea</div>
           </div>
         </div>
@@ -299,7 +304,7 @@
         <div class="item-row">
           <div class="item-date">Mar. 2006 ~ Feb. 2010</div>
           <div class="item-content">
-            <h3>B.S. in Computer Science</h3>
+            <h3 data-i18n="item_bs_role">B.S. in Computer Science</h3>
             <div class="item-org">KAIST (Korea Advanced Institute of Science and Technology), South Korea</div>
           </div>
         </div>
@@ -311,11 +316,11 @@
   <!-- Publications Section -->
   <section class="section" id="publications">
     <div class="container">
-      <h2 class="section-title">Publications</h2>
+      <h2 class="section-title" data-i18n="section_pub">Publications</h2>
 
       <div class="pub-filter-bar">
         <div class="pub-tabs">
-          <button class="tab-btn active" data-filter="all">All (22)</button>
+          <button class="tab-btn active" data-filter="all">All (24)</button>
           <button class="tab-btn" data-filter="ai">AI & Digital Health</button>
           <button class="tab-btn" data-filter="tech">VR & Medical Tech</button>
           <button class="tab-btn" data-filter="recon">Reconstructive Surgery</button>
@@ -333,96 +338,96 @@
   <!-- Honors, Certifications & Activities -->
   <section class="section" id="honors">
     <div class="container">
-      <h2 class="section-title">Honors, Certifications & Activities</h2>
+      <h2 class="section-title" data-i18n="section_honors">Honors, Certifications & Activities</h2>
       
       <div class="academic-grid">
         <div class="academic-card">
-          <h3><i class="ri-trophy-line" style="color:var(--accent-crimson);"></i> Honors & Awards</h3>
+          <h3><i class="ri-trophy-line" style="color:var(--accent-crimson);"></i> <span data-i18n="card_honors">Honors & Awards</span></h3>
           <ul class="academic-sublist">
             <li>
-              <strong>Excellence Award for Medical Record Documentation</strong>
+              <strong data-i18n="award_med_record">Excellence Award for Medical Record Documentation</strong>
               <div class="subtext">Feb. 2024 — Chungnam National University Hospital</div>
             </li>
             <li>
-              <strong>Outstanding Reviewer Award</strong>
+              <strong data-i18n="award_reviewer">Outstanding Reviewer Award</strong>
               <div class="subtext">Mar. 2023 — Journal of Wound Management and Research (JWMR)</div>
             </li>
             <li>
-              <strong>Outstanding Research Award</strong>
-              <div class="subtext">Aug. 2022 — Graduate School of Chungnam National University</div>
+              <strong data-i18n="award_research">Outstanding Research Award</strong>
+              <div class="subtext" data-i18n="org_cnu_grad">Graduate School of Chungnam National University</div>
             </li>
             <li>
-              <strong>Brigadier General Commendation for Meritorious Service</strong>
-              <div class="subtext">Nov. 2019 — 7th Airborne Special Forces Brigade, Republic of Korea Army</div>
+              <strong data-i18n="award_army_commend">Brigadier General Commendation for Meritorious Service</strong>
+              <div class="subtext" data-i18n="item_army_7th">7th Airborne Special Forces Brigade, ROK Army</div>
             </li>
             <li>
-              <strong>3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz)</strong>
+              <strong data-i18n="award_golden_bell">3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz)</strong>
               <div class="subtext">Nov. 2017 — 75th International Congress of Korean Society of Plastic & Reconstructive Surgeons (KSPRS)</div>
             </li>
             <li>
-              <strong>Hospital Infection Control & Hand Hygiene Excellence Award</strong>
+              <strong data-i18n="award_hygiene">Hospital Infection Control & Hand Hygiene Excellence Award</strong>
               <div class="subtext">Feb. 2017 — Chungnam National University Hospital</div>
             </li>
             <li>
-              <strong>Hospital Infection Control & Hand Hygiene Excellence Award</strong>
+              <strong data-i18n="award_hygiene">Hospital Infection Control & Hand Hygiene Excellence Award</strong>
               <div class="subtext">Nov. 2015 — Chungnam National University Hospital</div>
             </li>
           </ul>
         </div>
 
         <div class="academic-card">
-          <h3><i class="ri-shield-check-line" style="color:var(--accent-blue);"></i> Certifications & Courses</h3>
+          <h3><i class="ri-shield-check-line" style="color:var(--accent-blue);"></i> <span data-i18n="card_certs">Certifications & Courses</span></h3>
           <ul class="academic-sublist">
             <li>
-              <strong>Fellow of the Korean Wound Academy (FKWA)</strong>
-              <div class="subtext">Nov. 2024 — Korean Wound Management Society</div>
+              <strong data-i18n="cert_fkwa">Fellow of the Korean Wound Academy (FKWA)</strong>
+              <div class="subtext">Nov. 2024 — <span data-i18n="kwms_name">Korean Wound Management Society</span></div>
             </li>
             <li>
-              <strong>Certified Physician in Biomedical Informatics (CPBMI)</strong>
-              <div class="subtext">Dec. 2022 — Korea Society of Medical Informatics (KOSMI)</div>
+              <strong data-i18n="cert_cpbmi">Certified Physician in Biomedical Informatics (CPBMI)</strong>
+              <div class="subtext">Dec. 2022 — <span data-i18n="kosmi_name">Korea Society of Medical Informatics (KOSMI)</span></div>
             </li>
             <li>
-              <strong>Engineer Information Processing</strong>
-              <div class="subtext">Nov. 2019 — Human Resources Development Service of Korea (HRDK)</div>
+              <strong data-i18n="cert_hrdk">Engineer Information Processing</strong>
+              <div class="subtext">Nov. 2019 — <span data-i18n="hrdk_name">Human Resources Development Service of Korea (HRDK)</span></div>
             </li>
             <li>
-              <strong>Board Certified Specialist in Plastic & Reconstructive Surgery</strong>
-              <div class="subtext">Mar. 2019 — Ministry of Health and Welfare, Republic of Korea</div>
+              <strong data-i18n="cert_board">Board Certified Specialist in Plastic & Reconstructive Surgery</strong>
+              <div class="subtext">Mar. 2019 — <span data-i18n="mohw_name">Ministry of Health and Welfare, Republic of Korea</span></div>
             </li>
             <li>
-              <strong>AOCMF Course — Management of Facial Trauma</strong>
+              <strong data-i18n="cert_aocmf">AOCMF Course — Management of Facial Trauma</strong>
               <div class="subtext">Jul. 2017 — AOCMF (AO Foundation)</div>
             </li>
             <li>
-              <strong>Medical Doctor (M.D.) License</strong>
-              <div class="subtext">Mar. 2014 — Ministry of Health and Welfare, Republic of Korea</div>
+              <strong data-i18n="cert_license">Medical Doctor (M.D.) License</strong>
+              <div class="subtext">Mar. 2014 — <span data-i18n="mohw_name">Ministry of Health and Welfare, Republic of Korea</span></div>
             </li>
           </ul>
         </div>
 
         <div class="academic-card">
-          <h3><i class="ri-community-line" style="color:var(--accent-navy);"></i> Professional Memberships</h3>
+          <h3><i class="ri-community-line" style="color:var(--accent-navy);"></i> <span data-i18n="card_memberships">Professional Memberships</span></h3>
           <ul class="academic-sublist">
             <li>
-              <strong>Regular Member</strong>
+              <strong data-i18n="member_regular">Regular Member</strong>
               <div class="subtext">Korean Society of Plastic and Reconstructive Surgeons (KSPRS)</div>
             </li>
             <li>
-              <strong>Regular Member</strong>
-              <div class="subtext">Korean Wound Management Society</div>
+              <strong data-i18n="member_regular">Regular Member</strong>
+              <div class="subtext" data-i18n="kwms_name">Korean Wound Management Society</div>
             </li>
           </ul>
         </div>
 
         <div class="academic-card">
-          <h3><i class="ri-edit-box-line" style="color:var(--accent-crimson);"></i> Editorial & Reviewer Activities</h3>
+          <h3><i class="ri-edit-box-line" style="color:var(--accent-crimson);"></i> <span data-i18n="card_editorial">Editorial & Reviewer Activities</span></h3>
           <ul class="academic-sublist">
             <li>
-              <strong>Reviewer</strong>
+              <strong data-i18n="reviewer_role">Reviewer</strong>
               <div class="subtext">Journal of Wound Management and Research (JWMR)</div>
             </li>
             <li>
-              <strong>Reviewer</strong>
+              <strong data-i18n="reviewer_role">Reviewer</strong>
               <div class="subtext">Archives of Plastic Surgery (APS)</div>
             </li>
           </ul>
@@ -434,26 +439,26 @@
   <!-- Contact & Footer -->
   <section class="section" id="contact">
     <div class="container">
-      <h2 class="section-title">Contact & Information</h2>
+      <h2 class="section-title" data-i18n="section_contact">Contact & Information</h2>
       
       <div class="contact-grid">
         <div class="contact-box">
-          <h4>Email</h4>
+          <h4 data-i18n="contact_email">Email</h4>
           <p><a href="mailto:kwon.hyeokjae@cnuh.co.kr">kwon.hyeokjae@cnuh.co.kr</a></p>
         </div>
         
         <div class="contact-box">
-          <h4>Office Phone</h4>
+          <h4 data-i18n="contact_phone">Office Phone</h4>
           <p>+82 42-280-7380</p>
         </div>
         
         <div class="contact-box">
-          <h4>Fax</h4>
+          <h4 data-i18n="contact_fax">Fax</h4>
           <p>+82 42-280-7384</p>
         </div>
         
         <div class="contact-box">
-          <h4>ORCID</h4>
+          <h4 data-i18n="contact_orcid">ORCID</h4>
           <p><a href="https://orcid.org/0000-0002-1418-3448" target="_blank" rel="noopener">0000-0002-1418-3448</a></p>
         </div>
       </div>
@@ -462,7 +467,7 @@
 
   <footer>
     <div class="container footer-container">
-      <p>© 2026 Hyeokjae Kwon, M.D., Ph.D. | Chungnam National University Hospital, Massachusetts General Hospital & Harvard Medical School</p>
+      <p data-i18n="footer_copy">© 2026 Hyeokjae Kwon, M.D., Ph.D. | Chungnam National University Hospital, Massachusetts General Hospital & Harvard Medical School</p>
       <div class="visitor-counter" title="Total Page Views">
         <img src="https://hits.sh/hyeokjaekwon26.github.io.svg?style=flat-square&label=Visitors&color=0f2942&labelColor=374151" alt="Visitor Counter" />
       </div>
