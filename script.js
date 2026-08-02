@@ -238,13 +238,7 @@ function applyLanguage(lang) {
   // Update navbar language button label
   const langTextEl = document.getElementById('lang-text');
   if (langTextEl) {
-    langTextEl.innerText = lang === 'en' ? 'KR' : 'EN';
-  }
-
-  // Update CV page language button label
-  const cvLangTextEl = document.getElementById('cv-lang-text');
-  if (cvLangTextEl) {
-    cvLangTextEl.innerText = lang === 'en' ? '한국어' : 'English';
+    langTextEl.innerHTML = lang === 'en' ? '🇰🇷 KR' : '🇺🇸 EN';
   }
 
   // Update search input placeholder
