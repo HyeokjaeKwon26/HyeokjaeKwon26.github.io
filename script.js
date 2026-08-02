@@ -102,9 +102,9 @@ const TRANSLATIONS = {
     cv_focus_text: "• <strong>Medical AI & Computer Vision:</strong> AI-driven Eyeball Exposure Rate (EER) Analysis, 3D Gaussian Splatting for Surgical Measurement.<br>• <strong>Digital Health & Preoperative VR:</strong> VR Simulation Preoperative Education, Mobile Wound Management Systems.<br>• <strong>Clinical Surgical Innovation:</strong> Surgical Site Infection (SSI) Prevention, Chronic Wound Healing, Facial Trauma Reconstruction."
   },
   kr: {
-    name_header: "권혁재",
+    name_header: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.)",
     name_hero: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.)",
-    cv_bar_title: "권혁재 — 학술 이력서 (CV)",
+    cv_bar_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) — 학술 이력서 (CV)",
     brand_sub: "충남대병원, MGH & 하버드 의과대학",
     nav_about: "소개",
     nav_experience: "경력",
