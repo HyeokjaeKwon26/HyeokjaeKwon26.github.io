@@ -239,8 +239,8 @@ function applyLanguage(lang) {
   const langTextEl = document.getElementById('lang-text');
   if (langTextEl) {
     langTextEl.innerHTML = lang === 'en' 
-      ? '<img src="assets/flag_kr.svg" alt="KR" style="width:18px; height:12px; vertical-align:-1px; margin-right:4px; border-radius:2px;"> KR' 
-      : '<img src="assets/flag_us.svg" alt="US" style="width:18px; height:12px; vertical-align:-1px; margin-right:4px; border-radius:2px;"> EN';
+      ? '<img src="assets/flag_kr.svg" alt="KR" style="width:18px; height:12px; vertical-align:-1px; margin-right:5px; border-radius:2px; box-shadow:0 0 1px rgba(0,0,0,0.4); object-fit:cover;"> KR' 
+      : '<img src="assets/flag_us.svg" alt="US" style="width:18px; height:12px; vertical-align:-1px; margin-right:5px; border-radius:2px; box-shadow:0 0 1px rgba(0,0,0,0.4); object-fit:cover;"> EN';
   }
 
   // Update search input placeholder
