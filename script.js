@@ -214,7 +214,29 @@ function cacheDOMElements() {
 }
 
 function initLanguage() {
-  currentLang = localStorage.getItem('preferred_lang') || 'en';
+  // 1. URL Query Parameter Priority (?lang=kr or ?lang=en)
+  const urlParams = new URLSearchParams(window.location.search);
+  const langParam = urlParams.get('lang');
+  
+  if (langParam && (langParam === 'kr' || langParam === 'en')) {
+    currentLang = langParam;
+    localStorage.setItem('preferred_lang', currentLang);
+  } else {
+    // 2. LocalStorage User Preference Priority
+    const savedLang = localStorage.getItem('preferred_lang');
+    if (savedLang) {
+      currentLang = savedLang;
+    } else {
+      // 3. Browser / OS Default Language Auto-Detection (navigator.language)
+      const userLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (userLang.startsWith('ko')) {
+        currentLang = 'kr';
+      } else {
+        currentLang = 'en';
+      }
+    }
+  }
+
   applyLanguage(currentLang);
 }
 
