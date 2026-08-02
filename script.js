@@ -53,6 +53,9 @@ const TRANSLATIONS = {
 
     // Specific Items
     org_cnuh: "Chungnam National University Hospital, Daejeon, South Korea",
+    org_cnuh_short: "Chungnam National University Hospital",
+    org_cnu: "Chungnam National University, South Korea",
+    org_kaist: "KAIST (Korea Advanced Institute of Science and Technology), South Korea",
     item_visiting_desc: "Collaborative research on clinical surgical innovation, medical AI, and surgical outcomes.",
     item_cnuh_dept: "Department of Plastic and Reconstructive Surgery.",
     item_fellow_role: "Clinical Fellow",
@@ -71,8 +74,8 @@ const TRANSLATIONS = {
     award_research: "Outstanding Research Award",
     award_army_commend: "Brigadier General Commendation for Meritorious Service",
     award_golden_bell: "3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz)",
-    award_golden_bell_sub: "Nov. 2017 — 75th International Congress of Korean Society of Plastic & Reconstructive Surgeons (KSPRS)",
-    cv_ksprs_sub: "75th International Congress of KSPRS",
+    award_golden_bell_sub: "Nov. 2017 — PRS Korea 2017",
+    cv_ksprs_sub: "PRS Korea 2017",
     award_hygiene: "Hospital Infection Control & Hand Hygiene Excellence Award",
     cert_fkwa: "Fellow of the Korean Wound Academy (FKWA)",
     cert_cpbmi: "Certified Physician in Biomedical Informatics (CPBMI)",
@@ -125,7 +128,7 @@ const TRANSLATIONS = {
     tab_all: "전체",
     tab_ai: "인공지능 & 디지털헬스",
     tab_tech: "가상현실 & 의료기술",
-    tab_recon: "재건외과",
+    tab_recon: "재건성형",
     search_placeholder: "논문 검색 (제목, 저자, 저널명)...",
     pub_empty: "검색 조건에 맞는 논문 실적이 없습니다.",
     
@@ -143,6 +146,9 @@ const TRANSLATIONS = {
 
     // Specific Items
     org_cnuh: "충남대학교병원",
+    org_cnuh_short: "충남대학교병원",
+    org_cnu: "충남대학교, 대한민국",
+    org_kaist: "KAIST(한국과학기술원), 대한민국",
     item_visiting_desc: "임상 수술 혁신, 의료 AI 및 수술 성과에 대한 공동 연구.",
     item_cnuh_dept: "성형외과",
     item_fellow_role: "전임의 (펠로우)",
@@ -161,8 +167,8 @@ const TRANSLATIONS = {
     award_research: "우수 연구상",
     award_army_commend: "여단장 표창 (공로상)",
     award_golden_bell: "전국 성형외과 전공의 지식경진대회 3위 (골든벨 퀴즈)",
-    award_golden_bell_sub: "2017년 11월 — 대한성형외과학회 제75차 국제학술대회",
-    cv_ksprs_sub: "대한성형외과학회 제75차 국제학술대회",
+    award_golden_bell_sub: "2017년 11월 — PRS Korea 2017",
+    cv_ksprs_sub: "PRS Korea 2017",
     award_hygiene: "손위생 우수직원상",
     cert_fkwa: "대한창상학회 창상전문가(FKWA)",
     cert_cpbmi: "의료정보학 전문의 (CPBMI)",
