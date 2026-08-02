@@ -357,8 +357,11 @@
   <div class="top-bar">
     <h2><i class="ri-file-user-line"></i> Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae</h2>
     <div class="top-bar-btns">
-      <a href="index.html" class="top-btn btn-back"><i class="ri-arrow-left-line"></i> Return to Website</a>
-      <button onclick="window.print()" class="top-btn btn-download-pdf"><i class="ri-download-2-line"></i> Save / Download PDF</button>
+      <button class="top-btn btn-back" id="lang-toggle-btn" title="Switch Language (EN/KR)">
+        <i class="ri-global-line"></i> <span id="lang-text">KR</span>
+      </button>
+      <a href="index.html" class="top-btn btn-back"><i class="ri-arrow-left-line"></i> <span data-i18n="btn_back">Return to Website</span></a>
+      <button onclick="window.print()" class="top-btn btn-download-pdf"><i class="ri-download-2-line"></i> <span data-i18n="btn_pdf">Save / Download PDF</span></button>
     </div>
   </div>
 
@@ -371,7 +374,7 @@
       </div>
       <div class="cv-header-info">
         <h1 class="cv-name">Hyeokjae Kwon, M.D., Ph.D.</h1>
-        <div class="cv-title-rank">Visiting Professor, MGH & Harvard Medical School | Clinical Assistant Professor, CNUH</div>
+        <div class="cv-title-rank" data-i18n="cv_title_rank">Visiting Professor, MGH & Harvard Medical School | Clinical Assistant Professor, CNUH</div>
         <div class="cv-contact-grid">
           <div class="cv-contact-item"><i class="ri-mail-line"></i> kwon.hyeokjae@cnuh.co.kr</div>
           <div class="cv-contact-item"><i class="ri-map-pin-line"></i> Boston, MA, USA / Daejeon, South Korea</div>
@@ -383,47 +386,47 @@
 
     <!-- Professional Experience -->
     <section class="cv-section">
-      <h2 class="cv-section-title"><i class="ri-briefcase-line"></i> Academic & Clinical Appointments</h2>
+      <h2 class="cv-section-title"><i class="ri-briefcase-line"></i> <span data-i18n="cv_sec_appointments">Academic & Clinical Appointments</span></h2>
       
       <div class="cv-item">
         <div class="cv-date">Mar. 2026 ~ Present</div>
         <div>
-          <div class="cv-role">Visiting Professor</div>
-          <div class="cv-org">Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), Boston, MA, USA</div>
-          <div class="cv-desc">Collaborative research on clinical surgical innovation, medical AI, and surgical outcomes.</div>
+          <div class="cv-role" data-i18n="role_visiting">Visiting Professor</div>
+          <div class="cv-org" data-i18n="org_visiting">Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), Boston, MA, USA</div>
+          <div class="cv-desc" data-i18n="item_visiting_desc">Collaborative research on clinical surgical innovation, medical AI, and surgical outcomes.</div>
         </div>
       </div>
 
       <div class="cv-item">
         <div class="cv-date">Mar. 2024 ~ Present</div>
         <div>
-          <div class="cv-role">Clinical Assistant Professor</div>
+          <div class="cv-role" data-i18n="role_clinical">Clinical Assistant Professor</div>
           <div class="cv-org">Chungnam National University Hospital, Daejeon, South Korea</div>
-          <div class="cv-desc">Department of Plastic and Reconstructive Surgery.</div>
+          <div class="cv-desc" data-i18n="item_cnuh_dept">Department of Plastic and Reconstructive Surgery.</div>
         </div>
       </div>
 
       <div class="cv-item">
         <div class="cv-date">May. 2022 ~ Feb. 2024</div>
         <div>
-          <div class="cv-role">Clinical Fellow</div>
+          <div class="cv-role" data-i18n="item_fellow_role">Clinical Fellow</div>
           <div class="cv-org">Chungnam National University Hospital, Daejeon, South Korea</div>
-          <div class="cv-desc">Department of Plastic and Reconstructive Surgery.</div>
+          <div class="cv-desc" data-i18n="item_cnuh_dept">Department of Plastic and Reconstructive Surgery.</div>
         </div>
       </div>
 
       <div class="cv-item">
         <div class="cv-date">Apr. 2019 ~ Apr. 2022</div>
         <div>
-          <div class="cv-role">Army Medical Officer</div>
-          <div class="cv-org">Republic of Korea Army (7th Special Forces & 1115th Corps of Engineers)</div>
+          <div class="cv-role" data-i18n="item_army_role">Army Medical Officer</div>
+          <div class="cv-org" data-i18n="item_army_1115">1115th Corps of Engineers, Second Operations Command, ROK Army</div>
         </div>
       </div>
 
       <div class="cv-item">
         <div class="cv-date">Mar. 2014 ~ Feb. 2019</div>
         <div>
-          <div class="cv-role">Residency & Medical Internship</div>
+          <div class="cv-role" data-i18n="item_residency_role">Residency in Plastic & Reconstructive Surgery</div>
           <div class="cv-org">Chungnam National University Hospital, Daejeon, South Korea</div>
         </div>
       </div>
@@ -431,12 +434,12 @@
 
     <!-- Education -->
     <section class="cv-section">
-      <h2 class="cv-section-title"><i class="ri-graduation-cap-line"></i> Education</h2>
+      <h2 class="cv-section-title"><i class="ri-graduation-cap-line"></i> <span data-i18n="section_edu">Education</span></h2>
       
       <div class="cv-item">
         <div class="cv-date">Sep. 2021 ~ Aug. 2023</div>
         <div>
-          <div class="cv-role">Ph.D. in Medicine (Plastic & Reconstructive Surgery)</div>
+          <div class="cv-role" data-i18n="item_phd_role">Ph.D. in Medicine (Plastic & Reconstructive Surgery)</div>
           <div class="cv-org">Chungnam National University, South Korea</div>
         </div>
       </div>
@@ -444,7 +447,7 @@
       <div class="cv-item">
         <div class="cv-date">Mar. 2010 ~ Feb. 2014</div>
         <div>
-          <div class="cv-role">M.D. / M.S. in Medicine</div>
+          <div class="cv-role" data-i18n="item_ms_role">M.D. / M.S. in Medicine</div>
           <div class="cv-org">Chungnam National University, South Korea</div>
         </div>
       </div>
@@ -452,7 +455,7 @@
       <div class="cv-item">
         <div class="cv-date">Mar. 2006 ~ Feb. 2010</div>
         <div>
-          <div class="cv-role">B.S. in Computer Science</div>
+          <div class="cv-role" data-i18n="item_bs_role">B.S. in Computer Science</div>
           <div class="cv-org">KAIST (Korea Advanced Institute of Science and Technology), South Korea</div>
         </div>
       </div>
@@ -460,58 +463,58 @@
 
     <!-- Honors, Awards & Certifications -->
     <section class="cv-section">
-      <h2 class="cv-section-title"><i class="ri-award-line"></i> Honors, Awards & Certifications</h2>
+      <h2 class="cv-section-title"><i class="ri-award-line"></i> <span data-i18n="section_honors">Honors, Awards & Certifications</span></h2>
       
       <div class="cv-item">
         <div class="cv-date">Nov. 2024</div>
-        <div><div class="cv-role">Fellow of the Korean Wound Academy (FKWA)</div><div class="cv-org">Korean Wound Management Society</div></div>
+        <div><div class="cv-role" data-i18n="cert_fkwa">Fellow of the Korean Wound Academy (FKWA)</div><div class="cv-org" data-i18n="kwms_name">Korean Wound Management Society</div></div>
       </div>
       <div class="cv-item">
         <div class="cv-date">Feb. 2024</div>
-        <div><div class="cv-role">Medical Record Documentation Excellence Award</div><div class="cv-org">Chungnam National University Hospital</div></div>
+        <div><div class="cv-role" data-i18n="award_med_record">Medical Record Documentation Excellence Award</div><div class="cv-org">Chungnam National University Hospital</div></div>
       </div>
       <div class="cv-item">
         <div class="cv-date">Mar. 2023</div>
-        <div><div class="cv-role">Outstanding Reviewer Award</div><div class="cv-org">Journal of Wound Management and Research (JWMR)</div></div>
+        <div><div class="cv-role" data-i18n="award_reviewer">Outstanding Reviewer Award</div><div class="cv-org">Journal of Wound Management and Research (JWMR)</div></div>
       </div>
       <div class="cv-item">
         <div class="cv-date">Dec. 2022</div>
-        <div><div class="cv-role">Certified Physician in Biomedical Informatics (CPBMI)</div><div class="cv-org">Korea Society of Medical Informatics (KOSMI)</div></div>
+        <div><div class="cv-role" data-i18n="cert_cpbmi">Certified Physician in Biomedical Informatics (CPBMI)</div><div class="cv-org" data-i18n="kosmi_name">Korea Society of Medical Informatics (KOSMI)</div></div>
       </div>
       <div class="cv-item">
         <div class="cv-date">Aug. 2022</div>
-        <div><div class="cv-role">Outstanding Research Award</div><div class="cv-org">Graduate School of Chungnam National University</div></div>
+        <div><div class="cv-role" data-i18n="award_research">Outstanding Research Award</div><div class="cv-org" data-i18n="org_cnu_grad">Graduate School of Chungnam National University</div></div>
       </div>
       <div class="cv-item">
         <div class="cv-date">Nov. 2019</div>
-        <div><div class="cv-role">Brigadier General Commendation for Meritorious Service</div><div class="cv-org">7th Airborne Special Forces Brigade, ROK Army</div></div>
+        <div><div class="cv-role" data-i18n="award_army_commend">Brigadier General Commendation for Meritorious Service</div><div class="cv-org" data-i18n="item_army_7th">7th Airborne Special Forces Brigade, ROK Army</div></div>
       </div>
       <div class="cv-item">
         <div class="cv-date">Nov. 2019</div>
-        <div><div class="cv-role">Engineer Information Processing</div><div class="cv-org">Human Resources Development Service of Korea (HRDK)</div></div>
+        <div><div class="cv-role" data-i18n="cert_hrdk">Engineer Information Processing</div><div class="cv-org" data-i18n="hrdk_name">Human Resources Development Service of Korea (HRDK)</div></div>
       </div>
       <div class="cv-item">
         <div class="cv-date">Mar. 2019</div>
-        <div><div class="cv-role">Board Certified Specialist in Plastic & Reconstructive Surgery</div><div class="cv-org">Ministry of Health and Welfare, Republic of Korea</div></div>
+        <div><div class="cv-role" data-i18n="cert_board">Board Certified Specialist in Plastic & Reconstructive Surgery</div><div class="cv-org" data-i18n="mohw_name">Ministry of Health and Welfare, Republic of Korea</div></div>
       </div>
       <div class="cv-item">
         <div class="cv-date">Nov. 2017</div>
-        <div><div class="cv-role">3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz)</div><div class="cv-org">75th International Congress of KSPRS</div></div>
+        <div><div class="cv-role" data-i18n="award_golden_bell">3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz)</div><div class="cv-org">75th International Congress of KSPRS</div></div>
       </div>
       <div class="cv-item">
         <div class="cv-date">Jul. 2017</div>
-        <div><div class="cv-role">AOCMF Course — Management of Facial Trauma</div><div class="cv-org">AOCMF (AO Foundation)</div></div>
+        <div><div class="cv-role" data-i18n="cert_aocmf">AOCMF Course — Management of Facial Trauma</div><div class="cv-org">AOCMF (AO Foundation)</div></div>
       </div>
       <div class="cv-item">
         <div class="cv-date">Mar. 2014</div>
-        <div><div class="cv-role">Medical Doctor (M.D.) License</div><div class="cv-org">Ministry of Health and Welfare, Republic of Korea</div></div>
+        <div><div class="cv-role" data-i18n="cert_license">Medical Doctor (M.D.) License</div><div class="cv-org" data-i18n="mohw_name">Ministry of Health and Welfare, Republic of Korea</div></div>
       </div>
     </section>
 
     <!-- Research Specializations -->
     <section class="cv-section">
-      <h2 class="cv-section-title"><i class="ri-lightbulb-line"></i> Research Focus & Specializations</h2>
-      <div style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.7;">
+      <h2 class="cv-section-title"><i class="ri-lightbulb-line"></i> <span data-i18n="cv_sec_focus">Research Focus & Specializations</span></h2>
+      <div style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.7;" data-i18n="cv_focus_text">
         • <strong>Medical AI & Computer Vision:</strong> AI-driven Eyeball Exposure Rate (EER) Analysis, 3D Gaussian Splatting for Surgical Measurement.<br>
         • <strong>Wound Care & Infection:</strong> Clinical outcomes in Chronic Wounds, Thermal/Infrared Sensing, Surgical Site Infection (SSI) Prevention.<br>
         • <strong>Digital Health & Education:</strong> Virtual Reality (VR) Preoperative Patient Education, Smartphone LiDAR Clinical Applications.
@@ -520,7 +523,7 @@
 
     <!-- Peer-Reviewed Publications (Dynamic Auto-Sync) -->
     <section class="cv-section">
-      <h2 class="cv-section-title"><i class="ri-book-read-line"></i> Peer-Reviewed Publications</h2>
+      <h2 class="cv-section-title"><i class="ri-book-read-line"></i> <span data-i18n="cv_sec_pubs">Peer-Reviewed Publications</span></h2>
       <div id="cv-pub-list">
         <div style="color: var(--text-muted);">Loading live publication records...</div>
       </div>
@@ -528,6 +531,7 @@
 
   </div>
 
+  <script src="script.js?v=2.0"></script>
   <script>
     // Auto-fetch publications.json for real-time live synchronization
     document.addEventListener('DOMContentLoaded', async () => {
