@@ -105,7 +105,7 @@ const TRANSLATIONS = {
     name_header: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.)",
     name_hero: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.)",
     cv_bar_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) — 학술 이력서 (CV)",
-    brand_sub: "충남대병원, MGH & 하버드 의과대학",
+    brand_sub: "충남대학교병원, MGH & 하버드 의과대학",
     nav_about: "소개",
     nav_experience: "경력",
     nav_education: "학력",
