@@ -9,6 +9,9 @@ let containerEl, searchInputEl, toastEl, themeBtnEl, langBtnEl;
 
 const TRANSLATIONS = {
   en: {
+    name_header: "Hyeokjae Kwon, M.D., Ph.D.",
+    name_hero: "Hyeokjae Kwon, M.D., Ph.D.",
+    cv_bar_title: "Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae",
     brand_sub: "CNUH, MGH & Harvard Medical School",
     nav_about: "About",
     nav_experience: "Experience",
@@ -49,6 +52,7 @@ const TRANSLATIONS = {
     toast_copy: "Citation copied to clipboard",
 
     // Specific Items
+    org_cnuh: "Chungnam National University Hospital, Daejeon, South Korea",
     item_visiting_desc: "Collaborative research on clinical surgical innovation, medical AI, and surgical outcomes.",
     item_cnuh_dept: "Department of Plastic and Reconstructive Surgery.",
     item_fellow_role: "Clinical Fellow",
@@ -67,6 +71,8 @@ const TRANSLATIONS = {
     award_research: "Outstanding Research Award",
     award_army_commend: "Brigadier General Commendation for Meritorious Service",
     award_golden_bell: "3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz)",
+    award_golden_bell_sub: "Nov. 2017 — 75th International Congress of Korean Society of Plastic & Reconstructive Surgeons (KSPRS)",
+    cv_ksprs_sub: "75th International Congress of KSPRS",
     award_hygiene: "Hospital Infection Control & Hand Hygiene Excellence Award",
     cert_fkwa: "Fellow of the Korean Wound Academy (FKWA)",
     cert_cpbmi: "Certified Physician in Biomedical Informatics (CPBMI)",
@@ -81,6 +87,7 @@ const TRANSLATIONS = {
     kosmi_name: "Korea Society of Medical Informatics (KOSMI)",
     hrdk_name: "Human Resources Development Service of Korea (HRDK)",
     mohw_name: "Ministry of Health and Welfare, Republic of Korea",
+    ksprs_name: "Korean Society of Plastic and Reconstructive Surgeons (KSPRS)",
     
     // CV Page Specifics
     btn_back: "Return to Website",
@@ -92,6 +99,9 @@ const TRANSLATIONS = {
     cv_focus_text: "• <strong>Medical AI & Computer Vision:</strong> AI-driven Eyeball Exposure Rate (EER) Analysis, 3D Gaussian Splatting for Surgical Measurement.<br>• <strong>Digital Health & Preoperative VR:</strong> VR Simulation Preoperative Education, Mobile Wound Management Systems.<br>• <strong>Clinical Surgical Innovation:</strong> Surgical Site Infection (SSI) Prevention, Chronic Wound Healing, Facial Trauma Reconstruction."
   },
   kr: {
+    name_header: "권혁재",
+    name_hero: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.)",
+    cv_bar_title: "권혁재 — 학술 이력서 (CV)",
     brand_sub: "충남대병원, MGH & 하버드 의과대학",
     nav_about: "소개",
     nav_experience: "경력",
@@ -104,7 +114,7 @@ const TRANSLATIONS = {
     org_visiting: "매사추세츠 종합병원 (MGH) & 하버드 의과대학 (HMS), 미국",
     role_clinical: "임상조교수",
     org_clinical: "충남대학교병원 성형외과",
-    hero_bio: "권혁재 교수는 <strong>KAIST</strong> 전산학 학사와 <strong>충남대학교</strong> 의학사·석사·박사 학위를 보유한 융합형 연구자입니다. 성형외과 및 재건외과 영역에 인공지능(AI), 의료 컴퓨터 비전, 가상현실(VR) 수술 전 교육 기술을 융합하고 있으며, 만성 상처 치료 및 수술 부위 감염(SSI) 예방 연구를 집중적으로 수행하고 있습니다.",
+    hero_bio: "권혁재 교수는 <strong>KAIST</strong> 전산학 학사와 <strong>충남대학교</strong> 의무석사·박사 학위를 보유한 융합형 연구자입니다. 성형외과 및 재건외과 영역에 인공지능(AI), 의료 컴퓨터 비전, 가상현실(VR) 수술 전 교육 기술을 융합하고 있으며, 만성 상처 치료 및 수술 부위 감염(SSI) 예방 연구를 집중적으로 수행하고 있습니다.",
     btn_cv: "학술 이력서 (PDF)",
     section_exp: "주요 경력",
     section_edu: "학력",
@@ -128,12 +138,13 @@ const TRANSLATIONS = {
     contact_phone: "연구실 전화",
     contact_fax: "팩스",
     contact_orcid: "ORCID",
-    footer_copy: "© 2026 권혁재 (Hyeokjae Kwon, M.D., Ph.D.) | 충남대학교병원, 매사추세츠 종합병원 & 하버드 의과대학",
+    footer_copy: "© 2026 권혁재 (Hyeokjae Kwon) | 충남대학교병원, 매사추세츠 종합병원 & 하버드 의과대학",
     toast_copy: "인용문이 클립보드에 복사되었습니다",
 
     // Specific Items
+    org_cnuh: "충남대학교병원",
     item_visiting_desc: "임상 수술 혁신, 의료 AI 및 수술 성과에 대한 공동 연구.",
-    item_cnuh_dept: "충남대학교병원 성형외과.",
+    item_cnuh_dept: "성형외과",
     item_fellow_role: "전임의 (펠로우)",
     item_army_role: "육군 군의관",
     item_army_1115: "대한민국 육군 제2작전사령부 제1115공병단",
@@ -141,7 +152,7 @@ const TRANSLATIONS = {
     item_residency_role: "성형외과 전공의 (레지던트)",
     item_internship_role: "수련의 (인턴)",
     item_phd_role: "의학박사 (성형외과학 전공)",
-    item_ms_role: "의학사 / 의학석사",
+    item_ms_role: "의무석사",
     item_bs_role: "전산학 학사",
 
     // Awards & Certs
@@ -150,8 +161,10 @@ const TRANSLATIONS = {
     award_research: "우수 연구상",
     award_army_commend: "여단장 표창 (공로상)",
     award_golden_bell: "전국 성형외과 전공의 지식경진대회 3위 (골든벨 퀴즈)",
+    award_golden_bell_sub: "2017년 11월 — 대한성형외과학회 제75차 국제학술대회",
+    cv_ksprs_sub: "대한성형외과학회 제75차 국제학술대회",
     award_hygiene: "손위생 우수직원상",
-    cert_fkwa: "대한창상학회 펠로우 (FKWA)",
+    cert_fkwa: "대한창상학회 창상전문가(FKWA)",
     cert_cpbmi: "의료정보학 전문의 (CPBMI)",
     cert_hrdk: "정보처리기사",
     cert_board: "성형외과 전문의 자격증 (보건복지부)",
@@ -164,6 +177,7 @@ const TRANSLATIONS = {
     kosmi_name: "대한의료정보학회",
     hrdk_name: "한국산업인력공단",
     mohw_name: "대한민국 보건복지부",
+    ksprs_name: "대한성형외과학회",
 
     // CV Page Specifics
     btn_back: "메인 웹사이트로 돌아가기",
