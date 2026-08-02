@@ -238,7 +238,9 @@ function applyLanguage(lang) {
   // Update navbar language button label
   const langTextEl = document.getElementById('lang-text');
   if (langTextEl) {
-    langTextEl.innerHTML = lang === 'en' ? '🇰🇷 KR' : '🇺🇸 EN';
+    langTextEl.innerHTML = lang === 'en' 
+      ? '<img src="assets/flag_kr.svg" alt="KR" style="width:18px; height:12px; vertical-align:-1px; margin-right:4px; border-radius:2px;"> KR' 
+      : '<img src="assets/flag_us.svg" alt="US" style="width:18px; height:12px; vertical-align:-1px; margin-right:4px; border-radius:2px;"> EN';
   }
 
   // Update search input placeholder
