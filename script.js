@@ -171,7 +171,7 @@ const TRANSLATIONS = {
     cv_ksprs_sub: "PRS Korea 2017",
     award_hygiene: "손위생 우수직원상",
     cert_fkwa: "대한창상학회 창상전문가(FKWA)",
-    cert_cpbmi: "의료정보학 전문의 (CPBMI)",
+    cert_cpbmi: "정보의학인증의(CPBMI)",
     cert_hrdk: "정보처리기사",
     cert_board: "성형외과 전문의 자격증 (보건복지부)",
     cert_aocmf: "AOCMF 코스 — 안면외상 이수",
