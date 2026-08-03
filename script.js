@@ -206,10 +206,249 @@ document.addEventListener('DOMContentLoaded', () => {
   initLanguage();
   setupEmailProtection();
   setupScrollToTop();
+  setupCLITerminal();
   loadPublications();
   setupEventListeners();
   setupScrollSpy();
 });
+
+let cliHistory = [];
+let cliHistoryIndex = -1;
+
+function setupCLITerminal() {
+  const cliBtn = document.getElementById('cli-toggle-btn');
+  const cliModal = document.getElementById('cli-modal');
+  const cliCloseBtn = document.getElementById('cli-close-btn');
+  const cliInput = document.getElementById('cli-input');
+
+  if (!cliBtn || !cliModal) return;
+
+  function openCLI() {
+    cliModal.classList.add('active');
+    setTimeout(() => { if (cliInput) cliInput.focus(); }, 100);
+  }
+
+  function closeCLI() {
+    cliModal.classList.remove('active');
+  }
+
+  cliBtn.addEventListener('click', openCLI);
+  if (cliCloseBtn) cliCloseBtn.addEventListener('click', closeCLI);
+
+  cliModal.addEventListener('click', (e) => {
+    if (e.target === cliModal) closeCLI();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cliModal.classList.contains('active')) {
+      closeCLI();
+    }
+  });
+
+  if (cliInput) {
+    cliInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const cmdText = cliInput.value.trim();
+        if (cmdText) {
+          cliHistory.push(cmdText);
+          cliHistoryIndex = cliHistory.length;
+          executeCLICommand(cmdText);
+        }
+        cliInput.value = '';
+      } else if (e.key === 'ArrowUp') {
+        if (cliHistoryIndex > 0) {
+          cliHistoryIndex--;
+          cliInput.value = cliHistory[cliHistoryIndex];
+        }
+      } else if (e.key === 'ArrowDown') {
+        if (cliHistoryIndex < cliHistory.length - 1) {
+          cliHistoryIndex++;
+          cliInput.value = cliHistory[cliHistoryIndex];
+        } else {
+          cliHistoryIndex = cliHistory.length;
+          cliInput.value = '';
+        }
+      }
+    });
+  }
+}
+
+function executeCLICommand(cmd) {
+  const cliOutput = document.getElementById('cli-output');
+  const cliBody = document.getElementById('cli-body');
+  if (!cliOutput) return;
+
+  const parts = cmd.split(' ');
+  const mainCmd = parts[0].toLowerCase();
+  const args = parts.slice(1).join(' ').toLowerCase();
+
+  let responseHTML = '';
+
+  switch (mainCmd) {
+    case 'help':
+      responseHTML = `
+        <div class="cli-highlight">Available Commands:</div>
+        <div>  <span class="cli-success">whoami</span>       - Display Dr. Kwon's background and affiliations</div>
+        <div>  <span class="cli-success">bio</span>          - View interdisciplinary research bio</div>
+        <div>  <span class="cli-success">experience</span>   - List academic & clinical appointments</div>
+        <div>  <span class="cli-success">education</span>    - List academic degrees (KAIST & CNU)</div>
+        <div>  <span class="cli-success">pubs [query]</span> - List or search peer-reviewed publications</div>
+        <div>  <span class="cli-success">awards</span>       - View honors, certifications & awards</div>
+        <div>  <span class="cli-success">contact</span>      - Show email, phone & ORCID info</div>
+        <div>  <span class="cli-success">lang [kr|en]</span> - Switch site language</div>
+        <div>  <span class="cli-success">ls / dir</span>      - List virtual files</div>
+        <div>  <span class="cli-success">matrix</span>       - Trigger Matrix digital rain Easter egg</div>
+        <div>  <span class="cli-success">clear</span>        - Clear terminal screen</div>
+        <div>  <span class="cli-success">exit</span>         - Close CLI terminal</div>
+      `;
+      break;
+
+    case 'whoami':
+      responseHTML = `
+        <div><strong class="cli-highlight">Hyeokjae Kwon, M.D., Ph.D. (권혁재)</strong></div>
+        <div>• Plastic & Reconstructive Surgeon & Computer Scientist</div>
+        <div>• Visiting Professor, Massachusetts General Hospital (MGH) & Harvard Medical School (HMS)</div>
+        <div>• Clinical Assistant Professor, Chungnam National University Hospital (CNUH)</div>
+        <div>• B.S. in Computer Science from KAIST (2006 ~ 2010)</div>
+      `;
+      break;
+
+    case 'bio':
+      responseHTML = `
+        <div>${TRANSLATIONS[currentLang || 'en']['hero_bio']}</div>
+      `;
+      break;
+
+    case 'experience':
+      responseHTML = `
+        <div class="cli-highlight">Academic & Clinical Appointments:</div>
+        <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
+        <div>[2024 ~ Present] Clinical Assistant Professor - Chungnam National University Hospital (CNUH)</div>
+        <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
+        <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>
+        <div>[2015 ~ 2019] Resident - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
+      `;
+      break;
+
+    case 'education':
+      responseHTML = `
+        <div class="cli-highlight">Education:</div>
+        <div>[2021 ~ 2023] Ph.D. in Medicine (Plastic & Reconstructive Surgery) - Chungnam National University</div>
+        <div>[2010 ~ 2014] M.D. / M.S. in Medicine - Chungnam National University</div>
+        <div>[2006 ~ 2010] B.S. in Computer Science - KAIST (Korea Advanced Institute of Science and Technology)</div>
+      `;
+      break;
+
+    case 'pubs':
+    case 'publications':
+      let matched = publications;
+      if (args) {
+        matched = publications.filter(p => 
+          p.title.toLowerCase().includes(args) || 
+          p.journal.toLowerCase().includes(args) || 
+          p.year.toString().includes(args)
+        );
+      }
+      if (!matched || matched.length === 0) {
+        responseHTML = `<div style="color:#ef4444;">No publications found matching '${escapeHTML(args)}'.</div>`;
+      } else {
+        responseHTML = `<div class="cli-highlight">Publications (${matched.length} found):</div>`;
+        matched.slice(0, 8).forEach((p, idx) => {
+          responseHTML += `<div>[${idx + 1}] <strong>"${escapeHTML(p.title)}"</strong> - <em>${escapeHTML(p.journal)}</em> (${p.year})</div>`;
+        });
+        if (matched.length > 8) {
+          responseHTML += `<div style="color:#94a3b8;">...and ${matched.length - 8} more. Use search query e.g. 'pubs ai'</div>`;
+        }
+      }
+      break;
+
+    case 'awards':
+    case 'honors':
+      responseHTML = `
+        <div class="cli-highlight">Honors & Certifications:</div>
+        <div>• Fellow of the Korean Wound Academy (FKWA) - Nov. 2024</div>
+        <div>• Medical Record Documentation Excellence Award - Feb. 2024</div>
+        <div>• Outstanding Reviewer Award (JWMR) - Mar. 2023</div>
+        <div>• Certified Physician in Biomedical Informatics (CPBMI / 정보의학인증의) - Dec. 2022</div>
+        <div>• Outstanding Research Award, CNU Graduate School - Aug. 2022</div>
+        <div>• Brigadier General Commendation, 7th Special Forces Brigade - Nov. 2019</div>
+        <div>• Engineer Information Processing (정보처리기사) - Nov. 2019</div>
+        <div>• Board Certified Specialist in Plastic & Reconstructive Surgery - Mar. 2019</div>
+        <div>• 3rd Place, National Resident Knowledge Competition (PRS Korea 2017) - Nov. 2017</div>
+      `;
+      break;
+
+    case 'contact':
+      responseHTML = `
+        <div class="cli-highlight">Contact & Information:</div>
+        <div>• Email: kwon.hyeokjae@cnuh.co.kr</div>
+        <div>• Office Phone: +82 42-280-7380</div>
+        <div>• Location: Boston, MA, USA / Daejeon, South Korea</div>
+        <div>• ORCID: https://orcid.org/0000-0002-1418-3448</div>
+        <div>• Google Scholar: https://scholar.google.com/citations?user=ouc34HsAAAAJ</div>
+      `;
+      break;
+
+    case 'ls':
+    case 'dir':
+      responseHTML = `
+        <div style="color:#38bdf8;">
+          bio.txt          experience.txt    education.txt<br>
+          publications.json awards.txt       contact.txt<br>
+          orcid.link       scholar.link      matrix.sh
+        </div>
+      `;
+      break;
+
+    case 'lang':
+      if (args === 'kr' || args === 'en') {
+        currentLang = args;
+        localStorage.setItem('preferred_lang', currentLang);
+        applyLanguage(currentLang);
+        responseHTML = `<div class="cli-success">Language updated to ${args.toUpperCase()}.</div>`;
+      } else {
+        responseHTML = `<div>Usage: lang kr OR lang en. Current language: ${currentLang}</div>`;
+      }
+      break;
+
+    case 'clear':
+    case 'cls':
+      cliOutput.innerHTML = '';
+      return;
+
+    case 'exit':
+    case 'quit':
+      document.getElementById('cli-modal').classList.remove('active');
+      return;
+
+    case 'matrix':
+      responseHTML = `
+        <div class="cli-success" style="font-family:monospace; line-height:1.3;">
+          01001011 01000001 01001001 01000011 01010100<br>
+          01001101 01000100 00100000 01010000 01101000 01000100<br>
+          [SYSTEM]: KAIST CS + MGH / HARVARD MEDICAL SCHOOL AI MATRIX INITIALIZED...<br>
+          "Combining Computer Science and Plastic Surgery to innovate clinical care."
+        </div>
+      `;
+      break;
+
+    default:
+      responseHTML = `<div style="color:#ef4444;">Command not found: '${escapeHTML(cmd)}'. Type <span class="cli-success">'help'</span> for assistance.</div>`;
+      break;
+  }
+
+  const cmdDiv = document.createElement('div');
+  cmdDiv.className = 'cli-cmd-result';
+  cmdDiv.innerHTML = `
+    <div class="cli-cmd-history"><span class="cli-prompt">kwon@hms-mgh:~$</span> ${escapeHTML(cmd)}</div>
+    <div>${responseHTML}</div>
+  `;
+  cliOutput.appendChild(cmdDiv);
+
+  if (cliBody) {
+    cliBody.scrollTop = cliBody.scrollHeight;
+  }
+}
 
 function setupScrollToTop() {
   const scrollTopBtn = document.getElementById('scroll-top-btn');
