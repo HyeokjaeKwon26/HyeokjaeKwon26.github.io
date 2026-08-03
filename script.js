@@ -243,6 +243,8 @@ function setupCLITerminal() {
     if (e.key === 'Escape' && cliModal.classList.contains('active')) {
       closeCLI();
     }
+  });
+
   const cliForm = document.getElementById('cli-form');
 
   function handleRun() {
