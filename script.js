@@ -9,6 +9,8 @@ let containerEl, searchInputEl, toastEl, themeBtnEl, langBtnEl;
 
 const TRANSLATIONS = {
   en: {
+    page_title: "Hyeokjae Kwon, M.D., Ph.D. | Chungnam National University Hospital, MGH & Harvard Medical School",
+    cv_page_title: "Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae",
     name_header: "Hyeokjae Kwon, M.D., Ph.D.",
     name_hero: "Hyeokjae Kwon, M.D., Ph.D.",
     cv_bar_title: "Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae",
@@ -102,6 +104,8 @@ const TRANSLATIONS = {
     cv_focus_text: "• <strong>Medical AI & Computer Vision:</strong> AI-driven Eyeball Exposure Rate (EER) Analysis, 3D Gaussian Splatting for Surgical Measurement.<br>• <strong>Digital Health & Preoperative VR:</strong> VR Simulation Preoperative Education, Mobile Wound Management Systems.<br>• <strong>Clinical Surgical Innovation:</strong> Surgical Site Infection (SSI) Prevention, Chronic Wound Healing, Facial Trauma Reconstruction."
   },
   kr: {
+    page_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) | 충남대학교병원, MGH & 하버드 의과대학",
+    cv_page_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) — 학술 이력서 (CV)",
     name_header: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.)",
     name_hero: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.)",
     cv_bar_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) — 학술 이력서 (CV)",
@@ -248,6 +252,14 @@ function toggleLanguage() {
 
 function applyLanguage(lang) {
   const dict = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+
+  // Update browser tab document.title dynamically
+  const isCVPage = window.location.pathname.includes('cv.html');
+  if (isCVPage && dict['cv_page_title']) {
+    document.title = dict['cv_page_title'];
+  } else if (dict['page_title']) {
+    document.title = dict['page_title'];
+  }
   
   // Update all elements with data-i18n attribute
   document.querySelectorAll('[data-i18n]').forEach(el => {
