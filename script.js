@@ -404,6 +404,13 @@ function executeCLICommand(cmd) {
       responseHTML = `<div class="cli-success">🎓 KAIST Department of Computer Science (Class of '10) Alumni Pride!</div>`;
       break;
 
+    case 'cnu':
+    case 'cnuh':
+    case 'cnumed':
+    case 'cnu-med':
+      responseHTML = `<div class="cli-highlight">🩺 충남대학교 의과대학 & 충남대학교병원 (M.D., M.S., Ph.D.) Alumni & Faculty Pride! 🏛️</div>`;
+      break;
+
     case 'harvard':
     case 'mgh':
     case 'hms':
