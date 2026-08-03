@@ -335,6 +335,8 @@ function executeCLICommand(cmd) {
       break;
 
     case 'whoami':
+    case 'who':
+    case 'id':
       responseHTML = `
         <div><strong class="cli-highlight">Hyeokjae Kwon, M.D., Ph.D. (권혁재)</strong></div>
         <div>• Plastic & Reconstructive Surgeon & Computer Scientist</div>
@@ -342,6 +344,88 @@ function executeCLICommand(cmd) {
         <div>• Clinical Assistant Professor, Chungnam National University Hospital (CNUH)</div>
         <div>• B.S. in Computer Science from KAIST (2006 ~ 2010)</div>
       `;
+      break;
+
+    case 'cat':
+      const targetFile = args.replace(/\.txt|\.json|\.link|\.sh/g, '').trim();
+      if (targetFile === 'bio') {
+        responseHTML = `<div>${TRANSLATIONS[currentLang || 'en']['hero_bio']}</div>`;
+      } else if (targetFile === 'experience' || targetFile === 'exp') {
+        responseHTML = `
+          <div class="cli-highlight">Academic & Clinical Appointments:</div>
+          <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
+          <div>[2024 ~ Present] Clinical Assistant Professor - Chungnam National University Hospital (CNUH)</div>
+          <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
+          <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>
+          <div>[2015 ~ 2019] Resident - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
+        `;
+      } else if (targetFile === 'education' || targetFile === 'edu') {
+        responseHTML = `
+          <div class="cli-highlight">Education:</div>
+          <div>[2021 ~ 2023] Ph.D. in Medicine (Plastic & Reconstructive Surgery) - Chungnam National University</div>
+          <div>[2010 ~ 2014] M.D. / M.S. in Medicine - Chungnam National University</div>
+          <div>[2006 ~ 2010] B.S. in Computer Science - KAIST (Korea Advanced Institute of Science and Technology)</div>
+        `;
+      } else if (targetFile === 'contact') {
+        responseHTML = `
+          <div class="cli-highlight">Contact & Information:</div>
+          <div>• Email: kwon.hyeokjae@cnuh.co.kr</div>
+          <div>• Office Phone: +82 42-280-7380</div>
+          <div>• Location: Boston, MA, USA / Daejeon, South Korea</div>
+          <div>• ORCID: https://orcid.org/0000-0002-1418-3448</div>
+          <div>• Google Scholar: https://scholar.google.com/citations?user=ouc34HsAAAAJ</div>
+        `;
+      } else if (targetFile === 'orcid') {
+        responseHTML = `<div>https://orcid.org/0000-0002-1418-3448</div>`;
+      } else if (targetFile === 'scholar') {
+        responseHTML = `<div>https://scholar.google.com/citations?user=ouc34HsAAAAJ</div>`;
+      } else if (targetFile === 'matrix') {
+        responseHTML = `
+          <div class="cli-success" style="font-family:monospace; line-height:1.3;">
+            01001011 01000001 01001001 01000011 01010100<br>
+            01001101 01000100 00100000 01010000 01101000 01000100<br>
+            [SYSTEM]: KAIST CS + MGH / HARVARD MEDICAL SCHOOL AI MATRIX INITIALIZED...
+          </div>
+        `;
+      } else {
+        responseHTML = `<div style="color:#ef4444;">cat: ${escapeHTML(args)}: No such file or directory. Try 'ls' to view files.</div>`;
+      }
+      break;
+
+    case 'pwd':
+      responseHTML = `<div>/home/hyeokjae/harvard_mgh_cnuh</div>`;
+      break;
+
+    case 'sudo':
+      responseHTML = `<div style="color:#ef4444;">[PERMISSION DENIED]: Nice try! Dr. Kwon's site is secured with root defense. 🛡️</div>`;
+      break;
+
+    case 'kaist':
+      responseHTML = `<div class="cli-success">🎓 KAIST Department of Computer Science (Class of '10) Alumni Pride!</div>`;
+      break;
+
+    case 'harvard':
+    case 'mgh':
+    case 'hms':
+      responseHTML = `<div class="cli-highlight">🏛️ Massachusetts General Hospital & Harvard Medical School - Visiting Professor (2026 ~ Present)</div>`;
+      break;
+
+    case 'date':
+      responseHTML = `<div>${new Date().toUTCString()}</div>`;
+      break;
+
+    case 'ping':
+      responseHTML = `
+        <div class="cli-success">PING hyeokjaekwon26.github.io (185.199.108.153): 56 data bytes</div>
+        <div>64 bytes from 185.199.108.153: icmp_seq=0 ttl=57 time=1.182 ms</div>
+        <div>64 bytes from 185.199.108.153: icmp_seq=1 ttl=57 time=1.045 ms</div>
+        <div class="cli-highlight">--- hyeokjaekwon26.github.io ping statistics --- 2 packets transmitted, 0% packet loss</div>
+      `;
+      break;
+
+    case 'theme':
+      toggleTheme();
+      responseHTML = `<div class="cli-success">Theme toggled successfully!</div>`;
       break;
 
     case 'bio':
