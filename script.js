@@ -215,6 +215,16 @@ document.addEventListener('DOMContentLoaded', () => {
 let cliHistory = [];
 let cliHistoryIndex = -1;
 
+function escapeHTML(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 function setupCLITerminal() {
   const cliBtn = document.getElementById('cli-toggle-btn');
   const cliModal = document.getElementById('cli-modal');
