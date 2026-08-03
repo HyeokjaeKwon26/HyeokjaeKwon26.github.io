@@ -204,10 +204,26 @@ document.addEventListener('DOMContentLoaded', () => {
   cacheDOMElements();
   initTheme();
   initLanguage();
+  setupEmailProtection();
   loadPublications();
   setupEventListeners();
   setupScrollSpy();
 });
+
+function setupEmailProtection() {
+  document.querySelectorAll('.protected-email').forEach(el => {
+    try {
+      const u = atob(el.getAttribute('data-u') || '');
+      const d = atob(el.getAttribute('data-d') || '');
+      if (u && d) {
+        const email = `${u}@${d}`;
+        el.innerHTML = `<a href="mailto:${email}">${email}</a>`;
+      }
+    } catch (e) {
+      console.error('Email decode error:', e);
+    }
+  });
+}
 
 function cacheDOMElements() {
   containerEl = document.getElementById('pub-list-container');
