@@ -243,19 +243,29 @@ function setupCLITerminal() {
     if (e.key === 'Escape' && cliModal.classList.contains('active')) {
       closeCLI();
     }
-  });
+  const cliForm = document.getElementById('cli-form');
+
+  function handleRun() {
+    if (!cliInput) return;
+    const cmdText = cliInput.value.trim();
+    if (cmdText) {
+      cliHistory.push(cmdText);
+      cliHistoryIndex = cliHistory.length;
+    }
+    executeCLICommand(cmdText);
+    cliInput.value = '';
+  }
+
+  if (cliForm) {
+    cliForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleRun();
+    });
+  }
 
   if (cliInput) {
     cliInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const cmdText = cliInput.value.trim();
-        if (cmdText) {
-          cliHistory.push(cmdText);
-          cliHistoryIndex = cliHistory.length;
-          executeCLICommand(cmdText);
-        }
-        cliInput.value = '';
-      } else if (e.key === 'ArrowUp') {
+      if (e.key === 'ArrowUp') {
         if (cliHistoryIndex > 0) {
           cliHistoryIndex--;
           cliInput.value = cliHistory[cliHistoryIndex];
@@ -277,6 +287,15 @@ function executeCLICommand(cmd) {
   const cliOutput = document.getElementById('cli-output');
   const cliBody = document.getElementById('cli-body');
   if (!cliOutput) return;
+
+  if (!cmd || cmd.trim() === '') {
+    const cmdDiv = document.createElement('div');
+    cmdDiv.className = 'cli-cmd-result';
+    cmdDiv.innerHTML = `<div class="cli-cmd-history"><span class="cli-prompt">kwon@hms-mgh:~$</span></div>`;
+    cliOutput.appendChild(cmdDiv);
+    if (cliBody) cliBody.scrollTop = cliBody.scrollHeight;
+    return;
+  }
 
   const parts = cmd.split(' ');
   const mainCmd = parts[0].toLowerCase();

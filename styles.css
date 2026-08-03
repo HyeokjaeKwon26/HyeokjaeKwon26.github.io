@@ -986,6 +986,29 @@ footer {
   color: #34d399;
 }
 
+.cli-run-btn {
+  background: #1e293b;
+  color: #38bdf8;
+  border: 1px solid #334155;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cli-run-btn:hover {
+  background: #334155;
+  color: #7dd3fc;
+  border-color: #38bdf8;
+}
+
 @media (max-width: 768px) {
   .cli-window {
     height: 85vh;
