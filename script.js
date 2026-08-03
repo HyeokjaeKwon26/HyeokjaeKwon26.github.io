@@ -205,10 +205,31 @@ document.addEventListener('DOMContentLoaded', () => {
   initTheme();
   initLanguage();
   setupEmailProtection();
+  setupScrollToTop();
   loadPublications();
   setupEventListeners();
   setupScrollSpy();
 });
+
+function setupScrollToTop() {
+  const scrollTopBtn = document.getElementById('scroll-top-btn');
+  if (!scrollTopBtn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      scrollTopBtn.classList.add('visible');
+    } else {
+      scrollTopBtn.classList.remove('visible');
+    }
+  });
+
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
 
 function setupEmailProtection() {
   document.querySelectorAll('.protected-email').forEach(el => {
