@@ -834,10 +834,11 @@ footer {
 
 /* Developer CLI Terminal Button & Modal */
 .cli-btn {
-  background: #0f172a;
-  color: #38bdf8;
-  border: 1px solid #1e293b;
-  padding: 6px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  height: 34px;
+  padding: 0 10px;
   border-radius: 6px;
   font-size: 0.82rem;
   font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
@@ -846,14 +847,13 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  transition: all 0.2s ease;
+  transition: var(--transition);
 }
 
 .cli-btn:hover {
-  background: #1e293b;
-  color: #7dd3fc;
-  border-color: #38bdf8;
-  box-shadow: 0 0 10px rgba(56, 189, 248, 0.25);
+  background: var(--border-color);
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
 }
 
 .cli-modal-overlay {

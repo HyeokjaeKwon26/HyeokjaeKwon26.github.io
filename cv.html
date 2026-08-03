@@ -360,9 +360,6 @@
   <div class="top-bar">
     <h2><i class="ri-file-user-line"></i> <span data-i18n="cv_bar_title">Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae</span></h2>
     <div class="top-bar-btns">
-      <button class="cli-btn" id="cli-toggle-btn" title="Developer CLI Terminal Mode">
-        <i class="ri-terminal-box-line"></i> <span>CLI</span>
-      </button>
       <button class="top-btn btn-back" id="lang-toggle-btn" title="Switch Language (EN/KR)">
         <span id="lang-text"><img src="assets/flag_kr.svg" alt="KR" style="width:18px; height:12px; vertical-align:-1px; margin-right:5px; border-radius:2px; box-shadow:0 0 1px rgba(0,0,0,0.4); object-fit:cover;"> KR</span>
       </button>
@@ -585,37 +582,5 @@
   <button class="scroll-top-btn" id="scroll-top-btn" title="Scroll to top" aria-label="Scroll to top">
     <i class="ri-arrow-up-line"></i>
   </button>
-
-  <!-- Developer CLI Terminal Modal -->
-  <div class="cli-modal-overlay" id="cli-modal">
-    <div class="cli-window">
-      <div class="cli-header">
-        <div class="cli-controls">
-          <span class="cli-btn-close" id="cli-close-btn" title="Close Terminal"></span>
-          <span class="cli-btn-minimize"></span>
-          <span class="cli-btn-maximize"></span>
-        </div>
-        <div class="cli-title">kwon@hms-mgh:~ (zsh) — Developer CLI Mode</div>
-        <div style="width: 50px;"></div>
-      </div>
-      <div class="cli-body" id="cli-body">
-        <div class="cli-welcome">
-          <pre class="cli-ascii">
-  _  ____      ______  _   _ 
- | |/ /\ \    / / __ \| \ | |  Dr. Hyeokjae Kwon, M.D., Ph.D.
- | ' /  \ \  / / |  | |  \| |  Computer Scientist (KAIST) & Plastic Surgeon
- |  <    \ \/ /| |  | | . ` |  CNUH | MGH & Harvard Medical School
- |_|\_\    \__/  \____/|_|\_|  Type 'help' to view available commands.
-          </pre>
-        </div>
-        <div id="cli-output"></div>
-        <form class="cli-input-line" id="cli-form" action="javascript:void(0);">
-          <span class="cli-prompt">kwon@hms-mgh:~$</span>
-          <input type="text" id="cli-input" class="cli-input" autocomplete="off" spellcheck="false" placeholder="Type a command (e.g. help, whoami, pubs, bio, contact)...">
-          <button type="submit" class="cli-run-btn" id="cli-run-btn"><i class="ri-corner-down-left-line"></i> Run</button>
-        </form>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
