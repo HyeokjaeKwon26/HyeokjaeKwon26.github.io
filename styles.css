@@ -1010,15 +1010,39 @@ footer {
 }
 
 @media (max-width: 768px) {
+  .cli-modal-overlay {
+    padding: 8px;
+  }
   .cli-window {
-    height: 85vh;
+    height: 92dvh;
+    max-height: 92dvh;
     border-radius: 8px;
   }
-  .cli-ascii {
-    font-size: 0.58rem;
+  .cli-title {
+    font-size: 0.72rem;
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .cli-body {
-    padding: 12px;
-    font-size: 0.82rem;
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+  .cli-ascii {
+    font-size: clamp(0.38rem, 2.2vw, 0.58rem);
+    overflow-x: auto;
+    white-space: pre;
+    margin-bottom: 10px;
+  }
+  .cli-input-line {
+    gap: 6px;
+  }
+  .cli-prompt {
+    font-size: 0.78rem;
+  }
+  .cli-run-btn {
+    padding: 4px 8px;
+    font-size: 0.75rem;
   }
 }
