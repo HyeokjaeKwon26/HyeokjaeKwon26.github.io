@@ -1075,6 +1075,7 @@ function startSnakeGame(mountId) {
         <button class="cli-game-btn" id="snake-btn-left">◄</button>
         <button class="cli-game-btn" id="snake-btn-down">▼</button>
         <button class="cli-game-btn" id="snake-btn-right">►</button>
+        <button class="cli-game-btn" id="snake-restart-btn" style="background:#0284c7; color:#fff; border-color:#38bdf8;">🔄 Restart</button>
       </div>
     </div>
   `;
@@ -1111,6 +1112,7 @@ function startSnakeGame(mountId) {
   document.getElementById('snake-btn-down').onclick = () => handleDirection('DOWN');
   document.getElementById('snake-btn-left').onclick = () => handleDirection('LEFT');
   document.getElementById('snake-btn-right').onclick = () => handleDirection('RIGHT');
+  document.getElementById('snake-restart-btn').onclick = () => startSnakeGame(mountId);
 
   const keyHandler = (e) => {
     if (e.key === 'ArrowUp' || e.key === 'w') handleDirection('UP');
@@ -1181,8 +1183,14 @@ function startSnakeGame(mountId) {
     const gameContainer = mount.querySelector('.cli-game-container');
     if (gameContainer && !gameContainer.querySelector('.cli-lb-container')) {
       const lbDiv = document.createElement('div');
-      lbDiv.innerHTML = renderLeaderboardHTML('snake', score);
+      lbDiv.innerHTML = `
+        <div style="text-align:center; margin:10px 0;">
+          <button class="cli-game-btn" id="snake-gameover-restart-btn" style="background:#2563eb; color:#fff; padding:8px 16px; font-size:0.9rem; font-weight:bold; width:100%; box-shadow:0 0 10px rgba(37,99,235,0.4);">🎮 Play Again / Restart 🔄</button>
+        </div>
+      ` + renderLeaderboardHTML('snake', score);
       gameContainer.appendChild(lbDiv);
+      const reBtn = lbDiv.querySelector('#snake-gameover-restart-btn');
+      if (reBtn) reBtn.onclick = () => startSnakeGame(mountId);
     }
   }
 
