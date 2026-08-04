@@ -347,8 +347,11 @@ function executeCLICommand(cmd) {
         <div><strong class="cli-highlight">Hyeokjae Kwon, M.D., Ph.D. (권혁재)</strong></div>
         <div>• Plastic & Reconstructive Surgeon & Computer Scientist</div>
         <div>• Visiting Professor, Massachusetts General Hospital (MGH) & Harvard Medical School (HMS)</div>
-        <div>• Clinical Assistant Professor, Chungnam National University Hospital (CNUH)</div>
-        <div>• B.S. in Computer Science from KAIST (2006 ~ 2010)</div>
+        <div>• Clinical Assistant Professor, Dept. of Plastic & Reconstructive Surgery, CNUH</div>
+        <div style="margin-top:6px;"><strong class="cli-highlight">Education & Degrees:</strong></div>
+        <div>• Ph.D. in Medicine (Plastic & Reconstructive Surgery) — Chungnam National University (2021 ~ 2023)</div>
+        <div>• M.D. / M.S. in Medicine — Chungnam National University (2010 ~ 2014)</div>
+        <div>• B.S. in Computer Science — KAIST (2006 ~ 2010)</div>
       `;
       break;
 
