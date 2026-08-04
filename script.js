@@ -276,6 +276,12 @@ function setupCLITerminal() {
   }
 
   if (cliInput) {
+    cliInput.addEventListener('focus', () => {
+      setTimeout(() => {
+        if (cliBody) cliBody.scrollTop = cliBody.scrollHeight;
+      }, 200);
+    });
+
     cliInput.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowUp') {
         if (cliHistoryIndex > 0) {
