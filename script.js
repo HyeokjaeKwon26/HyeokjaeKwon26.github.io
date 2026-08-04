@@ -301,6 +301,33 @@ function setupCLITerminal() {
   }
 }
 
+function logAnalyticsEvent(eventName, params = {}) {
+  try {
+    if (typeof gtag === 'function') {
+      gtag('event', eventName, params);
+    }
+  } catch (err) {}
+}
+
+function saveLocalGameLog(gameName, detail) {
+  try {
+    let logs = JSON.parse(localStorage.getItem('cli_game_logs') || '[]');
+    const now = new Date();
+    const timeStr = `${now.getMonth()+1}/${now.getDate()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+    logs.unshift({ game: gameName, detail: detail, time: timeStr });
+    if (logs.length > 20) logs = logs.slice(0, 20);
+    localStorage.setItem('cli_game_logs', JSON.stringify(logs));
+  } catch (e) {}
+}
+
+function getLocalGameLogs() {
+  try {
+    return JSON.parse(localStorage.getItem('cli_game_logs') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
 function executeCLICommand(cmd) {
   const cliOutput = document.getElementById('cli-output');
   const cliBody = document.getElementById('cli-body');
@@ -318,6 +345,8 @@ function executeCLICommand(cmd) {
   const parts = cmd.split(' ');
   const mainCmd = parts[0].toLowerCase();
   const args = parts.slice(1).join(' ').toLowerCase();
+
+  logAnalyticsEvent('cli_command_executed', { command: mainCmd, full_cmd: cmd });
 
   let responseHTML = '';
 
@@ -579,6 +608,19 @@ function executeCLICommand(cmd) {
     case 'guess':
       responseHTML = `<div class="cli-highlight">🎮 Launching Number Guessing Game (1 ~ 100)...</div><div id="game-guess-mount"></div>`;
       setTimeout(() => startGuessGame('game-guess-mount'), 50);
+      break;
+
+    case 'gamelog':
+    case 'gamelogs':
+      const logs = getLocalGameLogs();
+      if (logs.length === 0) {
+        responseHTML = `<div style="color:#94a3b8;">No local game logs recorded yet. Play a game to record scores!</div>`;
+      } else {
+        responseHTML = `<div class="cli-highlight">🎮 Local Game Play Log History:</div>`;
+        logs.forEach(l => {
+          responseHTML += `<div>[${l.time}] <span class="cli-success">${escapeHTML(l.game)}</span> — ${escapeHTML(l.detail)}</div>`;
+        });
+      }
       break;
 
     case 'clear':
@@ -938,6 +980,9 @@ function startSnakeGame(mountId) {
 
   if (currentSnakeLoop) clearInterval(currentSnakeLoop);
 
+  logAnalyticsEvent('cli_game_start', { game_name: 'snake' });
+  saveLocalGameLog('Snake Game', 'Game Started');
+
   mount.innerHTML = `
     <div class="cli-game-container">
       <div class="cli-game-header">
@@ -1041,6 +1086,8 @@ function startSnakeGame(mountId) {
     gameOver = true;
     clearInterval(currentSnakeLoop);
     document.removeEventListener('keydown', keyHandler);
+    logAnalyticsEvent('cli_game_over', { game_name: 'snake', score: score });
+    saveLocalGameLog('Snake Game', `Score: ${score}`);
     ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = '#ef4444';
@@ -1058,6 +1105,9 @@ function startSnakeGame(mountId) {
 function startTTTGame(mountId) {
   const mount = document.getElementById(mountId);
   if (!mount) return;
+
+  logAnalyticsEvent('cli_game_start', { game_name: 'tictactoe' });
+  saveLocalGameLog('Tic-Tac-Toe', 'Game Started');
 
   let board = ['', '', '', '', '', '', '', '', ''];
   let gameActive = true;
@@ -1145,6 +1195,9 @@ function startTTTGame(mountId) {
 function startGuessGame(mountId) {
   const mount = document.getElementById(mountId);
   if (!mount) return;
+
+  logAnalyticsEvent('cli_game_start', { game_name: 'number_guess' });
+  saveLocalGameLog('Number Guess', 'Game Started');
 
   const targetNum = Math.floor(Math.random() * 100) + 1;
   let attempts = 0;
