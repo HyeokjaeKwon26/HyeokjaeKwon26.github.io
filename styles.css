@@ -890,7 +890,7 @@ footer {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  font-family: 'Consolas', 'Cascadia Code', 'Courier New', monospace !important;
 }
 
 .cli-header {
@@ -934,6 +934,7 @@ footer {
   color: #e2e8f0;
   font-size: 0.88rem;
   line-height: 1.6;
+  font-family: 'Consolas', 'Cascadia Code', 'Courier New', monospace !important;
 }
 
 .cli-ascii {
@@ -942,6 +943,7 @@ footer {
   line-height: 1.25;
   margin-bottom: 16px;
   white-space: pre;
+  font-family: 'Consolas', 'Cascadia Code', 'Courier New', monospace !important;
 }
 
 .cli-input-line {
