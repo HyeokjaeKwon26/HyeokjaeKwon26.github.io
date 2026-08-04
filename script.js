@@ -332,6 +332,7 @@ function executeCLICommand(cmd) {
         <div>  <span class="cli-success">pubs [query]</span> - List or search peer-reviewed publications</div>
         <div>  <span class="cli-success">awards</span>       - View honors, certifications & awards</div>
         <div>  <span class="cli-success">contact</span>      - Show email, phone & ORCID info</div>
+        <div>  <span class="cli-success">game [snake|guess|ttt]</span> - Play retro CLI mini games 🎮</div>
         <div>  <span class="cli-success">lang [kr|en]</span> - Switch site language</div>
         <div>  <span class="cli-success">ls / dir</span>      - List virtual files</div>
         <div>  <span class="cli-success">matrix</span>       - Trigger Matrix digital rain Easter egg</div>
@@ -540,6 +541,44 @@ function executeCLICommand(cmd) {
       } else {
         responseHTML = `<div>Usage: lang kr OR lang en. Current language: ${currentLang}</div>`;
       }
+      break;
+
+    case 'game':
+    case 'games':
+      if (args === 'snake') {
+        responseHTML = `<div class="cli-highlight">🎮 Launching Retro Snake Game...</div><div id="game-snake-mount"></div>`;
+        setTimeout(() => startSnakeGame('game-snake-mount'), 50);
+      } else if (args === 'ttt' || args === 'tictactoe') {
+        responseHTML = `<div class="cli-highlight">🎮 Launching Tic-Tac-Toe vs AI...</div><div id="game-ttt-mount"></div>`;
+        setTimeout(() => startTTTGame('game-ttt-mount'), 50);
+      } else if (args === 'guess') {
+        responseHTML = `<div class="cli-highlight">🎮 Launching Number Guessing Game (1 ~ 100)...</div><div id="game-guess-mount"></div>`;
+        setTimeout(() => startGuessGame('game-guess-mount'), 50);
+      } else {
+        responseHTML = `
+          <div class="cli-highlight">🎮 Available CLI Retro Mini Games:</div>
+          <div>  • <span class="cli-success">game snake</span> - Classic Retro Snake Game 🐍</div>
+          <div>  • <span class="cli-success">game ttt</span>   - Tic-Tac-Toe vs Medical AI ❌⭕</div>
+          <div>  • <span class="cli-success">game guess</span> - Number Guessing Game (1 ~ 100) 🎯</div>
+          <div style="margin-top:6px; color:#94a3b8;">Type e.g. <span class="cli-success">'snake'</span> or <span class="cli-success">'game snake'</span> to start playing!</div>
+        `;
+      }
+      break;
+
+    case 'snake':
+      responseHTML = `<div class="cli-highlight">🎮 Launching Retro Snake Game...</div><div id="game-snake-mount"></div>`;
+      setTimeout(() => startSnakeGame('game-snake-mount'), 50);
+      break;
+
+    case 'ttt':
+    case 'tictactoe':
+      responseHTML = `<div class="cli-highlight">🎮 Launching Tic-Tac-Toe vs AI...</div><div id="game-ttt-mount"></div>`;
+      setTimeout(() => startTTTGame('game-ttt-mount'), 50);
+      break;
+
+    case 'guess':
+      responseHTML = `<div class="cli-highlight">🎮 Launching Number Guessing Game (1 ~ 100)...</div><div id="game-guess-mount"></div>`;
+      setTimeout(() => startGuessGame('game-guess-mount'), 50);
       break;
 
     case 'clear':
@@ -888,4 +927,266 @@ function setupScrollSpy() {
   }, { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" });
 
   sections.forEach(sec => observer.observe(sec));
+}
+
+/* CLI Mini Games Implementation */
+let currentSnakeLoop = null;
+
+function startSnakeGame(mountId) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+
+  if (currentSnakeLoop) clearInterval(currentSnakeLoop);
+
+  mount.innerHTML = `
+    <div class="cli-game-container">
+      <div class="cli-game-header">
+        <span>🐍 Retro Snake Game</span>
+        <span>Score: <span id="snake-score">0</span></span>
+      </div>
+      <canvas id="snake-canvas" width="240" height="160" class="cli-snake-canvas"></canvas>
+      <div class="cli-game-controls">
+        <button class="cli-game-btn" id="snake-btn-up">▲</button>
+      </div>
+      <div class="cli-game-controls">
+        <button class="cli-game-btn" id="snake-btn-left">◄</button>
+        <button class="cli-game-btn" id="snake-btn-down">▼</button>
+        <button class="cli-game-btn" id="snake-btn-right">►</button>
+      </div>
+    </div>
+  `;
+
+  const canvas = document.getElementById('snake-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const gridSize = 10;
+  const tileCountX = canvas.width / gridSize;
+  const tileCountY = canvas.height / gridSize;
+
+  let snake = [{ x: 5, y: 5 }, { x: 4, y: 5 }, { x: 3, y: 5 }];
+  let food = { x: 15, y: 8 };
+  let dx = 1;
+  let dy = 0;
+  let score = 0;
+  let gameOver = false;
+
+  function placeFood() {
+    food = {
+      x: Math.floor(Math.random() * tileCountX),
+      y: Math.floor(Math.random() * tileCountY)
+    };
+  }
+
+  function handleDirection(dir) {
+    if (dir === 'UP' && dy === 0) { dx = 0; dy = -1; }
+    if (dir === 'DOWN' && dy === 0) { dx = 0; dy = 1; }
+    if (dir === 'LEFT' && dx === 0) { dx = -1; dy = 0; }
+    if (dir === 'RIGHT' && dx === 0) { dx = 1; dy = 0; }
+  }
+
+  document.getElementById('snake-btn-up').onclick = () => handleDirection('UP');
+  document.getElementById('snake-btn-down').onclick = () => handleDirection('DOWN');
+  document.getElementById('snake-btn-left').onclick = () => handleDirection('LEFT');
+  document.getElementById('snake-btn-right').onclick = () => handleDirection('RIGHT');
+
+  const keyHandler = (e) => {
+    if (e.key === 'ArrowUp' || e.key === 'w') handleDirection('UP');
+    if (e.key === 'ArrowDown' || e.key === 's') handleDirection('DOWN');
+    if (e.key === 'ArrowLeft' || e.key === 'a') handleDirection('LEFT');
+    if (e.key === 'ArrowRight' || e.key === 'd') handleDirection('RIGHT');
+  };
+  document.addEventListener('keydown', keyHandler);
+
+  function draw() {
+    if (gameOver) return;
+
+    const head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+    if (head.x < 0 || head.x >= tileCountX || head.y < 0 || head.y >= tileCountY) {
+      endGame();
+      return;
+    }
+
+    for (let i = 0; i < snake.length; i++) {
+      if (snake[i].x === head.x && snake[i].y === head.y) {
+        endGame();
+        return;
+      }
+    }
+
+    snake.unshift(head);
+
+    if (head.x === food.x && head.y === food.y) {
+      score += 10;
+      const scoreEl = document.getElementById('snake-score');
+      if (scoreEl) scoreEl.innerText = score;
+      placeFood();
+    } else {
+      snake.pop();
+    }
+
+    ctx.fillStyle = '#050811';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#ef4444';
+    ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize - 1, gridSize - 1);
+
+    ctx.fillStyle = '#34d399';
+    for (let i = 0; i < snake.length; i++) {
+      ctx.fillRect(snake[i].x * gridSize, snake[i].y * gridSize, gridSize - 1, gridSize - 1);
+    }
+  }
+
+  function endGame() {
+    gameOver = true;
+    clearInterval(currentSnakeLoop);
+    document.removeEventListener('keydown', keyHandler);
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#ef4444';
+    ctx.font = 'bold 14px monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText('GAME OVER!', canvas.width / 2, canvas.height / 2 - 10);
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = '12px monospace';
+    ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 15);
+  }
+
+  currentSnakeLoop = setInterval(draw, 120);
+}
+
+function startTTTGame(mountId) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+
+  let board = ['', '', '', '', '', '', '', '', ''];
+  let gameActive = true;
+
+  mount.innerHTML = `
+    <div class="cli-game-container">
+      <div class="cli-game-header">
+        <span>❌⭕ Tic-Tac-Toe vs Medical AI</span>
+        <span id="ttt-status" style="color:#34d399;">Your Turn (X)</span>
+      </div>
+      <div class="cli-ttt-grid">
+        ${[0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => `<div class="cli-ttt-cell" data-idx="${i}"></div>`).join('')}
+      </div>
+      <div class="cli-game-controls">
+        <button class="cli-game-btn" id="ttt-reset-btn">Restart Game</button>
+      </div>
+    </div>
+  `;
+
+  const cells = mount.querySelectorAll('.cli-ttt-cell');
+  const statusEl = mount.querySelector('#ttt-status');
+
+  function checkWin(b, player) {
+    const winConditions = [
+      [0,1,2], [3,4,5], [6,7,8],
+      [0,3,6], [1,4,7], [2,5,8],
+      [0,4,8], [2,4,6]
+    ];
+    return winConditions.some(c => c.every(idx => b[idx] === player));
+  }
+
+  function aiMove() {
+    if (!gameActive) return;
+    const emptyIndices = board.map((v, i) => v === '' ? i : null).filter(v => v !== null);
+    if (emptyIndices.length === 0) return;
+
+    let move = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+
+    board[move] = 'O';
+    cells[move].innerText = 'O';
+    cells[move].style.color = '#ef4444';
+
+    if (checkWin(board, 'O')) {
+      statusEl.innerText = 'AI Wins! 🤖';
+      statusEl.style.color = '#ef4444';
+      gameActive = false;
+    } else if (board.every(cell => cell !== '')) {
+      statusEl.innerText = "It's a Draw! 🤝";
+      statusEl.style.color = '#f59e0b';
+      gameActive = false;
+    } else {
+      statusEl.innerText = 'Your Turn (X)';
+      statusEl.style.color = '#34d399';
+    }
+  }
+
+  cells.forEach(cell => {
+    cell.onclick = () => {
+      const idx = parseInt(cell.getAttribute('data-idx'));
+      if (board[idx] !== '' || !gameActive) return;
+
+      board[idx] = 'X';
+      cell.innerText = 'X';
+      cell.style.color = '#38bdf8';
+
+      if (checkWin(board, 'X')) {
+        statusEl.innerText = 'YOU WIN! 🎉';
+        statusEl.style.color = '#34d399';
+        gameActive = false;
+      } else if (board.every(c => c !== '')) {
+        statusEl.innerText = "It's a Draw! 🤝";
+        statusEl.style.color = '#f59e0b';
+        gameActive = false;
+      } else {
+        statusEl.innerText = 'AI Thinking...';
+        statusEl.style.color = '#f59e0b';
+        setTimeout(aiMove, 400);
+      }
+    };
+  });
+
+  mount.querySelector('#ttt-reset-btn').onclick = () => startTTTGame(mountId);
+}
+
+function startGuessGame(mountId) {
+  const mount = document.getElementById(mountId);
+  if (!mount) return;
+
+  const targetNum = Math.floor(Math.random() * 100) + 1;
+  let attempts = 0;
+
+  mount.innerHTML = `
+    <div class="cli-game-container">
+      <div class="cli-game-header">
+        <span>🎯 Number Guessing Game</span>
+        <span>Target: 1 ~ 100</span>
+      </div>
+      <div style="text-align:center; margin:10px 0;">
+        <p id="guess-hint" style="color:#38bdf8; font-weight:600;">Guess a number between 1 and 100!</p>
+        <div style="display:flex; justify-content:center; gap:8px; margin-top:10px;">
+          <input type="number" id="guess-input" min="1" max="100" style="width:90px; padding:6px; background:#1e293b; border:1px solid #334155; color:#fff; border-radius:4px; font-size:1rem; text-align:center;">
+          <button class="cli-game-btn" id="guess-submit-btn">Submit</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const input = mount.querySelector('#guess-input');
+  const btn = mount.querySelector('#guess-submit-btn');
+  const hint = mount.querySelector('#guess-hint');
+
+  function checkGuess() {
+    const val = parseInt(input.value);
+    if (isNaN(val) || val < 1 || val > 100) return;
+    attempts++;
+    if (val === targetNum) {
+      hint.innerHTML = `<span style="color:#34d399; font-weight:bold;">🎉 BINGO! Correct in ${attempts} tries!</span>`;
+      btn.innerText = 'Play Again';
+      btn.onclick = () => startGuessGame(mountId);
+    } else if (val > targetNum) {
+      hint.innerHTML = `<span style="color:#ef4444;">📉 ${val} is Too High! Try lower. (Attempt #${attempts})</span>`;
+    } else {
+      hint.innerHTML = `<span style="color:#f59e0b;">📈 ${val} is Too Low! Try higher. (Attempt #${attempts})</span>`;
+    }
+    input.value = '';
+    input.focus();
+  }
+
+  btn.onclick = checkGuess;
+  input.onkeydown = (e) => { if (e.key === 'Enter') checkGuess(); };
+  input.focus();
 }
