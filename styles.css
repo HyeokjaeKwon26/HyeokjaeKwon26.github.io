@@ -1130,3 +1130,48 @@ footer {
   background: #334155;
   color: #38bdf8;
 }
+
+/* Leaderboard Styling */
+.cli-lb-container {
+  margin-top: 12px;
+  padding: 10px;
+  background: #090e1a;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+}
+
+.cli-lb-title {
+  color: #f59e0b;
+  font-size: 0.88rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.cli-lb-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px;
+  border-bottom: 1px dashed #1e293b;
+  font-size: 0.82rem;
+}
+
+.cli-lb-row:last-child {
+  border-bottom: none;
+}
+
+.cli-lb-row.highlight {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.cli-lb-name {
+  color: #38bdf8;
+}
+
+.cli-lb-score {
+  color: #f59e0b;
+  font-weight: bold;
+}

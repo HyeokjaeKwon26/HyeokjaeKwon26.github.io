@@ -623,6 +623,13 @@ function executeCLICommand(cmd) {
       }
       break;
 
+    case 'rank':
+    case 'top':
+    case 'leaderboard':
+    case 'halloffame':
+      responseHTML = renderLeaderboardHTML('snake') + '<br>' + renderLeaderboardHTML('guess');
+      break;
+
     case 'clear':
     case 'cls':
       cliOutput.innerHTML = '';
@@ -971,6 +978,77 @@ function setupScrollSpy() {
   sections.forEach(sec => observer.observe(sec));
 }
 
+/* Leaderboard System */
+function getLeaderboard(gameKey) {
+  const defaults = {
+    snake: [
+      { name: 'Dr. Kwon 👑', score: 150 },
+      { name: 'KAIST CS Alum 🎓', score: 120 },
+      { name: 'MGH Fellow 🏥', score: 90 },
+      { name: 'CNU Med Student 🩺', score: 60 },
+      { name: 'Visitor 🚀', score: 30 }
+    ],
+    guess: [
+      { name: 'Dr. Kwon 👑', score: 1 },
+      { name: 'KAIST CS Alum 🎓', score: 2 },
+      { name: 'MGH Fellow 🏥', score: 3 },
+      { name: 'CNU Med Student 🩺', score: 5 },
+      { name: 'Visitor 🚀', score: 7 }
+    ]
+  };
+
+  try {
+    const saved = localStorage.getItem(`cli_lb_${gameKey}`);
+    return saved ? JSON.parse(saved) : defaults[gameKey] || [];
+  } catch (e) {
+    return defaults[gameKey] || [];
+  }
+}
+
+function saveLeaderboard(gameKey, list) {
+  try {
+    localStorage.setItem(`cli_lb_${gameKey}`, JSON.stringify(list));
+  } catch (e) {}
+}
+
+function recordScore(gameKey, name, score, isLowerBetter = false) {
+  let lb = getLeaderboard(gameKey);
+  lb.push({ name: name || 'Player', score: score });
+  if (isLowerBetter) {
+    lb.sort((a, b) => a.score - b.score);
+  } else {
+    lb.sort((a, b) => b.score - a.score);
+  }
+  lb = lb.slice(0, 5);
+  saveLeaderboard(gameKey, lb);
+  return lb;
+}
+
+function renderLeaderboardHTML(gameKey, highlightScore = null) {
+  const lb = getLeaderboard(gameKey);
+  const title = gameKey === 'snake' ? '🐍 Snake Game Hall of Fame' : '🎯 Number Guess Hall of Fame';
+  const unit = gameKey === 'snake' ? 'pts' : 'tries';
+  const badges = ['🥇 1st', '🥈 2nd', '🥉 3rd', '4th', '5th'];
+
+  let html = `
+    <div class="cli-lb-container">
+      <div class="cli-lb-title">🏆 ${title} (TOP 5)</div>
+  `;
+
+  lb.forEach((item, idx) => {
+    const isHighlight = highlightScore !== null && item.score === highlightScore;
+    html += `
+      <div class="cli-lb-row ${isHighlight ? 'highlight' : ''}">
+        <span>${badges[idx]} <span class="cli-lb-name">${escapeHTML(item.name)}</span></span>
+        <span class="cli-lb-score">${item.score} ${unit}</span>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+  return html;
+}
+
 /* CLI Mini Games Implementation */
 let currentSnakeLoop = null;
 
@@ -1088,6 +1166,8 @@ function startSnakeGame(mountId) {
     document.removeEventListener('keydown', keyHandler);
     logAnalyticsEvent('cli_game_over', { game_name: 'snake', score: score });
     saveLocalGameLog('Snake Game', `Score: ${score}`);
+    recordScore('snake', 'Player', score);
+
     ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = '#ef4444';
@@ -1097,6 +1177,13 @@ function startSnakeGame(mountId) {
     ctx.fillStyle = '#38bdf8';
     ctx.font = '12px monospace';
     ctx.fillText(`Final Score: ${score}`, canvas.width / 2, canvas.height / 2 + 15);
+
+    const gameContainer = mount.querySelector('.cli-game-container');
+    if (gameContainer && !gameContainer.querySelector('.cli-lb-container')) {
+      const lbDiv = document.createElement('div');
+      lbDiv.innerHTML = renderLeaderboardHTML('snake', score);
+      gameContainer.appendChild(lbDiv);
+    }
   }
 
   currentSnakeLoop = setInterval(draw, 120);
@@ -1230,6 +1317,13 @@ function startGuessGame(mountId) {
       hint.innerHTML = `<span style="color:#34d399; font-weight:bold;">🎉 BINGO! Correct in ${attempts} tries!</span>`;
       btn.innerText = 'Play Again';
       btn.onclick = () => startGuessGame(mountId);
+      recordScore('guess', 'Player', attempts, true);
+      const gameContainer = mount.querySelector('.cli-game-container');
+      if (gameContainer && !gameContainer.querySelector('.cli-lb-container')) {
+        const lbDiv = document.createElement('div');
+        lbDiv.innerHTML = renderLeaderboardHTML('guess', attempts);
+        gameContainer.appendChild(lbDiv);
+      }
     } else if (val > targetNum) {
       hint.innerHTML = `<span style="color:#ef4444;">📉 ${val} is Too High! Try lower. (Attempt #${attempts})</span>`;
     } else {
