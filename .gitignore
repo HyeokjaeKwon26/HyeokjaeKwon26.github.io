@@ -6,6 +6,10 @@
 *.key
 *.token
 *.p12
+*.bak
+*.config
+*.json.bak
+*.secret
 
 # Node & Package Managers
 node_modules/
