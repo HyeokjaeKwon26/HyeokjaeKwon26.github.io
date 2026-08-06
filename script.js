@@ -20,6 +20,7 @@ const TRANSLATIONS = {
     nav_education: "Education",
     nav_publications: "Publications",
     nav_honors: "Honors & Certs",
+    nav_projects: "Projects",
     nav_contact: "Contact",
     hero_title_sub: "Plastic and Reconstructive Surgeon & Computer Scientist",
     role_visiting: "Visiting Professor",
@@ -32,7 +33,14 @@ const TRANSLATIONS = {
     section_edu: "Education",
     section_pub: "Publications",
     section_honors: "Honors, Certifications & Activities",
+    section_projects: "Personal & Open Source Projects",
     section_contact: "Contact & Information",
+    
+    solarless_title: "SolarLess Navi (Shade-Seeking Smart Navigation)",
+    solarless_badge: "Open Source App",
+    solarless_desc: "A smart shade-seeking navigation app designed to minimize direct sunlight and UV exposure by calculating real-time shaded walking and driving routes using building geometry. Features Leaflet.js interactive maps, speed/UV alert notifications, and cross-platform Android (Capacitor) mobile deployment.",
+    solarless_tech: "Tech Stack: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas/CSS3, OpenStreetMap",
+    solarless_btn: "View GitHub Repository",
     
     tab_all: "All",
     tab_ai: "AI & Digital Health",
@@ -115,6 +123,7 @@ const TRANSLATIONS = {
     nav_education: "학력",
     nav_publications: "논문 실적",
     nav_honors: "수상 및 자격",
+    nav_projects: "프로젝트",
     nav_contact: "문의",
     hero_title_sub: "성형외과 전문의 & 컴퓨터 과학자",
     role_visiting: "방문교수",
@@ -127,7 +136,14 @@ const TRANSLATIONS = {
     section_edu: "학력",
     section_pub: "논문 실적",
     section_honors: "수상, 자격 및 학회 활동",
+    section_projects: "개인 및 오픈소스 프로젝트",
     section_contact: "연락처 및 연구실 정보",
+    
+    solarless_title: "SolarLess Navi (햇빛을 피하는 스마트 네비게이션)",
+    solarless_badge: "오픈소스 앱",
+    solarless_desc: "건물 그늘과 그늘막 위치를 실시간으로 분석하여 강한 직사광선과 자외선(UV) 노출을 최소화하는 쉐이드(Shade) 탐색 스마트 네비게이션 서비스. Leaflet.js 지도 기반 과속/햇빛 노출 알림 및 Android 앱(Capacitor) 크로스플랫폼 빌드를 지원합니다.",
+    solarless_tech: "주요 기술: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas/CSS3, OpenStreetMap",
+    solarless_btn: "GitHub 리파지토리 방문",
     
     tab_all: "전체",
     tab_ai: "인공지능 & 디지털헬스",
@@ -360,8 +376,9 @@ function executeCLICommand(cmd) {
         <div>  <span class="cli-success">education</span>    - List academic degrees (KAIST & CNU)</div>
         <div>  <span class="cli-success">pubs [query]</span> - List or search peer-reviewed publications</div>
         <div>  <span class="cli-success">awards</span>       - View honors, certifications & awards</div>
+        <div>  <span class="cli-success">projects</span>     - View open-source projects (SolarLess Navi)</div>
         <div>  <span class="cli-success">contact</span>      - Show email, phone & ORCID info</div>
-        <div>  <span class="cli-success">game [snake|guess|ttt]</span> - Play retro CLI mini games 🎮</div>
+        <div>  <span class="cli-success">game [snake|pacman|guess|ttt]</span> - Play retro CLI mini games 🎮</div>
         <div>  <span class="cli-success">lang [kr|en]</span> - Switch site language</div>
         <div>  <span class="cli-success">ls / dir</span>      - List virtual files</div>
         <div>  <span class="cli-success">matrix</span>       - Trigger Matrix digital rain Easter egg</div>
@@ -555,9 +572,23 @@ function executeCLICommand(cmd) {
       responseHTML = `
         <div style="color:#38bdf8;">
           bio.txt          experience.txt    education.txt<br>
-          publications.json awards.txt       contact.txt<br>
-          orcid.link       scholar.link      matrix.sh
+          publications.json awards.txt       projects.txt<br>
+          contact.txt      orcid.link        scholar.link<br>
+          solarless-navi.app matrix.sh
         </div>
+      `;
+      break;
+
+    case 'projects':
+    case 'project':
+    case 'solarless':
+    case 'solarless-navi':
+      responseHTML = `
+        <div class="cli-highlight">Personal & Open Source Projects:</div>
+        <div>  <strong class="cli-success">SolarLess Navi</strong> (햇빛을 피하는 스마트 네비게이션) ☀️🕶️</div>
+        <div>  • Description: Shade-seeking smart navigation calculating real-time shaded routes avoiding direct sunlight & UV.</div>
+        <div>  • Tech Stack: JavaScript, Leaflet.js, Capacitor (Android), OpenStreetMap</div>
+        <div>  • GitHub: <a href="https://github.com/HyeokjaeKwon26/Solarless-Navi" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline;">https://github.com/HyeokjaeKwon26/Solarless-Navi</a></div>
       `;
       break;
 
