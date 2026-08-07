@@ -521,8 +521,7 @@ section[id] {
 }
 
 .project-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--accent-blue);
+  box-shadow: var(--box-shadow);
 }
 
 .project-header {
@@ -562,8 +561,9 @@ section[id] {
 }
 
 .btn-github {
-  background: var(--accent-navy);
-  color: #ffffff;
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   padding: 8px 16px;
   border-radius: 6px;
   font-size: 0.85rem;
@@ -576,8 +576,8 @@ section[id] {
 }
 
 .btn-github:hover {
-  background: var(--accent-blue);
-  color: #ffffff;
+  background: var(--border-color);
+  color: var(--text-primary);
 }
 
 .project-desc {
