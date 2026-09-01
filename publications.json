@@ -1,6 +1,17 @@
 [
   {
-    "id": 1,
+    "title": "Dual-linking free-flap reconstruction for above-knee amputation stump coverage in an older patient: a case report",
+    "authors": "Jeong CH, Kim J, Kwon H, Kim S, Song SH, Oh S-H, Ha Y",
+    "journal": "Archives of Hand and Microsurgery",
+    "year": "2026",
+    "volume": "31(3):184-192",
+    "doi": "10.12790/ahm.25.0051",
+    "url": "https://doi.org/10.12790/ahm.25.0051",
+    "category": "case-report",
+    "id": 1
+  },
+  {
+    "id": 2,
     "title": "Iatrogenic lung overinflation resulting in pneumothorax and pneumoperitoneum during oxygen therapy post-general anesthesia: A case report",
     "authors": "Kim J, Kim J-H, Kwon H",
     "journal": "Medicine",
@@ -11,7 +22,7 @@
     "category": "case-report"
   },
   {
-    "id": 2,
+    "id": 3,
     "title": "Outcomes of reconstructing lower lid defects using midface lifting and full-thickness skin grafts",
     "authors": "Kwon H, Kim S, Oh S-H, Ha Y, Song SH",
     "journal": "Journal of Craniofacial Surgery",
@@ -22,7 +33,7 @@
     "category": "recon"
   },
   {
-    "id": 3,
+    "id": 4,
     "title": "AI-driven eyeball exposure rate (EER) analysis: A useful tool for assessing ptosis surgery effectiveness",
     "authors": "Lee B, Xu L, Oh S-H, Ha Y, Kwon H, Lee KC, Kim SY, Seo CW, Kim S, Song SH",
     "journal": "PLOS ONE",
@@ -33,7 +44,7 @@
     "category": "ai"
   },
   {
-    "id": 4,
+    "id": 5,
     "title": "Anterolateral thigh free flap using modified turbocharging method: a case report",
     "authors": "Ha Y, Kim D, Kwon H, Kim S, Song SH, Oh S-H, Kim J-H, Yang HJ, Kyung H",
     "journal": "Frontiers in Surgery",
@@ -44,7 +55,7 @@
     "category": "recon"
   },
   {
-    "id": 5,
+    "id": 6,
     "title": "Virtual reality for preoperative patient education: Satisfaction, usability, and impact on burnout from the perspective of new nurses",
     "authors": "Kim J, Kim D, Oh S-H, Kwon H",
     "journal": "World Journal of Clinical Cases",
@@ -55,7 +66,7 @@
     "category": "tech"
   },
   {
-    "id": 6,
+    "id": 7,
     "title": "The effect of botulinum toxin A on NADPH oxidase system and ischemia reperfusion injury",
     "authors": "Kyung HW, Lee S, Kwon H, Kim S, Kim JH, Song SH, Oh S-H, Yang HJ, Ha Y",
     "journal": "Plastic and Reconstructive Surgery",
@@ -66,7 +77,7 @@
     "category": "tech"
   },
   {
-    "id": 7,
+    "id": 8,
     "title": "Non-surgical treatment of diabetic foot ulcers on the dorsum of the foot with polydeoxyribonucleotide (PDRN) injection: Two cases",
     "authors": "Ha Y, Kim J-H, Kim J, Kwon H",
     "journal": "World Journal of Clinical Cases",
@@ -77,7 +88,7 @@
     "category": "case-report"
   },
   {
-    "id": 8,
+    "id": 9,
     "title": "Improved flap perfusion and hemostasis after postoperative embolization in free flap surgery: A case report",
     "authors": "Kim J, Kwon H, Kim S, Song SH, Oh S-H, Ha Y",
     "journal": "Archives of Hand and Microsurgery",
@@ -88,7 +99,7 @@
     "category": "recon"
   },
   {
-    "id": 9,
+    "id": 10,
     "title": "Customized reconstruction of lower eyelid defects",
     "authors": "Kwon H, Song B, Ha Y, Kim S, Oh S-H, Seo Y-J, Song SH",
     "journal": "Journal of Craniofacial Surgery",
@@ -99,7 +110,7 @@
     "category": "recon"
   },
   {
-    "id": 10,
+    "id": 11,
     "title": "Introduction of deep learning-based infrared image analysis to marginal reflex distance-1 measurement method: Clinical validation study",
     "authors": "Song B, Kwon H, Kim S, Ha Y, Oh S-H, Song S-H",
     "journal": "Journal of Clinical Medicine",
@@ -110,7 +121,7 @@
     "category": "ai"
   },
   {
-    "id": 11,
+    "id": 12,
     "title": "Reconstruction of a medium-sized congenital melanocytic nevus defect using a thin thoracodorsal artery perforator free flap: A case report",
     "authors": "Park Y, Kwon H, Kim S, Song SH, Oh S-H, Ha Y",
     "journal": "Archives of Aesthetic Plastic Surgery",
@@ -121,7 +132,7 @@
     "category": "recon"
   },
   {
-    "id": 12,
+    "id": 13,
     "title": "Smartphone-based LiDAR application for easy and accurate wound size measurement",
     "authors": "Song B, Kim J, Kwon H, Kim S, Oh S-H, Ha Y, Song S-H",
     "journal": "Journal of Clinical Medicine",
@@ -132,7 +143,7 @@
     "category": "tech"
   },
   {
-    "id": 13,
+    "id": 14,
     "title": "Effects of preoperative education using virtual reality on preoperative anxiety and information desire: A randomized clinical trial",
     "authors": "Kwon H, Lee J, Park YS, Oh S-H, Kim J",
     "journal": "Journal of Clinical Monitoring and Computing",
@@ -143,7 +154,7 @@
     "category": "tech"
   },
   {
-    "id": 14,
+    "id": 15,
     "title": "Efficacy and safety of stromal vascular fraction on scar revision surgery: A prospective study",
     "authors": "Kwon H, Lee S, Kim J, Song SH",
     "journal": "Journal of Dermatological Treatment",
@@ -154,7 +165,7 @@
     "category": "tech"
   },
   {
-    "id": 15,
+    "id": 16,
     "title": "Reconstruction of complex knee wounds with a distally based gracilis flap and gastrocnemius myocutaneous flap: A case report",
     "authors": "Kwon H, Lee S, Kim S, Song SH, Oh S-H, Kim J-H, Kyung H, Yang HJ, Ha Y",
     "journal": "Frontiers in Surgery",
@@ -165,7 +176,7 @@
     "category": "recon"
   },
   {
-    "id": 16,
+    "id": 17,
     "title": "Aesthetic removal of foreign body granulomas of forehead via pretrichial approach",
     "authors": "Kwon H, Ko G, Choi J, Ha Y, Kim S, Kim J-H, Oh S-H, Song SH",
     "journal": "Journal of Craniofacial Surgery",
@@ -176,7 +187,7 @@
     "category": "recon"
   },
   {
-    "id": 17,
+    "id": 18,
     "title": "Minimally invasive removal of facial foreign body granulomas",
     "authors": "Choi J, Ko G, Kwon H, Ha Y, Kim S, Kyung H, Oh S-H, Song SH",
     "journal": "Archives of Aesthetic Plastic Surgery",
@@ -187,7 +198,7 @@
     "category": "recon"
   },
   {
-    "id": 18,
+    "id": 19,
     "title": "Open reduction of zygoma fractures with the extended transconjunctival approach and T-bar screw reduction",
     "authors": "Song SH, Kwon H, Oh S-H, Kim S-J, Park J, Kim SI",
     "journal": "Archives of Plastic Surgery",
@@ -198,7 +209,7 @@
     "category": "recon"
   },
   {
-    "id": 19,
+    "id": 20,
     "title": "Bilateral interdigitated pacman flap for round and oval facial defects",
     "authors": "Oh S-H, Kwon H, Kim SJ, Kyung H, Seo YJ, Lew DH, Song SH",
     "journal": "Journal of Cranio-Maxillofacial Surgery",
@@ -209,7 +220,7 @@
     "category": "recon"
   },
   {
-    "id": 20,
+    "id": 21,
     "title": "Reconstruction using local flaps for penoscrotal defects after ablation of skin lesions",
     "authors": "Kyung H, Kwon H, Song S-H, Oh S-H",
     "journal": "Journal of Wound Management and Research",
@@ -220,7 +231,7 @@
     "category": "recon"
   },
   {
-    "id": 21,
+    "id": 22,
     "title": "A new method for stabilizing the columellar strut used in rhinoplasty: The trans-septal columellar stabilizing suture",
     "authors": "Jeong JY, Kwon H, Piao Y, Oh S-H",
     "journal": "Journal of Oral and Maxillofacial Surgery",
@@ -239,7 +250,7 @@
     "doi": "10.1097/scs.0000000000011387",
     "url": "https://doi.org/10.1097/scs.0000000000011387",
     "category": "recon",
-    "id": 22
+    "id": 23
   },
   {
     "title": "Factors influencing the choice of a free-flap donor site in lower extremity reconstruction from an aesthetic perspective: a cross-sectional analysis of public sentiment from an internet-based questionnaire",
@@ -250,7 +261,7 @@
     "doi": "10.12790/ahm.25.0032",
     "url": "https://doi.org/10.12790/ahm.25.0032",
     "category": "ai",
-    "id": 23
+    "id": 24
   },
   {
     "title": "Advancing nipple volume measurement using Gaussian splatting: Achieving comparable accuracy to current standards",
@@ -261,6 +272,6 @@
     "doi": "10.1016/j.bjps.2026.02.046",
     "url": "https://doi.org/10.1016/j.bjps.2026.02.046",
     "category": "recon",
-    "id": 24
+    "id": 25
   }
 ]
