@@ -36,10 +36,10 @@ const TRANSLATIONS = {
     section_projects: "Personal & Open Source Projects",
     section_contact: "Contact & Information",
     
-    solarless_title: "SolarLess Navi (Shade-Seeking Smart Navigation)",
+    solarless_title: "SolarLess Navi (Solar-Aware Smart Navigation)",
     solarless_badge: "Android App",
-    solarless_desc: "A smart shade-seeking navigation app designed to minimize direct sunlight and UV exposure by calculating real-time shaded walking and driving routes using building geometry. Features Leaflet.js interactive maps, speed/UV alert notifications, and cross-platform Android (Capacitor) mobile deployment.",
-    solarless_tech: "Tech Stack: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas/CSS3, OpenStreetMap",
+    solarless_desc: "An experimental solar-aware navigation system comparing the Fastest, Glare-Avoidance (CIE Stiles–Holladay), and Shade-Priority routes. Simulates real-time sun positions using NREL SPA, Bird clear-sky DNI irradiance, Open-Meteo forecasts, and 2.5D building/tunnel/SRTM terrain occlusion, featuring automatic free-drive detection and Android (Capacitor 6) deployment.",
+    solarless_tech: "Tech Stack: JavaScript/TypeScript, Capacitor 6 (Android), Leaflet.js, NREL SPA, Bird Solar Model, Open-Meteo, 2.5D OSM/SRTM Terrain, OSRM",
     solarless_btn: "View GitHub Repository",
     
     travel_diary_title: "My Travel Diary (Offline Cinematic Travel Story Reconstructor)",
@@ -145,10 +145,10 @@ const TRANSLATIONS = {
     section_projects: "개인 및 오픈소스 프로젝트",
     section_contact: "연락처 및 연구실 정보",
     
-    solarless_title: "SolarLess Navi (햇빛을 피하는 스마트 네비게이션)",
+    solarless_title: "SolarLess Navi (태양광 및 눈부심·그늘 분석 스마트 내비게이션)",
     solarless_badge: "Android 앱",
-    solarless_desc: "건물 그늘과 그늘막 위치를 실시간으로 분석하여 강한 직사광선과 자외선(UV) 노출을 최소화하는 쉐이드(Shade) 탐색 스마트 네비게이션 서비스. Leaflet.js 지도 기반 과속/햇빛 노출 알림 및 Android 앱(Capacitor) 크로스플랫폼 빌드를 지원합니다.",
-    solarless_tech: "주요 기술: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas/CSS3, OpenStreetMap",
+    solarless_desc: "태양 위치, 진행 방향, 건물·터널·지형 차광을 종합 분석해 빠른 경로, 전방 눈부심 회피 경로(CIE 모델), 그늘 우선 경로를 비교·제공하는 내비게이션. NREL SPA 정밀 태양 위치 계산, Bird 맑은하늘 일사 모델, Open-Meteo 기상예보, 2.5D 건물 및 SRTM 지형 차광 시뮬레이션, 목적지 없는 자동 자유 주행(Free Drive) 모드를 지원합니다.",
+    solarless_tech: "주요 기술: JavaScript/TypeScript, Capacitor 6 (Android), Leaflet.js, NREL SPA, Bird Solar Model, Open-Meteo, 2.5D OSM/SRTM 지형, OSRM",
     solarless_btn: "GitHub 리파지토리 방문",
     
     travel_diary_title: "My Travel Diary (오프라인 시네마틱 여행 다이어리)",
@@ -601,9 +601,9 @@ function executeCLICommand(cmd) {
       responseHTML = `
         <div class="cli-highlight">Personal & Open Source Projects:</div>
         <div style="margin-bottom:10px;">
-          <div>  <strong class="cli-success">1. SolarLess Navi</strong> (햇빛을 피하는 스마트 네비게이션) ☀️🕶️</div>
-          <div>  • Description: Shade-seeking smart navigation calculating real-time shaded routes avoiding direct sunlight & UV.</div>
-          <div>  • Tech Stack: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas, OpenStreetMap</div>
+          <div>  <strong class="cli-success">1. SolarLess Navi</strong> (태양광 및 눈부심·그늘 분석 스마트 내비게이션) ☀️🕶️</div>
+          <div>  • Description: Solar-aware navigation comparing Fastest, Glare-Avoidance (CIE) & Shade-Priority routes via NREL SPA & 2.5D building/terrain occlusion.</div>
+          <div>  • Tech Stack: JavaScript/TypeScript, Capacitor 6 (Android), Leaflet.js, NREL SPA, Bird Solar Model, Open-Meteo, 2.5D OSM/SRTM Terrain</div>
           <div>  • GitHub: <a href="https://github.com/HyeokjaeKwon26/Solarless-Navi" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline;">https://github.com/HyeokjaeKwon26/Solarless-Navi</a></div>
         </div>
         <div>

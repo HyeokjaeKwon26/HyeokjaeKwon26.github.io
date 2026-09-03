@@ -5,7 +5,7 @@ Official academic website and portfolio of **Dr. Hyeokjae Kwon, M.D., Ph.D.**
 - **Clinical Assistant Professor**, Dept. of Plastic & Reconstructive Surgery, Chungnam National University Hospital
 
 ## Featured Open Source Projects
-- **SolarLess Navi**: Smart shade-seeking navigation app avoiding direct sunlight and UV exposure. [GitHub Repository](https://github.com/HyeokjaeKwon26/Solarless-Navi)
+- **SolarLess Navi**: Experimental solar-aware navigation system comparing Fastest, Glare-Avoidance, and Shade-Priority routes using NREL SPA and 2.5D building/terrain occlusion. [GitHub Repository](https://github.com/HyeokjaeKwon26/Solarless-Navi)
 - **My Travel Diary**: 100% offline cinematic travel story reconstructor & 60fps playback engine for Android. [GitHub Repository](https://github.com/HyeokjaeKwon26/My-Travel-Diary)
 
 ## Features
