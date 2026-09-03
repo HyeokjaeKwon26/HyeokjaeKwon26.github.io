@@ -37,7 +37,7 @@ const TRANSLATIONS = {
     section_contact: "Contact & Information",
     
     solarless_title: "SolarLess Navi (Shade-Seeking Smart Navigation)",
-    solarless_badge: "Open Source App",
+    solarless_badge: "Android App",
     solarless_desc: "A smart shade-seeking navigation app designed to minimize direct sunlight and UV exposure by calculating real-time shaded walking and driving routes using building geometry. Features Leaflet.js interactive maps, speed/UV alert notifications, and cross-platform Android (Capacitor) mobile deployment.",
     solarless_tech: "Tech Stack: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas/CSS3, OpenStreetMap",
     solarless_btn: "View GitHub Repository",
@@ -146,7 +146,7 @@ const TRANSLATIONS = {
     section_contact: "연락처 및 연구실 정보",
     
     solarless_title: "SolarLess Navi (햇빛을 피하는 스마트 네비게이션)",
-    solarless_badge: "오픈소스 앱",
+    solarless_badge: "Android 앱",
     solarless_desc: "건물 그늘과 그늘막 위치를 실시간으로 분석하여 강한 직사광선과 자외선(UV) 노출을 최소화하는 쉐이드(Shade) 탐색 스마트 네비게이션 서비스. Leaflet.js 지도 기반 과속/햇빛 노출 알림 및 Android 앱(Capacitor) 크로스플랫폼 빌드를 지원합니다.",
     solarless_tech: "주요 기술: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas/CSS3, OpenStreetMap",
     solarless_btn: "GitHub 리파지토리 방문",
