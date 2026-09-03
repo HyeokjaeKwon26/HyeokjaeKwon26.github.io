@@ -511,6 +511,12 @@ section[id] {
 }
 
 /* Personal Projects Section */
+.projects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .project-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);

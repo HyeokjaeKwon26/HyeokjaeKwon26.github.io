@@ -6,6 +6,7 @@ Official academic website and portfolio of **Dr. Hyeokjae Kwon, M.D., Ph.D.**
 
 ## Featured Open Source Projects
 - **SolarLess Navi**: Smart shade-seeking navigation app avoiding direct sunlight and UV exposure. [GitHub Repository](https://github.com/HyeokjaeKwon26/Solarless-Navi)
+- **My Travel Diary**: 100% offline cinematic travel story reconstructor & 60fps playback engine for Android. [GitHub Repository](https://github.com/HyeokjaeKwon26/My-Travel-Diary)
 
 ## Features
 - Interactive Academic Portfolio & Publications Engine (ORCID Sync)

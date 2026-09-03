@@ -42,6 +42,12 @@ const TRANSLATIONS = {
     solarless_tech: "Tech Stack: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas/CSS3, OpenStreetMap",
     solarless_btn: "View GitHub Repository",
     
+    travel_diary_title: "My Travel Diary (Offline Cinematic Travel Story Reconstructor)",
+    travel_diary_badge: "Android App",
+    travel_diary_desc: "A 100% offline, privacy-first cinematic travel story reconstructor for Android. Reconstructs full journey narratives and 60fps cinematic playback from Google Timeline JSON and photo EXIF timestamps entirely on-device, featuring custom vector map canvas rendering, Hermite spline camera interpolation, and an adventure cockpit HUD.",
+    travel_diary_tech: "Tech Stack: Android, Kotlin, Jetpack Compose, Material Design 3, Custom Vector Canvas Engine, Coil, WGS-84 Geodesic",
+    travel_diary_btn: "View GitHub Repository",
+    
     tab_all: "All",
     tab_ai: "AI & Digital Health",
     tab_tech: "VR & Medical Tech",
@@ -144,6 +150,12 @@ const TRANSLATIONS = {
     solarless_desc: "건물 그늘과 그늘막 위치를 실시간으로 분석하여 강한 직사광선과 자외선(UV) 노출을 최소화하는 쉐이드(Shade) 탐색 스마트 네비게이션 서비스. Leaflet.js 지도 기반 과속/햇빛 노출 알림 및 Android 앱(Capacitor) 크로스플랫폼 빌드를 지원합니다.",
     solarless_tech: "주요 기술: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas/CSS3, OpenStreetMap",
     solarless_btn: "GitHub 리파지토리 방문",
+    
+    travel_diary_title: "My Travel Diary (오프라인 시네마틱 여행 다이어리)",
+    travel_diary_badge: "Android 앱",
+    travel_diary_desc: "외부 서버 통신 없이 100% 기기 내부(On-device)에서 동작하는 프라이버시 중심 오프라인 시네마틱 여행 스토리 복원 앱. 구글 타임라인 JSON과 사진 EXIF 메타데이터를 정밀 결합하여 60fps 시네마틱 카메라 재생, 어드벤처 콕핏 HUD, 고성능 네이티브 벡터 맵 렌더링을 제공합니다.",
+    travel_diary_tech: "주요 기술: Android, Kotlin, Jetpack Compose, Material Design 3, 커스텀 벡터 캔버스 엔진, Coil, WGS-84 Geodesic",
+    travel_diary_btn: "GitHub 리파지토리 방문",
     
     tab_all: "전체",
     tab_ai: "인공지능 & 디지털헬스",
@@ -574,7 +586,7 @@ function executeCLICommand(cmd) {
           bio.txt          experience.txt    education.txt<br>
           publications.json awards.txt       projects.txt<br>
           contact.txt      orcid.link        scholar.link<br>
-          solarless-navi.app matrix.sh
+          solarless-navi.app travel-diary.app matrix.sh
         </div>
       `;
       break;
@@ -583,12 +595,23 @@ function executeCLICommand(cmd) {
     case 'project':
     case 'solarless':
     case 'solarless-navi':
+    case 'travel':
+    case 'diary':
+    case 'my-travel-diary':
       responseHTML = `
         <div class="cli-highlight">Personal & Open Source Projects:</div>
-        <div>  <strong class="cli-success">SolarLess Navi</strong> (햇빛을 피하는 스마트 네비게이션) ☀️🕶️</div>
-        <div>  • Description: Shade-seeking smart navigation calculating real-time shaded routes avoiding direct sunlight & UV.</div>
-        <div>  • Tech Stack: JavaScript, Leaflet.js, Capacitor (Android), OpenStreetMap</div>
-        <div>  • GitHub: <a href="https://github.com/HyeokjaeKwon26/Solarless-Navi" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline;">https://github.com/HyeokjaeKwon26/Solarless-Navi</a></div>
+        <div style="margin-bottom:10px;">
+          <div>  <strong class="cli-success">1. SolarLess Navi</strong> (햇빛을 피하는 스마트 네비게이션) ☀️🕶️</div>
+          <div>  • Description: Shade-seeking smart navigation calculating real-time shaded routes avoiding direct sunlight & UV.</div>
+          <div>  • Tech Stack: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas, OpenStreetMap</div>
+          <div>  • GitHub: <a href="https://github.com/HyeokjaeKwon26/Solarless-Navi" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline;">https://github.com/HyeokjaeKwon26/Solarless-Navi</a></div>
+        </div>
+        <div>
+          <div>  <strong class="cli-success">2. My Travel Diary</strong> (오프라인 시네마틱 여행 다이어리) 🗺️🎬</div>
+          <div>  • Description: 100% offline cinematic travel story reconstructor & 60fps playback for Android from Google Timeline & photo EXIF.</div>
+          <div>  • Tech Stack: Android, Kotlin, Jetpack Compose, Material Design 3, Custom Vector Canvas, Coil</div>
+          <div>  • GitHub: <a href="https://github.com/HyeokjaeKwon26/My-Travel-Diary" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline;">https://github.com/HyeokjaeKwon26/My-Travel-Diary</a></div>
+        </div>
       `;
       break;
 

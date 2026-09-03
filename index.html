@@ -449,21 +449,41 @@
     <div class="container">
       <h2 class="section-title" data-i18n="section_projects">Personal & Open Source Projects</h2>
       
-      <div class="project-card">
-        <div class="project-header">
-          <div class="project-title-group">
-            <h3><i class="ri-git-repository-line" style="color:var(--accent-blue);"></i> <span data-i18n="solarless_title">SolarLess Navi (Shade-Seeking Smart Navigation)</span></h3>
-            <span class="project-badge" data-i18n="solarless_badge">Open Source App</span>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-title-group">
+              <h3><i class="ri-git-repository-line" style="color:var(--accent-blue);"></i> <span data-i18n="solarless_title">SolarLess Navi (Shade-Seeking Smart Navigation)</span></h3>
+              <span class="project-badge" data-i18n="solarless_badge">Open Source App</span>
+            </div>
+            <a href="https://github.com/HyeokjaeKwon26/Solarless-Navi" target="_blank" rel="noopener noreferrer" class="btn-github">
+              <i class="ri-github-fill"></i> <span data-i18n="solarless_btn">View GitHub Repository</span>
+            </a>
           </div>
-          <a href="https://github.com/HyeokjaeKwon26/Solarless-Navi" target="_blank" rel="noopener noreferrer" class="btn-github">
-            <i class="ri-github-fill"></i> <span data-i18n="solarless_btn">View GitHub Repository</span>
-          </a>
+          <p class="project-desc" data-i18n="solarless_desc">
+            A smart shade-seeking navigation app designed to minimize direct sunlight and UV exposure by calculating real-time shaded walking and driving routes using building geometry. Features Leaflet.js interactive maps, speed/UV alert notifications, and cross-platform Android (Capacitor) mobile deployment.
+          </p>
+          <div class="project-tech">
+            <i class="ri-code-s-slash-line"></i> <span data-i18n="solarless_tech">Tech Stack: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas/CSS3, OpenStreetMap</span>
+          </div>
         </div>
-        <p class="project-desc" data-i18n="solarless_desc">
-          A smart shade-seeking navigation app designed to minimize direct sunlight and UV exposure by calculating real-time shaded walking and driving routes using building geometry. Features Leaflet.js interactive maps, speed/UV alert notifications, and cross-platform Android (Capacitor) mobile deployment.
-        </p>
-        <div class="project-tech">
-          <i class="ri-code-s-slash-line"></i> <span data-i18n="solarless_tech">Tech Stack: JavaScript, Leaflet.js, Capacitor (Android), HTML5 Canvas/CSS3, OpenStreetMap</span>
+
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-title-group">
+              <h3><i class="ri-git-repository-line" style="color:var(--accent-blue);"></i> <span data-i18n="travel_diary_title">My Travel Diary (Offline Cinematic Travel Story Reconstructor)</span></h3>
+              <span class="project-badge" data-i18n="travel_diary_badge">Android App</span>
+            </div>
+            <a href="https://github.com/HyeokjaeKwon26/My-Travel-Diary" target="_blank" rel="noopener noreferrer" class="btn-github">
+              <i class="ri-github-fill"></i> <span data-i18n="travel_diary_btn">View GitHub Repository</span>
+            </a>
+          </div>
+          <p class="project-desc" data-i18n="travel_diary_desc">
+            A 100% offline, privacy-first cinematic travel story reconstructor for Android. Reconstructs full journey narratives and 60fps cinematic playback from Google Timeline JSON and photo EXIF timestamps entirely on-device, featuring custom vector map canvas rendering, Hermite spline camera interpolation, and an adventure cockpit HUD.
+          </p>
+          <div class="project-tech">
+            <i class="ri-code-s-slash-line"></i> <span data-i18n="travel_diary_tech">Tech Stack: Android, Kotlin, Jetpack Compose, Material Design 3, Custom Vector Canvas Engine, Coil, WGS-84 Geodesic</span>
+          </div>
         </div>
       </div>
     </div>
