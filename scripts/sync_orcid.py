@@ -366,6 +366,47 @@ def main():
         json.dump(combined, f, ensure_ascii=False, indent=2)
         
     print(f"Successfully updated publication database. Total: {len(combined)} publications.")
+    
+    update_cv_html(combined)
+
+def update_cv_html(pubs):
+    cv_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'cv.html')
+    if not os.path.exists(cv_file):
+        return
+    sorted_pubs = sorted(pubs, key=lambda p: int(p.get('year', 0)) if str(p.get('year', '')).isdigit() else 9999, reverse=True)
+    pub_items = []
+    for idx, p in enumerate(sorted_pubs):
+        authors = p.get('authors', '')
+        authors_bold = re.sub(r'\b(Kwon\s+H\b|Hyeokjae\s+Kwon\b|Kwon,\s*Hyeokjae\b)', r'<strong>\1</strong>', authors)
+        title = p.get('title', '').strip()
+        if not title.endswith('.'):
+            title += '.'
+        journal = p.get('journal', '').strip()
+        year = p.get('year', '').strip()
+        volume = p.get('volume', '').strip()
+        doi = p.get('doi', '').strip()
+        url = f'https://doi.org/{doi}' if doi else p.get('url', '')
+        
+        meta_str = f'{journal}. {year}'
+        if volume:
+            meta_str += f';{volume}'
+        meta_str += '.'
+        
+        item = f'''        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">{idx+1}.</span> {authors_bold}.</div>
+          <div class="cv-pub-title">{title}</div>
+          <div class="cv-pub-meta">{meta_str} <a href="{url}" target="_blank" rel="noopener">{url}</a></div>
+        </div>'''
+        pub_items.append(item)
+        
+    pubs_html = "\n".join(pub_items)
+    with open(cv_file, 'r', encoding='utf-8') as f:
+        content = f.read()
+    pattern = r'(<div class="cv-pub-list" id="cv-pub-list">)(.*?)(</div>\s*</section>)'
+    new_content = re.sub(pattern, r'\g<1>\n' + pubs_html + r'\n      \g<3>', content, flags=re.DOTALL)
+    with open(cv_file, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    print("Successfully updated cv.html publications list.")
 
 if __name__ == '__main__':
     main()

@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Curriculum Vitae | Hyeokjae Kwon, M.D., Ph.D.</title>
+  <title>Curriculum Vitae — Hyeokjae Kwon, M.D., Ph.D.</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   
-  <!-- Security Headers & Privacy Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; connect-src 'self' https://www.google-analytics.com https://api.crossref.org https://pub.orcid.org;">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-  <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=()">
-  
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,33 +14,33 @@
 
   <style>
     :root {
-      --bg-canvas: #f8fafc;
-      --bg-card: #ffffff;
-      --text-main: #0f172a;
-      --text-sub: #334155;
-      --text-muted: #64748b;
-      --navy: #0f2942;
-      --navy-light: #1e3a5f;
-      --accent-blue: #2563eb;
-      --border-color: #e2e8f0;
+      --font-serif: 'Times New Roman', Times, 'Newsreader', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --text-color: #000000;
+      --link-blue: #0056b3;
+      --navy-bar: #0f2942;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      color: var(--text-main);
-      background-color: var(--bg-canvas);
-      line-height: 1.6;
-      font-size: 13.5px;
+      font-family: var(--font-serif);
+      color: var(--text-color);
+      background-color: #f1f5f9;
+      line-height: 1.4;
+      font-size: 10pt;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Floating Control Bar */
+    /* Top Floating Control Bar (Screen Only) */
     .top-bar {
       position: sticky;
       top: 0;
-      background: var(--navy);
+      background: var(--navy-bar);
       color: #ffffff;
       padding: 12px 28px;
       display: flex;
@@ -54,16 +48,22 @@
       align-items: center;
       z-index: 1000;
       box-shadow: 0 4px 12px rgba(15, 41, 66, 0.2);
+      font-family: var(--font-sans);
     }
+
     .top-bar h2 {
       font-size: 0.95rem;
       font-weight: 600;
-      font-family: 'Inter', sans-serif;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .top-bar-btns { display: flex; gap: 12px; }
+
+    .top-bar-btns {
+      display: flex;
+      gap: 12px;
+    }
+
     .top-btn {
       display: inline-flex;
       align-items: center;
@@ -75,160 +75,264 @@
       cursor: pointer;
       text-decoration: none;
       transition: all 0.2s ease;
+      font-family: var(--font-sans);
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    .btn-download-pdf { background: #2563eb; color: #ffffff; border: none; }
-    .btn-download-pdf:hover { background: #1d4ed8; transform: translateY(-1px); }
-    .btn-back { background: rgba(255, 255, 255, 0.12); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.25); }
-    .btn-back:hover { background: rgba(255, 255, 255, 0.22); }
 
-    /* Executive Academic CV Card */
-    .cv-container {
-      max-width: 860px;
-      margin: 36px auto;
-      background: var(--bg-card);
-      padding: 56px 64px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-      border-radius: 8px;
-      border: 1px solid var(--border-color);
+    .btn-download-pdf {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+    }
+    .btn-download-pdf:hover {
+      background: #1d4ed8;
+      transform: translateY(-1px);
     }
 
-    /* Header & Photo Section */
-    .cv-header-layout {
+    .btn-pdf-direct {
+      background: #059669;
+      color: #ffffff;
+      border: none;
+    }
+    .btn-pdf-direct:hover {
+      background: #047857;
+      transform: translateY(-1px);
+    }
+
+    .btn-back {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .btn-back:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    /* Paper Document Wrapper */
+    .cv-paper {
+      max-width: 820px;
+      margin: 36px auto 60px auto;
+      background: #ffffff;
+      padding: 50px 60px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      border: 1px solid #e2e8f0;
+      border-radius: 2px;
+    }
+
+    /* Document Main Title */
+    .cv-main-title {
+      text-align: center;
+      font-style: italic;
+      font-size: 25pt;
+      font-weight: normal;
+      margin-bottom: 22px;
+      color: #000000;
+      letter-spacing: 0.5px;
+    }
+
+    /* Header: Name, Positions, Contacts, Photo */
+    .cv-header-grid {
       display: flex;
-      align-items: center;
-      gap: 28px;
-      padding-bottom: 28px;
-      border-bottom: 2px solid var(--navy);
-      margin-bottom: 32px;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 20px;
     }
 
-    .cv-photo-wrapper {
+    .cv-header-left {
+      flex: 1;
+    }
+
+    .cv-name {
+      font-size: 18.5pt;
+      font-weight: bold;
+      font-style: italic;
+      color: #000000;
+      line-height: 1.2;
+      margin-bottom: 3px;
+    }
+
+    .cv-double-line {
+      border-bottom: 3px double #000000;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .cv-positions {
+      margin-bottom: 12px;
+      font-size: 10pt;
+      line-height: 1.4;
+    }
+
+    .cv-pos-item {
+      margin-bottom: 4px;
+    }
+
+    .cv-pos-item strong {
+      font-weight: bold;
+    }
+
+    .cv-contacts {
+      font-size: 9.8pt;
+      line-height: 1.55;
+    }
+
+    .cv-contact-row {
+      display: block;
+      word-break: break-all;
+    }
+
+    .cv-contact-row strong {
+      font-weight: bold;
+      display: inline-block;
+      min-width: 105px;
+    }
+
+    .cv-contact-row a {
+      color: var(--link-blue);
+      text-decoration: underline;
+    }
+
+    .cv-header-right {
       flex-shrink: 0;
+      text-align: right;
     }
 
     .cv-photo {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
+      width: 125px;
+      height: 168px;
       object-fit: cover;
       object-position: center 15%;
-      border: 3px solid var(--navy);
-      box-shadow: 0 4px 12px rgba(15, 41, 66, 0.15);
-      background-color: #f1f5f9;
+      border: 1px solid #d1d5db;
+      display: block;
     }
 
-    .cv-header-info { flex: 1; }
-
-    .cv-name {
-      font-family: 'Newsreader', Georgia, serif;
-      font-size: 2.3rem;
-      font-weight: 700;
-      color: var(--navy);
-      letter-spacing: -0.5px;
-      line-height: 1.15;
-      margin-bottom: 6px;
+    /* Section Headings */
+    .cv-section {
+      margin-top: 18px;
     }
-
-    .cv-title-rank {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--navy-light);
-      margin-bottom: 12px;
-    }
-
-    .cv-contact-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px 20px;
-      font-size: 0.86rem;
-      color: var(--text-sub);
-    }
-
-    .cv-contact-item {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .cv-contact-item i { color: var(--navy); font-size: 1rem; }
-    .cv-contact-item a { color: var(--navy); text-decoration: none; font-weight: 500; }
-    .cv-contact-item a:hover { text-decoration: underline; }
-
-    /* Sections */
-    .cv-section { margin-bottom: 32px; }
 
     .cv-section-title {
-      font-family: 'Newsreader', Georgia, serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: var(--navy);
+      font-size: 12pt;
+      font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      padding-bottom: 6px;
-      border-bottom: 1.5px solid var(--navy);
-      margin-bottom: 18px;
+      color: #000000;
+      border-bottom: 3px double #000000;
+      padding-bottom: 2px;
+      margin-bottom: 10px;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    /* Two-Column Grid for Dates & Descriptions */
+    .cv-grid-list {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 8px;
     }
 
-    .cv-item {
+    .cv-grid-row {
       display: grid;
-      grid-template-columns: 165px 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
+      grid-template-columns: 140px 1fr;
+      gap: 14px;
+      font-size: 10pt;
+      line-height: 1.4;
+      page-break-inside: avoid;
+      break-inside: avoid;
     }
 
-    .cv-date {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--navy-light);
+    .cv-col-date {
+      font-weight: normal;
+      color: #000000;
       white-space: nowrap;
     }
 
-    .cv-role { font-weight: 700; color: var(--text-main); font-size: 0.95rem; }
-    .cv-org { color: var(--text-sub); font-size: 0.88rem; font-weight: 500; }
-    .cv-desc { color: var(--text-muted); font-size: 0.84rem; margin-top: 2px; }
+    .cv-col-desc {
+      color: #000000;
+    }
 
-    /* Publications */
+    .cv-col-desc strong {
+      font-weight: bold;
+    }
+
+    /* Publications List */
+    .cv-pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
     .cv-pub-item {
-      margin-bottom: 14px;
-      font-size: 0.88rem;
-      line-height: 1.55;
-      padding-left: 28px;
-      position: relative;
+      font-size: 9.6pt;
+      line-height: 1.38;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .cv-pub-authors {
+      color: #000000;
     }
 
     .cv-pub-num {
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-weight: 700;
-      color: var(--navy);
+      font-weight: normal;
+      display: inline-block;
+      min-width: 18px;
     }
 
-    .cv-pub-authors strong { color: var(--navy); font-weight: 700; }
-    .cv-pub-doi { color: var(--text-muted); font-size: 0.82rem; }
+    .cv-pub-authors strong {
+      font-weight: bold;
+    }
 
-    /* Print & Export Rules */
+    .cv-pub-title {
+      font-style: italic;
+      color: #000000;
+    }
+
+    .cv-pub-meta {
+      color: #000000;
+    }
+
+    .cv-pub-meta a {
+      color: var(--link-blue);
+      text-decoration: underline;
+      word-break: break-all;
+    }
+
+    /* Simple List */
+    .cv-simple-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 10pt;
+      line-height: 1.4;
+    }
+
+    .cv-simple-list div {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* Print & PDF Export Rules */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 15mm 15mm 15mm 15mm;
+        margin: 15mm 16mm 15mm 16mm;
       }
-      
+
       html, body {
         background: #ffffff !important;
         color: #000000 !important;
-        font-size: 11pt !important;
+        font-size: 9.8pt !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
-      .top-bar { display: none !important; }
+      .top-bar {
+        display: none !important;
+      }
 
-      .cv-container {
+      .cv-paper {
         max-width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
@@ -236,120 +340,67 @@
         border: none !important;
       }
 
-      .cv-photo {
-        border-color: #0f2942 !important;
-        box-shadow: none !important;
+      .cv-main-title {
+        margin-top: 0 !important;
+        margin-bottom: 16px !important;
+        font-size: 23pt !important;
       }
 
-      .cv-name { color: #0f2942 !important; }
+      .cv-section {
+        margin-top: 16px !important;
+        page-break-inside: avoid;
+      }
+
       .cv-section-title {
-        color: #0f2942 !important;
-        border-bottom-color: #0f2942 !important;
+        page-break-after: avoid !important;
+        break-after: avoid !important;
       }
 
-      .cv-section { page-break-inside: avoid; }
-      .cv-pub-item { page-break-inside: avoid; }
-      .cv-item { page-break-inside: avoid; }
+      .cv-grid-row, .cv-pub-item, .cv-simple-list div {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
 
-      a { text-decoration: none !important; color: inherit !important; }
+      a {
+        color: #0056b3 !important;
+        text-decoration: underline !important;
+      }
     }
 
-    /* Mobile Responsive Rules */
+    /* Responsive for mobile screens */
     @media screen and (max-width: 768px) {
       .top-bar {
         padding: 10px 16px;
-        height: auto;
-        flex-direction: row;
         flex-wrap: wrap;
         gap: 8px;
-        justify-content: space-between;
       }
-
       .top-bar h2 {
         font-size: 0.85rem;
         width: 100%;
-        margin-bottom: 2px;
       }
-
       .top-bar-btns {
         width: 100%;
         justify-content: space-between;
-        gap: 8px;
       }
-
-      .top-btn {
-        flex: 1;
-        justify-content: center;
-        padding: 8px 10px;
-        font-size: 0.78rem;
+      .cv-paper {
+        padding: 30px 18px;
+        margin: 16px 8px;
       }
-
-      .cv-container {
-        margin: 10px auto;
-        padding: 24px 16px;
-        border-radius: 0;
-        box-shadow: none;
-        border: none;
-      }
-
-      .cv-header-layout {
-        flex-direction: column;
-        text-align: center;
-        gap: 16px;
+      .cv-header-grid {
+        flex-direction: column-reverse;
         align-items: center;
-        padding-bottom: 20px;
-        margin-bottom: 24px;
+        text-align: center;
       }
-
-      .cv-photo {
-        width: 96px;
-        height: 96px;
+      .cv-header-right {
+        text-align: center;
       }
-
-      .cv-name {
-        font-size: 1.65rem;
-        margin-bottom: 4px;
+      .cv-contact-row strong {
+        min-width: unset;
+        display: inline;
       }
-
-      .cv-title-rank {
-        font-size: 0.92rem;
-        margin-bottom: 10px;
-        line-height: 1.4;
-      }
-
-      .cv-contact-grid {
-        justify-content: center;
-        gap: 8px 12px;
-        font-size: 0.8rem;
-      }
-
-      .cv-section-title {
-        font-size: 1.1rem;
-        margin-bottom: 14px;
-      }
-
-      .cv-item {
+      .cv-grid-row {
         grid-template-columns: 1fr;
         gap: 2px;
-        margin-bottom: 14px;
-      }
-
-      .cv-date {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: var(--navy-light);
-      }
-
-      .cv-role {
-        font-size: 0.95rem;
-      }
-
-      .cv-org, .cv-desc {
-        font-size: 0.85rem;
-      }
-
-      .cv-pub-item {
-        padding-left: 24px;
       }
     }
   </style>
@@ -358,229 +409,327 @@
 
   <!-- Floating Control Bar -->
   <div class="top-bar">
-    <h2><i class="ri-file-user-line"></i> <span data-i18n="cv_bar_title">Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae</span></h2>
+    <h2><i class="ri-file-user-line"></i> Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae</h2>
     <div class="top-bar-btns">
-      <button class="top-btn btn-back" id="lang-toggle-btn" title="Switch Language (EN/KR)">
-        <span id="lang-text"><img src="assets/flag_kr.svg" alt="KR" style="width:18px; height:12px; vertical-align:-1px; margin-right:5px; border-radius:2px; box-shadow:0 0 1px rgba(0,0,0,0.4); object-fit:cover;"> KR</span>
-      </button>
-      <a href="index.html" class="top-btn btn-back"><i class="ri-arrow-left-line"></i> <span data-i18n="btn_back">Return to Website</span></a>
-      <button onclick="window.print()" class="top-btn btn-download-pdf"><i class="ri-download-2-line"></i> <span data-i18n="btn_pdf">Save / Download PDF</span></button>
+      <a href="index.html" class="top-btn btn-back"><i class="ri-arrow-left-line"></i> Return to Website</a>
+      <a href="assets/Hyeokjae_Kwon_CV.pdf" download="Hyeokjae_Kwon_CV.pdf" class="top-btn btn-pdf-direct"><i class="ri-file-pdf-line"></i> Download PDF</a>
+      <button onclick="window.print()" class="top-btn btn-download-pdf"><i class="ri-printer-line"></i> Print / Save as PDF</button>
     </div>
   </div>
 
-  <div class="cv-container">
-    
-    <!-- Header with Profile Photo -->
-    <header class="cv-header-layout">
-      <div class="cv-photo-wrapper">
-        <img src="assets/profile.jpg" alt="Hyeokjae Kwon, M.D., Ph.D." class="cv-photo" />
-      </div>
-      <div class="cv-header-info">
-        <h1 class="cv-name" data-i18n="name_hero">Hyeokjae Kwon, M.D., Ph.D.</h1>
-        <div class="cv-title-rank" data-i18n="cv_title_rank">Visiting Professor, MGH & Harvard Medical School | Clinical Assistant Professor, CNUH</div>
-        <div class="cv-contact-grid">
-          <div class="cv-contact-item"><i class="ri-mail-line"></i> <span class="protected-email" data-u="a3dvbi5oeWVva2phZQ==" data-d="Y251aC5jby5rcg=="></span></div>
-          <div class="cv-contact-item"><i class="ri-map-pin-line"></i> Boston, MA, USA / Daejeon, South Korea</div>
-          <div class="cv-contact-item"><i class="ri-global-line"></i> <a href="https://hyeokjaekwon26.github.io/" target="_blank" rel="noopener noreferrer">hyeokjaekwon26.github.io</a></div>
-          <div class="cv-contact-item"><i class="ri-fingerprint-line"></i> <a href="https://orcid.org/0000-0002-1418-3448" target="_blank" rel="noopener noreferrer">ORCID: 0000-0002-1418-3448</a></div>
+  <div class="cv-paper">
+
+    <!-- Document Main Title -->
+    <h1 class="cv-main-title">Curriculum Vitae</h1>
+
+    <!-- Header Section -->
+    <header class="cv-header-grid">
+      <div class="cv-header-left">
+        <div class="cv-name">Hyeokjae Kwon, M.D., Ph.D.</div>
+        <div class="cv-double-line"></div>
+
+        <div class="cv-positions">
+          <div class="cv-pos-item">
+            <strong>Visiting Professor</strong>, Department of Radiology<br>
+            Massachusetts General Hospital &amp; Harvard Medical School, Boston, MA, USA
+          </div>
+          <div class="cv-pos-item">
+            <strong>Clinical Assistant Professor</strong>, Department of Plastic and Reconstructive Surgery<br>
+            Chungnam National University Hospital, Daejeon, South Korea
+          </div>
         </div>
+
+        <div class="cv-contacts">
+          <div class="cv-contact-row"><strong>Office:</strong> (82) 42-280-7380</div>
+          <div class="cv-contact-row"><strong>E-mail:</strong> <a href="mailto:kwon.hyeokjae@cnuh.co.kr">kwon.hyeokjae@cnuh.co.kr</a></div>
+          <div class="cv-contact-row"><strong>Google Scholar:</strong> <a href="https://scholar.google.com/citations?user=ouc34HsAAAAJ" target="_blank" rel="noopener">https://scholar.google.com/citations?user=ouc34HsAAAAJ</a></div>
+          <div class="cv-contact-row"><strong>ORCID:</strong> <a href="https://orcid.org/0000-0002-1418-3448" target="_blank" rel="noopener">https://orcid.org/0000-0002-1418-3448</a></div>
+          <div class="cv-contact-row"><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/hyeokjae-kwon-85701724/" target="_blank" rel="noopener">https://www.linkedin.com/in/hyeokjae-kwon-85701724/</a></div>
+          <div class="cv-contact-row"><strong>Website:</strong> <a href="https://hyeokjaekwon26.github.io/" target="_blank" rel="noopener">https://hyeokjaekwon26.github.io/</a></div>
+        </div>
+      </div>
+
+      <div class="cv-header-right">
+        <img src="assets/profile.jpg" alt="Hyeokjae Kwon, M.D., Ph.D." class="cv-photo">
       </div>
     </header>
 
-    <!-- Professional Experience -->
+    <!-- Education Section -->
     <section class="cv-section">
-      <h2 class="cv-section-title"><i class="ri-briefcase-line"></i> <span data-i18n="cv_sec_appointments">Academic & Clinical Appointments</span></h2>
-      
-      <div class="cv-item">
-        <div class="cv-date">Mar. 2026 ~ Present</div>
-        <div>
-          <div class="cv-role" data-i18n="role_visiting">Visiting Professor</div>
-          <div class="cv-org" data-i18n="org_visiting">Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), Boston, MA, USA</div>
-          <div class="cv-desc" data-i18n="item_visiting_desc">Collaborative research on clinical surgical innovation, medical AI, and surgical outcomes.</div>
+      <h2 class="cv-section-title">EDUCATION</h2>
+      <div class="cv-grid-list">
+        <div class="cv-grid-row">
+          <div class="cv-col-date">2021.09. ~ 2023.08.</div>
+          <div class="cv-col-desc"><strong>Ph. D. in Medicine</strong> (Plastic &amp; Reconstructive Surgery), Chungnam National University, South Korea</div>
         </div>
-      </div>
-
-      <div class="cv-item">
-        <div class="cv-date">Mar. 2024 ~ Present</div>
-        <div>
-          <div class="cv-role" data-i18n="role_clinical">Clinical Assistant Professor</div>
-          <div class="cv-org" data-i18n="org_cnuh">Chungnam National University Hospital, Daejeon, South Korea</div>
-          <div class="cv-desc" data-i18n="item_cnuh_dept">Department of Plastic and Reconstructive Surgery.</div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">2010.03. ~ 2014.02.</div>
+          <div class="cv-col-desc"><strong>M.D. / M.S. in Medicine</strong>, Chungnam National University, South Korea</div>
         </div>
-      </div>
-
-      <div class="cv-item">
-        <div class="cv-date">May. 2022 ~ Feb. 2024</div>
-        <div>
-          <div class="cv-role" data-i18n="item_fellow_role">Clinical Fellow</div>
-          <div class="cv-org" data-i18n="org_cnuh">Chungnam National University Hospital, Daejeon, South Korea</div>
-          <div class="cv-desc" data-i18n="item_cnuh_dept">Department of Plastic and Reconstructive Surgery.</div>
-        </div>
-      </div>
-
-      <div class="cv-item">
-        <div class="cv-date">Apr. 2019 ~ Apr. 2022</div>
-        <div>
-          <div class="cv-role" data-i18n="item_army_role">Army Medical Officer</div>
-          <div class="cv-org" data-i18n="item_army_1115">1115th Corps of Engineers, Second Operations Command, ROK Army</div>
-        </div>
-      </div>
-
-      <div class="cv-item">
-        <div class="cv-date">Mar. 2014 ~ Feb. 2019</div>
-        <div>
-          <div class="cv-role" data-i18n="item_residency_role">Residency in Plastic & Reconstructive Surgery</div>
-          <div class="cv-org" data-i18n="org_cnuh">Chungnam National University Hospital, Daejeon, South Korea</div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">2006.03. ~ 2010.02.</div>
+          <div class="cv-col-desc"><strong>B.S. in Computer Science</strong>, KAIST, South Korea</div>
         </div>
       </div>
     </section>
 
-    <!-- Education -->
+    <!-- Professional Experiences Section -->
     <section class="cv-section">
-      <h2 class="cv-section-title"><i class="ri-graduation-cap-line"></i> <span data-i18n="section_edu">Education</span></h2>
-      
-      <div class="cv-item">
-        <div class="cv-date">Sep. 2021 ~ Aug. 2023</div>
-        <div>
-          <div class="cv-role" data-i18n="item_phd_role">Ph.D. in Medicine (Plastic & Reconstructive Surgery)</div>
-          <div class="cv-org" data-i18n="org_cnu">Chungnam National University, South Korea</div>
+      <h2 class="cv-section-title">PROFESSIONAL EXPERIENCES</h2>
+      <div class="cv-grid-list">
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Mar. 2026 ~ Present</div>
+          <div class="cv-col-desc"><strong>Visiting Professor</strong>, Department of Radiology, Massachusetts General Hospital (MGH) &amp; Harvard Medical School (HMS), Boston, MA, USA</div>
         </div>
-      </div>
-
-      <div class="cv-item">
-        <div class="cv-date">Mar. 2010 ~ Feb. 2014</div>
-        <div>
-          <div class="cv-role" data-i18n="item_ms_role">M.D. / M.S. in Medicine</div>
-          <div class="cv-org" data-i18n="org_cnu">Chungnam National University, South Korea</div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Mar. 2024 ~ Present</div>
+          <div class="cv-col-desc"><strong>Clinical Assistant Professor</strong>, Department of Plastic and Reconstructive Surgery, Chungnam National University Hospital, Daejeon, South Korea</div>
         </div>
-      </div>
-
-      <div class="cv-item">
-        <div class="cv-date">Mar. 2006 ~ Feb. 2010</div>
-        <div>
-          <div class="cv-role" data-i18n="item_bs_role">B.S. in Computer Science</div>
-          <div class="cv-org" data-i18n="org_kaist">KAIST (Korea Advanced Institute of Science and Technology), South Korea</div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">May 2022 ~ Feb. 2024</div>
+          <div class="cv-col-desc"><strong>Clinical Fellow</strong>, Department of Plastic and Reconstructive Surgery, Chungnam National University Hospital, Daejeon, South Korea</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Apr. 2021 ~ Apr. 2022</div>
+          <div class="cv-col-desc"><strong>Army Medical Officer</strong>, 1115th Engineer Group, Second Operations Command, Republic of Korea Army</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Apr. 2019 ~ Apr. 2021</div>
+          <div class="cv-col-desc"><strong>Army Medical Officer</strong>, 7th Airborne Special Forces Brigade, Republic of Korea Army</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Mar. 2015 ~ Feb. 2019</div>
+          <div class="cv-col-desc"><strong>Residency</strong> in Plastic and Reconstructive Surgery, Chungnam National University Hospital, Daejeon, South Korea</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Mar. 2014 ~ Feb. 2015</div>
+          <div class="cv-col-desc"><strong>Medical Internship</strong>, Chungnam National University Hospital, Daejeon, South Korea</div>
         </div>
       </div>
     </section>
 
-    <!-- Honors, Awards & Certifications -->
+    <!-- Journal and Report (Publications) Section -->
     <section class="cv-section">
-      <h2 class="cv-section-title"><i class="ri-award-line"></i> <span data-i18n="section_honors">Honors, Awards & Certifications</span></h2>
-      
-      <div class="cv-item">
-        <div class="cv-date">Nov. 2024</div>
-        <div><div class="cv-role" data-i18n="cert_fkwa">Fellow of the Korean Wound Academy (FKWA)</div><div class="cv-org" data-i18n="kwms_name">Korean Wound Management Society</div></div>
-      </div>
-      <div class="cv-item">
-        <div class="cv-date">Feb. 2024</div>
-        <div><div class="cv-role" data-i18n="award_med_record">Medical Record Documentation Excellence Award</div><div class="cv-org" data-i18n="org_cnuh_short">Chungnam National University Hospital</div></div>
-      </div>
-      <div class="cv-item">
-        <div class="cv-date">Mar. 2023</div>
-        <div><div class="cv-role" data-i18n="award_reviewer">Outstanding Reviewer Award</div><div class="cv-org">Journal of Wound Management and Research (JWMR)</div></div>
-      </div>
-      <div class="cv-item">
-        <div class="cv-date">Dec. 2022</div>
-        <div><div class="cv-role" data-i18n="cert_cpbmi">Certified Physician in Biomedical Informatics (CPBMI)</div><div class="cv-org" data-i18n="kosmi_name">Korea Society of Medical Informatics (KOSMI)</div></div>
-      </div>
-      <div class="cv-item">
-        <div class="cv-date">Aug. 2022</div>
-        <div><div class="cv-role" data-i18n="award_research">Outstanding Research Award</div><div class="cv-org" data-i18n="org_cnu_grad">Graduate School of Chungnam National University</div></div>
-      </div>
-      <div class="cv-item">
-        <div class="cv-date">Nov. 2019</div>
-        <div><div class="cv-role" data-i18n="award_army_commend">Brigadier General Commendation for Meritorious Service</div><div class="cv-org" data-i18n="item_army_7th">7th Airborne Special Forces Brigade, ROK Army</div></div>
-      </div>
-      <div class="cv-item">
-        <div class="cv-date">Nov. 2019</div>
-        <div><div class="cv-role" data-i18n="cert_hrdk">Engineer Information Processing</div><div class="cv-org" data-i18n="hrdk_name">Human Resources Development Service of Korea (HRDK)</div></div>
-      </div>
-      <div class="cv-item">
-        <div class="cv-date">Mar. 2019</div>
-        <div><div class="cv-role" data-i18n="cert_board">Board Certified Specialist in Plastic & Reconstructive Surgery</div><div class="cv-org" data-i18n="mohw_name">Ministry of Health and Welfare, Republic of Korea</div></div>
-      </div>
-      <div class="cv-item">
-        <div class="cv-date">Nov. 2017</div>
-        <div><div class="cv-role" data-i18n="award_golden_bell">3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz)</div><div class="cv-org" data-i18n="cv_ksprs_sub">75th International Congress of KSPRS</div></div>
-      </div>
-      <div class="cv-item">
-        <div class="cv-date">Jul. 2017</div>
-        <div><div class="cv-role" data-i18n="cert_aocmf">AOCMF Course — Management of Facial Trauma</div><div class="cv-org">AOCMF (AO Foundation)</div></div>
-      </div>
-      <div class="cv-item">
-        <div class="cv-date">Mar. 2014</div>
-        <div><div class="cv-role" data-i18n="cert_license">Medical Doctor (M.D.) License</div><div class="cv-org" data-i18n="mohw_name">Ministry of Health and Welfare, Republic of Korea</div></div>
+      <h2 class="cv-section-title">JOURNAL AND REPORT</h2>
+      <div class="cv-pub-list" id="cv-pub-list">
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">1.</span> Kim J, <strong>Kwon H</strong>.</div>
+          <div class="cv-pub-title">Self-Reported Health Literacy and Current Conventional Cigarette Smoking Among Korean Adults: A Cross-Sectional Analysis of the 2024 Korea National Health and Nutrition Examination Survey.</div>
+          <div class="cv-pub-meta">Healthcare. 2026;14(17):2866. <a href="https://doi.org/10.3390/healthcare14172866" target="_blank" rel="noopener">https://doi.org/10.3390/healthcare14172866</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">2.</span> Jeong CH, Kim J, <strong>Kwon H</strong>, Kim S, Song SH, Oh S-H, Ha Y.</div>
+          <div class="cv-pub-title">Dual-linking free-flap reconstruction for above-knee amputation stump coverage in an older patient: a case report.</div>
+          <div class="cv-pub-meta">Archives of Hand and Microsurgery. 2026;31(3):184-192. <a href="https://doi.org/10.12790/ahm.25.0051" target="_blank" rel="noopener">https://doi.org/10.12790/ahm.25.0051</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">3.</span> Kim D, Oh SK, Heo J, Oh HS, You B, Kim M, <strong>Kwon H</strong>, Lee D, Oh S-H.</div>
+          <div class="cv-pub-title">Advancing nipple volume measurement using Gaussian splatting: Achieving comparable accuracy to current standards.</div>
+          <div class="cv-pub-meta">Journal of Plastic, Reconstructive &amp; Aesthetic Surgery. 2026;115:215-224. <a href="https://doi.org/10.1016/j.bjps.2026.02.046" target="_blank" rel="noopener">https://doi.org/10.1016/j.bjps.2026.02.046</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">4.</span> Kim J, Kim J-H, <strong>Kwon H</strong>.</div>
+          <div class="cv-pub-title">Iatrogenic lung overinflation resulting in pneumothorax and pneumoperitoneum during oxygen therapy post-general anesthesia: A case report.</div>
+          <div class="cv-pub-meta">Medicine. 2025;104(29):e43410. <a href="https://doi.org/10.1097/MD.0000000000043410" target="_blank" rel="noopener">https://doi.org/10.1097/MD.0000000000043410</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">5.</span> <strong>Kwon H</strong>, Kim S, Oh S-H, Ha Y, Song SH.</div>
+          <div class="cv-pub-title">Outcomes of reconstructing lower lid defects using midface lifting and full-thickness skin grafts.</div>
+          <div class="cv-pub-meta">Journal of Craniofacial Surgery. 2025;36(7):e1102-e1106. <a href="https://doi.org/10.1097/SCS.0000000000011579" target="_blank" rel="noopener">https://doi.org/10.1097/SCS.0000000000011579</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">6.</span> Lee B, Xu L, Oh S-H, Ha Y, <strong>Kwon H</strong>, Lee KC, Kim SY, Seo CW, Kim S, Song SH.</div>
+          <div class="cv-pub-title">AI-driven eyeball exposure rate (EER) analysis: A useful tool for assessing ptosis surgery effectiveness.</div>
+          <div class="cv-pub-meta">PLOS ONE. 2025;20(3):e0319577. <a href="https://doi.org/10.1371/journal.pone.0319577" target="_blank" rel="noopener">https://doi.org/10.1371/journal.pone.0319577</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">7.</span> Kyoung H, Park J, Lee B, Kim J, Oh S-H, Kim S, Ha Y, <strong>Kwon H</strong>, Lee K, Song SH.</div>
+          <div class="cv-pub-title">The Effect of a Collagen-Elastin Implantation on Infraorbital Hallowing in Lower Lid Surgery for Aging Patients.</div>
+          <div class="cv-pub-meta">Journal of Craniofacial Surgery. 2025;36(8):e1214-e1217. <a href="https://doi.org/10.1097/scs.0000000000011387" target="_blank" rel="noopener">https://doi.org/10.1097/scs.0000000000011387</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">8.</span> Yang HJ, Kim J, Song B, <strong>Kwon H</strong>, Kim S, Song SH, Oh S-H, Ha Y.</div>
+          <div class="cv-pub-title">Factors influencing the choice of a free-flap donor site in lower extremity reconstruction from an aesthetic perspective: a cross-sectional analysis of public sentiment from an internet-based questionnaire.</div>
+          <div class="cv-pub-meta">Archives of Hand and Microsurgery. 2025;30(4):258-266. <a href="https://doi.org/10.12790/ahm.25.0032" target="_blank" rel="noopener">https://doi.org/10.12790/ahm.25.0032</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">9.</span> Ha Y, Kim D, <strong>Kwon H</strong>, Kim S, Song SH, Oh S-H, Kim J-H, Yang HJ, Kyung H.</div>
+          <div class="cv-pub-title">Anterolateral thigh free flap using modified turbocharging method: a case report.</div>
+          <div class="cv-pub-meta">Frontiers in Surgery. 2024;11. <a href="https://doi.org/10.3389/fsurg.2024.1273843" target="_blank" rel="noopener">https://doi.org/10.3389/fsurg.2024.1273843</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">10.</span> Kim J, Kim D, Oh S-H, <strong>Kwon H</strong>.</div>
+          <div class="cv-pub-title">Virtual reality for preoperative patient education: Satisfaction, usability, and impact on burnout from the perspective of new nurses.</div>
+          <div class="cv-pub-meta">World Journal of Clinical Cases. 2024;12(28):6204-6216. <a href="https://doi.org/10.12998/wjcc.v12.i28.6204" target="_blank" rel="noopener">https://doi.org/10.12998/wjcc.v12.i28.6204</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">11.</span> Kyung HW, Lee S, <strong>Kwon H</strong>, Kim S, Kim JH, Song SH, Oh S-H, Yang HJ, Ha Y.</div>
+          <div class="cv-pub-title">The effect of botulinum toxin A on NADPH oxidase system and ischemia reperfusion injury.</div>
+          <div class="cv-pub-meta">Plastic and Reconstructive Surgery. 2024;154(1):100e-111e. <a href="https://doi.org/10.1097/PRS.0000000000010956" target="_blank" rel="noopener">https://doi.org/10.1097/PRS.0000000000010956</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">12.</span> Ha Y, Kim J-H, Kim J, <strong>Kwon H</strong>.</div>
+          <div class="cv-pub-title">Non-surgical treatment of diabetic foot ulcers on the dorsum of the foot with polydeoxyribonucleotide (PDRN) injection: Two cases.</div>
+          <div class="cv-pub-meta">World Journal of Clinical Cases. 2024;12(20):4446-4451. <a href="https://doi.org/10.12998/wjcc.v12.i20.4446" target="_blank" rel="noopener">https://doi.org/10.12998/wjcc.v12.i20.4446</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">13.</span> Kim J, <strong>Kwon H</strong>, Kim S, Song SH, Oh S-H, Ha Y.</div>
+          <div class="cv-pub-title">Improved flap perfusion and hemostasis after postoperative embolization in free flap surgery: A case report.</div>
+          <div class="cv-pub-meta">Archives of Hand and Microsurgery. 2024;29(2):127-131. <a href="https://doi.org/10.12790/ahm.24.0005" target="_blank" rel="noopener">https://doi.org/10.12790/ahm.24.0005</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">14.</span> <strong>Kwon H</strong>, Song B, Ha Y, Kim S, Oh S-H, Seo Y-J, Song SH.</div>
+          <div class="cv-pub-title">Customized reconstruction of lower eyelid defects.</div>
+          <div class="cv-pub-meta">Journal of Craniofacial Surgery. 2024;35(1):233-236. <a href="https://doi.org/10.1097/SCS.0000000000009807" target="_blank" rel="noopener">https://doi.org/10.1097/SCS.0000000000009807</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">15.</span> Song B, <strong>Kwon H</strong>, Kim S, Ha Y, Oh S-H, Song S-H.</div>
+          <div class="cv-pub-title">Introduction of deep learning-based infrared image analysis to marginal reflex distance-1 measurement method: Clinical validation study.</div>
+          <div class="cv-pub-meta">Journal of Clinical Medicine. 2023;12(23):7466. <a href="https://doi.org/10.3390/jcm12237466" target="_blank" rel="noopener">https://doi.org/10.3390/jcm12237466</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">16.</span> Park Y, <strong>Kwon H</strong>, Kim S, Song SH, Oh S-H, Ha Y.</div>
+          <div class="cv-pub-title">Reconstruction of a medium-sized congenital melanocytic nevus defect using a thin thoracodorsal artery perforator free flap: A case report.</div>
+          <div class="cv-pub-meta">Archives of Aesthetic Plastic Surgery. 2023;29(4):226-229. <a href="https://doi.org/10.14730/aaps.2023.00941" target="_blank" rel="noopener">https://doi.org/10.14730/aaps.2023.00941</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">17.</span> Song B, Kim J, <strong>Kwon H</strong>, Kim S, Oh S-H, Ha Y, Song S-H.</div>
+          <div class="cv-pub-title">Smartphone-based LiDAR application for easy and accurate wound size measurement.</div>
+          <div class="cv-pub-meta">Journal of Clinical Medicine. 2023;12(18):6042. <a href="https://doi.org/10.3390/jcm12186042" target="_blank" rel="noopener">https://doi.org/10.3390/jcm12186042</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">18.</span> <strong>Kwon H</strong>, Lee J, Park YS, Oh S-H, Kim J.</div>
+          <div class="cv-pub-title">Effects of preoperative education using virtual reality on preoperative anxiety and information desire: A randomized clinical trial.</div>
+          <div class="cv-pub-meta">Journal of Clinical Monitoring and Computing. 2023;37(5):1401-1407. <a href="https://doi.org/10.1007/s10877-023-00988-5" target="_blank" rel="noopener">https://doi.org/10.1007/s10877-023-00988-5</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">19.</span> <strong>Kwon H</strong>, Lee S, Kim J, Song SH.</div>
+          <div class="cv-pub-title">Efficacy and safety of stromal vascular fraction on scar revision surgery: A prospective study.</div>
+          <div class="cv-pub-meta">Journal of Dermatological Treatment. 2023;34(1). <a href="https://doi.org/10.1080/09546634.2023.2171260" target="_blank" rel="noopener">https://doi.org/10.1080/09546634.2023.2171260</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">20.</span> <strong>Kwon H</strong>, Lee S, Kim S, Song SH, Oh S-H, Kim J-H, Kyung H, Yang HJ, Ha Y.</div>
+          <div class="cv-pub-title">Reconstruction of complex knee wounds with a distally based gracilis flap and gastrocnemius myocutaneous flap: A case report.</div>
+          <div class="cv-pub-meta">Frontiers in Surgery. 2023;10. <a href="https://doi.org/10.3389/fsurg.2023.1109936" target="_blank" rel="noopener">https://doi.org/10.3389/fsurg.2023.1109936</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">21.</span> <strong>Kwon H</strong>, Ko G, Choi J, Ha Y, Kim S, Kim J-H, Oh S-H, Song SH.</div>
+          <div class="cv-pub-title">Aesthetic removal of foreign body granulomas of forehead via pretrichial approach.</div>
+          <div class="cv-pub-meta">Journal of Craniofacial Surgery. 2022;33(5):1591-1595. <a href="https://doi.org/10.1097/SCS.0000000000008530" target="_blank" rel="noopener">https://doi.org/10.1097/SCS.0000000000008530</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">22.</span> Choi J, Ko G, <strong>Kwon H</strong>, Ha Y, Kim S, Kyung H, Oh S-H, Song SH.</div>
+          <div class="cv-pub-title">Minimally invasive removal of facial foreign body granulomas.</div>
+          <div class="cv-pub-meta">Archives of Aesthetic Plastic Surgery. 2022;28(1):24-30. <a href="https://doi.org/10.14730/aaps.2021.00346" target="_blank" rel="noopener">https://doi.org/10.14730/aaps.2021.00346</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">23.</span> Song SH, <strong>Kwon H</strong>, Oh S-H, Kim S-J, Park J, Kim SI.</div>
+          <div class="cv-pub-title">Open reduction of zygoma fractures with the extended transconjunctival approach and T-bar screw reduction.</div>
+          <div class="cv-pub-meta">Archives of Plastic Surgery. 2018;45(04):325-332. <a href="https://doi.org/10.5999/aps.2018.00311" target="_blank" rel="noopener">https://doi.org/10.5999/aps.2018.00311</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">24.</span> Oh S-H, <strong>Kwon H</strong>, Kim SJ, Kyung H, Seo YJ, Lew DH, Song SH.</div>
+          <div class="cv-pub-title">Bilateral interdigitated pacman flap for round and oval facial defects.</div>
+          <div class="cv-pub-meta">Journal of Cranio-Maxillofacial Surgery. 2018;46(6):1032-1036. <a href="https://doi.org/10.1016/j.jcms.2018.04.012" target="_blank" rel="noopener">https://doi.org/10.1016/j.jcms.2018.04.012</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">25.</span> Kyung H, <strong>Kwon H</strong>, Song S-H, Oh S-H.</div>
+          <div class="cv-pub-title">Reconstruction using local flaps for penoscrotal defects after ablation of skin lesions.</div>
+          <div class="cv-pub-meta">Journal of Wound Management and Research. 2018;14(1):37-43. <a href="https://doi.org/10.22467/jwmr.2017.00220" target="_blank" rel="noopener">https://doi.org/10.22467/jwmr.2017.00220</a></div>
+        </div>
+        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">26.</span> Jeong JY, <strong>Kwon H</strong>, Piao Y, Oh S-H.</div>
+          <div class="cv-pub-title">A new method for stabilizing the columellar strut used in rhinoplasty: The trans-septal columellar stabilizing suture.</div>
+          <div class="cv-pub-meta">Journal of Oral and Maxillofacial Surgery. 2018;76(1):165-168. <a href="https://doi.org/10.1016/j.joms.2017.07.145" target="_blank" rel="noopener">https://doi.org/10.1016/j.joms.2017.07.145</a></div>
+        </div>
       </div>
     </section>
 
-    <!-- Research Specializations -->
+    <!-- Honors and Awards Section -->
     <section class="cv-section">
-      <h2 class="cv-section-title"><i class="ri-lightbulb-line"></i> <span data-i18n="cv_sec_focus">Research Focus & Specializations</span></h2>
-      <div style="font-size: 0.9rem; color: var(--text-sub); line-height: 1.7;" data-i18n="cv_focus_text">
-        • <strong>Medical AI & Computer Vision:</strong> AI-driven Eyeball Exposure Rate (EER) Analysis, 3D Gaussian Splatting for Surgical Measurement.<br>
-        • <strong>Wound Care & Infection:</strong> Clinical outcomes in Chronic Wounds, Thermal/Infrared Sensing, Surgical Site Infection (SSI) Prevention.<br>
-        • <strong>Digital Health & Education:</strong> Virtual Reality (VR) Preoperative Patient Education, Smartphone LiDAR Clinical Applications.
+      <h2 class="cv-section-title">Honors and Awards</h2>
+      <div class="cv-grid-list">
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Feb. 2024</div>
+          <div class="cv-col-desc">Excellence Award for Medical Record Documentation, Chungnam National University Hospital, Daejeon, South Korea</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Mar. 2023</div>
+          <div class="cv-col-desc">Outstanding Reviewer Award, Journal of Wound Management and Research (JWMR)</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Aug. 2022</div>
+          <div class="cv-col-desc">Excellent Research Award, Graduate School of Chungnam National University, Daejeon, South Korea</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Nov. 2019</div>
+          <div class="cv-col-desc">Brigadier General Commendation for Meritorious Service, 7th Airborne Special Forces Brigade, Republic of Korea Army</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Nov. 2017</div>
+          <div class="cv-col-desc">3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz), 75th International Congress of KSPRS</div>
+        </div>
       </div>
     </section>
 
-    <!-- Peer-Reviewed Publications (Dynamic Auto-Sync) -->
+    <!-- Certifications Section -->
     <section class="cv-section">
-      <h2 class="cv-section-title"><i class="ri-book-read-line"></i> <span data-i18n="cv_sec_pubs">Peer-Reviewed Publications</span></h2>
-      <div id="cv-pub-list">
-        <div style="color: var(--text-muted);">Loading live publication records...</div>
+      <h2 class="cv-section-title">Certifications</h2>
+      <div class="cv-grid-list">
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Nov. 2024</div>
+          <div class="cv-col-desc">Fellow of Korea Wound Academy (FKWA), Korean Wound Management Society</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Dec. 2022</div>
+          <div class="cv-col-desc">Certified Physician in Biomedical Informatics (CPBMI), Korea Society of Medical Informatics (KOSMI)</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Nov. 2019</div>
+          <div class="cv-col-desc">Engineer Information Processing (정보처리기사), Human Resources Development Service of Korea</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Mar. 2019</div>
+          <div class="cv-col-desc">Board Certified Specialist in Plastic &amp; Reconstructive Surgery, Ministry of Health and Welfare, Republic of Korea</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Jul. 2017</div>
+          <div class="cv-col-desc">AOCMF Course — Management of Facial Trauma, AOCMF (AO Foundation)</div>
+        </div>
+        <div class="cv-grid-row">
+          <div class="cv-col-date">Mar. 2014</div>
+          <div class="cv-col-desc">Medical Doctor (M.D.) License, Ministry of Health and Welfare, Republic of Korea</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Professional Memberships Section -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Professional Memberships</h2>
+      <div class="cv-simple-list">
+        <div>Regular Member, Korean Society of Plastic and Reconstructive Surgeons (KSPRS)</div>
+        <div>Regular Member, Korean Wound Management Society</div>
+      </div>
+    </section>
+
+    <!-- Professional Activities Section -->
+    <section class="cv-section">
+      <h2 class="cv-section-title">Professional Activities</h2>
+      <div class="cv-simple-list">
+        <div>Reviewer, Journal of Wound Management and Research (JWMR)</div>
+        <div>Reviewer, Archives of Plastic Surgery (APS)</div>
       </div>
     </section>
 
   </div>
 
-  <script src="script.js?v=2.0"></script>
   <script>
-    // Auto-fetch publications.json for real-time live synchronization
-    document.addEventListener('DOMContentLoaded', async () => {
+    document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
-      const autoPrint = urlParams.get('print') === '1';
-
-      try {
-        const res = await fetch('publications.json?v=' + Date.now());
-        if (res.ok) {
-          const pubs = await res.json();
-          renderCVPubs(pubs);
-          if (autoPrint) {
-            setTimeout(() => window.print(), 600);
-          }
-        }
-      } catch (e) {
-        console.error('Error fetching publications for CV:', e);
+      if (urlParams.get('print') === '1') {
+        setTimeout(() => window.print(), 500);
       }
     });
-
-    function renderCVPubs(pubs) {
-      const container = document.getElementById('cv-pub-list');
-      if (!container) return;
-
-      // Sort newest first
-      pubs.sort((a, b) => (parseInt(b.year) || 9999) - (parseInt(a.year) || 9999));
-
-      let html = '';
-      pubs.forEach((pub, idx) => {
-        const authors = pub.authors.replace(/\b(Kwon\s+H\b|Hyeokjae\s+Kwon\b|Kwon,\s*Hyeokjae\b)/gi, '<strong>$1</strong>');
-        html += `
-          <div class="cv-pub-item">
-            <span class="cv-pub-num">[${idx + 1}]</span>
-            <span class="cv-pub-authors">${authors}.</span>
-            <strong>"${pub.title}."</strong>
-            <em>${pub.journal}</em>. ${pub.year}; ${pub.volume}.
-            <span class="cv-pub-doi">(DOI: ${pub.doi})</span>
-          </div>
-        `;
-      });
-      container.innerHTML = html;
-    }
   </script>
-
-  <button class="scroll-top-btn" id="scroll-top-btn" title="Scroll to top" aria-label="Scroll to top">
-    <i class="ri-arrow-up-line"></i>
-  </button>
 </body>
 </html>
