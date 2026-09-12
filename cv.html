@@ -412,7 +412,7 @@
     <h2><i class="ri-file-user-line"></i> Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae</h2>
     <div class="top-bar-btns">
       <a href="index.html" class="top-btn btn-back"><i class="ri-arrow-left-line"></i> Return to Website</a>
-      <a href="assets/Hyeokjae_Kwon_CV.pdf" download="Hyeokjae_Kwon_CV.pdf" class="top-btn btn-pdf-direct"><i class="ri-file-pdf-line"></i> Download PDF</a>
+      <a href="assets/Hyeokjae_Kwon_CV.pdf" id="btn-download-pdf" download="Hyeokjae_Kwon_CV.pdf" class="top-btn btn-pdf-direct"><i class="ri-file-pdf-line"></i> Download PDF</a>
       <button onclick="window.print()" class="top-btn btn-download-pdf"><i class="ri-printer-line"></i> Print / Save as PDF</button>
     </div>
   </div>
@@ -725,6 +725,53 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Generate current date string in YYYYMMDD format (e.g. 20260912)
+      const now = new Date();
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const dateStr = `${yyyy}${mm}${dd}`;
+      const datedFilename = `Hyeokjae_Kwon_CV_${dateStr}.pdf`;
+
+      // Update direct download button
+      const dlBtn = document.getElementById('btn-download-pdf');
+      if (dlBtn) {
+        dlBtn.setAttribute('download', datedFilename);
+        dlBtn.addEventListener('click', async (e) => {
+          e.preventDefault();
+          try {
+            const res = await fetch('assets/Hyeokjae_Kwon_CV.pdf');
+            if (!res.ok) throw new Error('Fetch failed');
+            const blob = await res.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = datedFilename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(() => URL.revokeObjectURL(blobUrl), 1000);
+          } catch (err) {
+            // Fallback for offline or cross-origin restrictions
+            const fallbackLink = document.createElement('a');
+            fallbackLink.href = 'assets/Hyeokjae_Kwon_CV.pdf';
+            fallbackLink.download = datedFilename;
+            document.body.appendChild(fallbackLink);
+            fallbackLink.click();
+            document.body.removeChild(fallbackLink);
+          }
+        });
+      }
+
+      // Automatically suggest dated filename when user saves as PDF via browser print (Ctrl+P)
+      const originalTitle = document.title;
+      window.addEventListener('beforeprint', () => {
+        document.title = `Hyeokjae_Kwon_CV_${dateStr}`;
+      });
+      window.addEventListener('afterprint', () => {
+        document.title = originalTitle;
+      });
+
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('print') === '1') {
         setTimeout(() => window.print(), 500);
