@@ -1,13 +1,13 @@
 [
   {
     "title": "Self-Reported Health Literacy and Current Conventional Cigarette Smoking Among Korean Adults: A Cross-Sectional Analysis of the 2024 Korea National Health and Nutrition Examination Survey",
-    "authors": "Jiyoung Kim, Hyeokjae Kwon",
+    "authors": "Kim J, Kwon H",
     "journal": "Healthcare",
     "year": "2026",
     "volume": "14(17):2866",
     "doi": "10.3390/healthcare14172866",
     "url": "https://doi.org/10.3390/healthcare14172866",
-    "category": "recon",
+    "category": "primary",
     "id": 1
   },
   {
@@ -18,7 +18,7 @@
     "volume": "31(3):184-192",
     "doi": "10.12790/ahm.25.0051",
     "url": "https://doi.org/10.12790/ahm.25.0051",
-    "category": "case-report",
+    "category": "coauthor",
     "id": 2
   },
   {
@@ -30,7 +30,7 @@
     "volume": "104(29):e43410",
     "doi": "10.1097/MD.0000000000043410",
     "url": "https://doi.org/10.1097/MD.0000000000043410",
-    "category": "case-report"
+    "category": "primary"
   },
   {
     "id": 4,
@@ -41,7 +41,7 @@
     "volume": "36(7):e1102-e1106",
     "doi": "10.1097/SCS.0000000000011579",
     "url": "https://doi.org/10.1097/SCS.0000000000011579",
-    "category": "recon"
+    "category": "primary"
   },
   {
     "id": 5,
@@ -52,7 +52,7 @@
     "volume": "20(3):e0319577",
     "doi": "10.1371/journal.pone.0319577",
     "url": "https://doi.org/10.1371/journal.pone.0319577",
-    "category": "ai"
+    "category": "coauthor"
   },
   {
     "id": 6,
@@ -63,7 +63,7 @@
     "volume": "11",
     "doi": "10.3389/fsurg.2024.1273843",
     "url": "https://doi.org/10.3389/fsurg.2024.1273843",
-    "category": "recon"
+    "category": "coauthor"
   },
   {
     "id": 7,
@@ -74,7 +74,7 @@
     "volume": "12(28):6204-6216",
     "doi": "10.12998/wjcc.v12.i28.6204",
     "url": "http://dx.doi.org/10.12998/wjcc.v12.i28.6204",
-    "category": "tech"
+    "category": "primary"
   },
   {
     "id": 8,
@@ -85,7 +85,7 @@
     "volume": "154(1):100e-111e",
     "doi": "10.1097/PRS.0000000000010956",
     "url": "https://doi.org/10.1097/PRS.0000000000010956",
-    "category": "tech"
+    "category": "coauthor"
   },
   {
     "id": 9,
@@ -96,7 +96,7 @@
     "volume": "12(20):4446-4451",
     "doi": "10.12998/wjcc.v12.i20.4446",
     "url": "http://dx.doi.org/10.12998/wjcc.v12.i20.4446",
-    "category": "case-report"
+    "category": "primary"
   },
   {
     "id": 10,
@@ -107,7 +107,7 @@
     "volume": "29(2):127-131",
     "doi": "10.12790/ahm.24.0005",
     "url": "https://doi.org/10.12790/ahm.24.0005",
-    "category": "recon"
+    "category": "coauthor"
   },
   {
     "id": 11,
@@ -118,7 +118,7 @@
     "volume": "35(1):233-236",
     "doi": "10.1097/SCS.0000000000009807",
     "url": "https://doi.org/10.1097/SCS.0000000000009807",
-    "category": "recon"
+    "category": "primary"
   },
   {
     "id": 12,
@@ -129,7 +129,7 @@
     "volume": "12(23):7466",
     "doi": "10.3390/jcm12237466",
     "url": "https://doi.org/10.3390/jcm12237466",
-    "category": "ai"
+    "category": "coauthor"
   },
   {
     "id": 13,
@@ -140,7 +140,7 @@
     "volume": "29(4):226-229",
     "doi": "10.14730/aaps.2023.00941",
     "url": "https://doi.org/10.14730/aaps.2023.00941",
-    "category": "recon"
+    "category": "coauthor"
   },
   {
     "id": 14,
@@ -151,7 +151,7 @@
     "volume": "12(18):6042",
     "doi": "10.3390/jcm12186042",
     "url": "https://doi.org/10.3390/jcm12186042",
-    "category": "tech"
+    "category": "coauthor"
   },
   {
     "id": 15,
@@ -162,7 +162,7 @@
     "volume": "37(5):1401-1407",
     "doi": "10.1007/s10877-023-00988-5",
     "url": "https://doi.org/10.1007/s10877-023-00988-5",
-    "category": "tech"
+    "category": "primary"
   },
   {
     "id": 16,
@@ -173,7 +173,7 @@
     "volume": "34(1)",
     "doi": "10.1080/09546634.2023.2171260",
     "url": "https://doi.org/10.1080/09546634.2023.2171260",
-    "category": "tech"
+    "category": "primary"
   },
   {
     "id": 17,
@@ -184,7 +184,7 @@
     "volume": "10",
     "doi": "10.3389/fsurg.2023.1109936",
     "url": "http://doi.org/10.3389/fsurg.2023.1109936",
-    "category": "recon"
+    "category": "primary"
   },
   {
     "id": 18,
@@ -195,7 +195,7 @@
     "volume": "33(5):1591-1595",
     "doi": "10.1097/SCS.0000000000008530",
     "url": "http://doi.org/10.1097/SCS.0000000000008530",
-    "category": "recon"
+    "category": "primary"
   },
   {
     "id": 19,
@@ -206,7 +206,7 @@
     "volume": "28(1):24-30",
     "doi": "10.14730/aaps.2021.00346",
     "url": "https://doi.org/10.14730/aaps.2021.00346",
-    "category": "recon"
+    "category": "coauthor"
   },
   {
     "id": 20,
@@ -217,7 +217,7 @@
     "volume": "45(04):325-332",
     "doi": "10.5999/aps.2018.00311",
     "url": "http://doi.org/10.5999/aps.2018.00311",
-    "category": "recon"
+    "category": "coauthor"
   },
   {
     "id": 21,
@@ -228,7 +228,7 @@
     "volume": "46(6):1032-1036",
     "doi": "10.1016/j.jcms.2018.04.012",
     "url": "https://doi.org/10.1016/j.jcms.2018.04.012",
-    "category": "recon"
+    "category": "coauthor"
   },
   {
     "id": 22,
@@ -239,7 +239,7 @@
     "volume": "14(1):37-43",
     "doi": "10.22467/jwmr.2017.00220",
     "url": "https://doi.org/10.22467/jwmr.2017.00220",
-    "category": "recon"
+    "category": "coauthor"
   },
   {
     "id": 23,
@@ -250,7 +250,7 @@
     "volume": "76(1):165-168",
     "doi": "10.1016/j.joms.2017.07.145",
     "url": "https://doi.org/10.1016/j.joms.2017.07.145",
-    "category": "recon"
+    "category": "coauthor"
   },
   {
     "title": "The Effect of a Collagen-Elastin Implantation on Infraorbital Hallowing in Lower Lid Surgery for Aging Patients",
@@ -260,7 +260,7 @@
     "volume": "36(8):e1214-e1217",
     "doi": "10.1097/scs.0000000000011387",
     "url": "https://doi.org/10.1097/scs.0000000000011387",
-    "category": "recon",
+    "category": "coauthor",
     "id": 24
   },
   {
@@ -271,7 +271,7 @@
     "volume": "30(4):258-266",
     "doi": "10.12790/ahm.25.0032",
     "url": "https://doi.org/10.12790/ahm.25.0032",
-    "category": "ai",
+    "category": "coauthor",
     "id": 25
   },
   {
@@ -282,7 +282,7 @@
     "volume": "115:215-224",
     "doi": "10.1016/j.bjps.2026.02.046",
     "url": "https://doi.org/10.1016/j.bjps.2026.02.046",
-    "category": "recon",
+    "category": "coauthor",
     "id": 26
   }
 ]

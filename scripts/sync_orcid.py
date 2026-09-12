@@ -114,6 +114,7 @@ def fetch_crossref_metadata(doi):
 
             return {
                 'authors': formatted_authors,
+                'raw_authors': authors_data,
                 'volume': vol_str,
                 'year': year_val,
                 'journal': journal_title
@@ -129,15 +130,50 @@ def apply_et_al_rule(authors_list):
     else:
         return ", ".join(authors_list[:13]) + ", et al."
 
-def determine_category(title):
-    t = title.lower()
-    if any(k in t for k in ['ai', 'deep learning', 'machine learning', 'exposure rate', 'eer', 'infrared', 'gaussian splatting']):
-        return 'ai'
-    if any(k in t for k in ['virtual reality', 'vr', 'lidar', 'smartphone', 'education', 'anxiety', 'questionnaire']):
-        return 'tech'
-    if 'case report' in t:
-        return 'case-report'
-    return 'recon'
+def determine_authorship_category(doi, authors_str='', crossref_authors=None):
+    # 1. 1저자 여부: authors_str의 첫 번째 저자가 Kwon H인지 확인
+    if authors_str:
+        first_author = authors_str.split(',')[0].strip().lower()
+        if 'kwon' in first_author and ('h' in first_author or 'hyeokjae' in first_author):
+            return 'primary'
+
+    # 2. CrossRef sequence 'first' 여부 확인 (공동 1저자 포함)
+    if crossref_authors:
+        for idx, a in enumerate(crossref_authors):
+            fam = a.get('family', '').lower()
+            giv = a.get('given', '').lower()
+            if 'kwon' in fam and ('h' in giv or 'hyeokjae' in giv):
+                if idx == 0 or a.get('sequence') == 'first':
+                    return 'primary'
+
+    # 3. 알려진 기출간 논문 중 교신저자/공동교신/공동1저자 DOI 매핑
+    known_primary_dois = {
+        '10.1097/md.0000000000043410', # Medicine (Corresponding author)
+        '10.12998/wjcc.v12.i28.6204', # WJCC (Co-corresponding author)
+        '10.12998/wjcc.v12.i20.4446', # WJCC (Corresponding author)
+        '10.1007/s10877-023-00988-5', # JCMC (Co-first author)
+        '10.3390/healthcare14172866', # Healthcare (Corresponding author)
+    }
+    if doi and doi.strip().lower() in known_primary_dois:
+        return 'primary'
+
+    # 4. OpenAlex API를 통한 author_position == 'first' 또는 is_corresponding == True 확인
+    if doi:
+        clean_doi = doi.strip().replace('https://doi.org/', '').replace('http://doi.org/', '').replace('doi:', '')
+        url = f"https://api.openalex.org/works/https://doi.org/{clean_doi}"
+        req = urllib.request.Request(url, headers={'User-Agent': 'AcademicWeb/1.0 (mailto:kwon.hyeokjae@cnuh.co.kr)'})
+        try:
+            with urllib.request.urlopen(req, timeout=5) as res:
+                data = json.loads(res.read().decode('utf-8'))
+                for a in data.get('authorships', []):
+                    name = a.get('author', {}).get('display_name', '').lower()
+                    if 'kwon' in name and ('h' in name or 'hyeokjae' in name):
+                        if a.get('author_position') == 'first' or a.get('is_corresponding') is True:
+                            return 'primary'
+        except Exception:
+            pass
+
+    return 'coauthor'
 
 def is_duplicate(new_item, existing_items):
     new_title_norm = normalize_text(new_item.get('title', ''))
@@ -214,7 +250,7 @@ def fetch_orcid_work_details(put_code):
                 'volume': volume_val,
                 'doi': doi_val,
                 'url': url_val or (f"https://doi.org/{doi_val}" if doi_val else f"https://orcid.org/{ORCID_ID}"),
-                'category': determine_category(title_val)
+                'category': determine_authorship_category(doi_val, authors_str, crossref.get('raw_authors') if crossref else None)
             }
     except Exception as e:
         print(f"Error fetching put-code {put_code}: {e}")
@@ -250,7 +286,7 @@ def main():
         with open(PUBLICATIONS_FILE, 'r', encoding='utf-8') as f:
             existing = json.load(f)
 
-    print("Refreshing live volume, issue, and page numbers via CrossRef API...")
+    print("Refreshing live volume, issue, and authorship categories via CrossRef/OpenAlex APIs...")
     for p in existing:
         doi = p.get('doi', '')
         if doi:
@@ -260,6 +296,7 @@ def main():
                     p['volume'] = crossref['volume']
                 if crossref.get('year'):
                     p['year'] = crossref['year']
+            p['category'] = determine_authorship_category(doi, p.get('authors', ''), crossref.get('raw_authors') if crossref else None)
 
     print("Fetching publication details from ORCID API...")
     orcid_works = fetch_all_orcid_works()

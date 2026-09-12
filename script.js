@@ -49,9 +49,10 @@ const TRANSLATIONS = {
     travel_diary_btn: "View GitHub Repository",
     
     tab_all: "All",
-    tab_ai: "AI & Digital Health",
-    tab_tech: "VR & Medical Tech",
-    tab_recon: "Reconstructive Surgery",
+    tab_primary: "Lead / Primary Author",
+    tab_coauthor: "Co-Author",
+    badge_primary: "Lead Author",
+    badge_coauthor: "Co-Author",
     search_placeholder: "Search publications (title, author, journal)...",
     pub_empty: "No publications found matching your search.",
     
@@ -158,9 +159,10 @@ const TRANSLATIONS = {
     travel_diary_btn: "GitHub 리파지토리 방문",
     
     tab_all: "전체",
-    tab_ai: "인공지능 & 디지털헬스",
-    tab_tech: "가상현실 & 의료기술",
-    tab_recon: "재건성형",
+    tab_primary: "주저자",
+    tab_coauthor: "공저자",
+    badge_primary: "주저자",
+    badge_coauthor: "공저자",
     search_placeholder: "논문 검색 (제목, 저자, 저널명)...",
     pub_empty: "검색 조건에 맞는 논문 실적이 없습니다.",
     
@@ -533,21 +535,29 @@ function executeCLICommand(cmd) {
     case 'publications':
       let matched = publications;
       if (args) {
-        matched = publications.filter(p => 
-          p.title.toLowerCase().includes(args) || 
-          p.journal.toLowerCase().includes(args) || 
-          p.year.toString().includes(args)
-        );
+        const lowerArgs = args.toLowerCase();
+        if (lowerArgs === 'primary' || lowerArgs === 'lead' || lowerArgs === 'first') {
+          matched = publications.filter(p => p.category === 'primary');
+        } else if (lowerArgs === 'coauthor' || lowerArgs === 'co-author' || lowerArgs === 'co') {
+          matched = publications.filter(p => p.category === 'coauthor');
+        } else {
+          matched = publications.filter(p => 
+            p.title.toLowerCase().includes(lowerArgs) || 
+            p.journal.toLowerCase().includes(lowerArgs) || 
+            p.year.toString().includes(lowerArgs)
+          );
+        }
       }
       if (!matched || matched.length === 0) {
         responseHTML = `<div style="color:#ef4444;">No publications found matching '${escapeHTML(args)}'.</div>`;
       } else {
         responseHTML = `<div class="cli-highlight">Publications (${matched.length} found):</div>`;
         matched.slice(0, 8).forEach((p, idx) => {
-          responseHTML += `<div>[${idx + 1}] <strong>"${escapeHTML(p.title)}"</strong> - <em>${escapeHTML(p.journal)}</em> (${p.year})</div>`;
+          const roleBadge = p.category === 'primary' ? '<span style="color:#38bdf8;">[Lead Author]</span>' : '<span style="color:#94a3b8;">[Co-Author]</span>';
+          responseHTML += `<div>[${idx + 1}] ${roleBadge} <strong>"${escapeHTML(p.title)}"</strong> - <em>${escapeHTML(p.journal)}</em> (${p.year})</div>`;
         });
         if (matched.length > 8) {
-          responseHTML += `<div style="color:#94a3b8;">...and ${matched.length - 8} more. Use search query e.g. 'pubs ai'</div>`;
+          responseHTML += `<div style="color:#94a3b8;">...and ${matched.length - 8} more. Try 'pubs primary' or search keywords.</div>`;
         }
       }
       break;
@@ -837,18 +847,21 @@ function applyLanguage(lang) {
   // Update filter tabs
   const allTab = document.querySelector('.tab-btn[data-filter="all"]');
   if (allTab) {
-    const count = publications.length || 24;
+    const count = publications.length || 26;
     allTab.innerText = `${dict['tab_all']} (${count})`;
   }
 
-  const aiTab = document.querySelector('.tab-btn[data-filter="ai"]');
-  if (aiTab) aiTab.innerText = dict['tab_ai'];
+  const primaryTab = document.querySelector('.tab-btn[data-filter="primary"]');
+  if (primaryTab) {
+    const pCount = publications.filter(p => p.category === 'primary').length;
+    primaryTab.innerText = pCount ? `${dict['tab_primary']} (${pCount})` : dict['tab_primary'];
+  }
 
-  const techTab = document.querySelector('.tab-btn[data-filter="tech"]');
-  if (techTab) techTab.innerText = dict['tab_tech'];
-
-  const reconTab = document.querySelector('.tab-btn[data-filter="recon"]');
-  if (reconTab) reconTab.innerText = dict['tab_recon'];
+  const coauthorTab = document.querySelector('.tab-btn[data-filter="coauthor"]');
+  if (coauthorTab) {
+    const cCount = publications.filter(p => p.category === 'coauthor').length;
+    coauthorTab.innerText = cCount ? `${dict['tab_coauthor']} (${cCount})` : dict['tab_coauthor'];
+  }
 }
 
 function initTheme() {
@@ -875,8 +888,7 @@ async function loadPublications() {
     const response = await fetch('publications.json?v=' + Date.now());
     if (response.ok) {
       publications = await response.json();
-      const allTab = document.querySelector('.tab-btn[data-filter="all"]');
-      if (allTab) allTab.innerText = `All (${publications.length})`;
+      applyLanguage(currentLang);
       renderPublications();
     }
   } catch (e) {
@@ -910,6 +922,7 @@ function renderPublications() {
   let html = '';
   let currentYearGroup = '';
   let globalIndex = 1;
+  const dict = TRANSLATIONS[currentLang] || TRANSLATIONS['en'];
 
   filtered.forEach((pub) => {
     const pubYear = pub.year || 'Recent';
@@ -919,10 +932,16 @@ function renderPublications() {
     }
 
     const formattedAuthors = pub.authors.replace(/Kwon H/g, '<strong>Kwon H</strong>');
+    const isPrimary = pub.category === 'primary';
+    const roleBadgeText = isPrimary ? (dict['badge_primary'] || 'Lead Author') : (dict['badge_coauthor'] || 'Co-Author');
+    const badgeClass = isPrimary ? 'badge-primary' : 'badge-coauthor';
 
     html += `
       <div class="pub-item">
-        <div class="pub-number">[${globalIndex++}]</div>
+        <div class="pub-header-row">
+          <div class="pub-number">[${globalIndex++}]</div>
+          <span class="pub-role-badge ${badgeClass}">${roleBadgeText}</span>
+        </div>
         <div class="pub-title-text">${pub.title}</div>
         <div class="pub-authors-text">${formattedAuthors}</div>
         <div class="pub-meta-text">
