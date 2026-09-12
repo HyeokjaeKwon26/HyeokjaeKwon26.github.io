@@ -49,9 +49,9 @@ const TRANSLATIONS = {
     travel_diary_btn: "View GitHub Repository",
     
     tab_all: "All",
-    tab_primary: "Lead / Primary Author",
+    tab_primary: "First / Corresponding Author",
     tab_coauthor: "Co-Author",
-    badge_primary: "Lead Author",
+    badge_primary: "First / Corresponding Author",
     badge_coauthor: "Co-Author",
     search_placeholder: "Search publications (title, author, journal)...",
     pub_empty: "No publications found matching your search.",
@@ -159,9 +159,9 @@ const TRANSLATIONS = {
     travel_diary_btn: "GitHub 리파지토리 방문",
     
     tab_all: "전체",
-    tab_primary: "주저자",
+    tab_primary: "주저자 (1저자·교신)",
     tab_coauthor: "공저자",
-    badge_primary: "주저자",
+    badge_primary: "주저자 (1저자·교신)",
     badge_coauthor: "공저자",
     search_placeholder: "논문 검색 (제목, 저자, 저널명)...",
     pub_empty: "검색 조건에 맞는 논문 실적이 없습니다.",
@@ -553,7 +553,7 @@ function executeCLICommand(cmd) {
       } else {
         responseHTML = `<div class="cli-highlight">Publications (${matched.length} found):</div>`;
         matched.slice(0, 8).forEach((p, idx) => {
-          const roleBadge = p.category === 'primary' ? '<span style="color:#38bdf8;">[Lead Author]</span>' : '<span style="color:#94a3b8;">[Co-Author]</span>';
+          const roleBadge = p.category === 'primary' ? '<span style="color:#38bdf8;">[First/Corresponding]</span>' : '<span style="color:#94a3b8;">[Co-Author]</span>';
           responseHTML += `<div>[${idx + 1}] ${roleBadge} <strong>"${escapeHTML(p.title)}"</strong> - <em>${escapeHTML(p.journal)}</em> (${p.year})</div>`;
         });
         if (matched.length > 8) {
@@ -933,7 +933,7 @@ function renderPublications() {
 
     const formattedAuthors = pub.authors.replace(/\b(Kwon\s+H\b|Hyeokjae\s+Kwon\b|Kwon,\s*Hyeokjae\b)/gi, '<strong>$1</strong>');
     const isPrimary = pub.category === 'primary';
-    const roleBadgeText = isPrimary ? (dict['badge_primary'] || 'Lead Author') : (dict['badge_coauthor'] || 'Co-Author');
+    const roleBadgeText = isPrimary ? (dict['badge_primary'] || 'First / Corresponding Author') : (dict['badge_coauthor'] || 'Co-Author');
     const badgeClass = isPrimary ? 'badge-primary' : 'badge-coauthor';
 
     html += `
