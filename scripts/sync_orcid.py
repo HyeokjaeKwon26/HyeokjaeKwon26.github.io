@@ -71,6 +71,50 @@ def format_author_name(author):
     
     return f"{family} {initials}".strip()
 
+def normalize_single_name(name):
+    name = name.strip()
+    if not name:
+        return ""
+    # If already in 'Family Initials' Vancouver format (e.g. 'Kwon H', 'Oh S-H', 'Jeong CH', 'Kim J-H')
+    if re.match(r'^[A-Z][a-zA-Z\'-]+(\-[A-Z][a-zA-Z\'-]+)?\s+[A-Z](\-[A-Z])?$', name):
+        return name
+    if re.match(r'^[A-Z][a-zA-Z\'-]+(\-[A-Z][a-zA-Z\'-]+)?\s+[A-Z]{1,3}$', name):
+        return name
+        
+    if ',' in name:
+        parts = name.split(',', 1)
+        family = parts[0].strip()
+        given = parts[1].strip()
+    else:
+        parts = name.split()
+        if len(parts) == 1:
+            return parts[0]
+        family = parts[-1].strip()
+        given = ' '.join(parts[:-1]).strip()
+
+    given_clean = given.replace('.', '')
+    subparts = given_clean.split()
+    initials_parts = []
+    for p in subparts:
+        hyph_parts = p.split('-')
+        init_hyph = '-'.join([hp[0].upper() for hp in hyph_parts if hp])
+        if init_hyph:
+            initials_parts.append(init_hyph)
+    initials = ''.join(initials_parts)
+    return f"{family} {initials}".strip()
+
+def normalize_authors_string(authors_str):
+    if not authors_str:
+        return ""
+    author_items = [a.strip() for a in authors_str.split(',') if a.strip()]
+    cleaned = []
+    for item in author_items:
+        if item.lower().startswith('et al'):
+            cleaned.append('et al.')
+        else:
+            cleaned.append(normalize_single_name(item))
+    return ', '.join(cleaned)
+
 def fetch_crossref_metadata(doi):
     if not doi:
         return None
@@ -228,8 +272,10 @@ def fetch_orcid_work_details(put_code):
                 for c in contributors:
                     cname = c.get('credit-name', {}).get('value', '') if c.get('credit-name') else ''
                     if cname:
-                        authors_list.append(cname)
+                        authors_list.append(normalize_single_name(cname))
                 authors_str = apply_et_al_rule(authors_list) if authors_list else "Kwon H, et al."
+
+            authors_str = normalize_authors_string(authors_str)
 
             volume_val = (crossref.get('volume') if crossref and crossref.get('volume') else '') or 'In press'
             if crossref and crossref.get('year'):
@@ -297,6 +343,7 @@ def main():
                 if crossref.get('year'):
                     p['year'] = crossref['year']
             p['category'] = determine_authorship_category(doi, p.get('authors', ''), crossref.get('raw_authors') if crossref else None)
+        p['authors'] = normalize_authors_string(p.get('authors', ''))
 
     print("Fetching publication details from ORCID API...")
     orcid_works = fetch_all_orcid_works()
@@ -306,12 +353,14 @@ def main():
     for ow in reversed(orcid_works):
         if not is_duplicate(ow, existing) and not is_duplicate(ow, new_items):
             ow['id'] = len(existing) + len(new_items) + 1
+            ow['authors'] = normalize_authors_string(ow.get('authors', ''))
             new_items.append(ow)
             print(f"Added new unique publication: {ow['title']}")
 
     combined = new_items + existing
     for i, p in enumerate(combined):
         p['id'] = i + 1
+        p['authors'] = normalize_authors_string(p.get('authors', ''))
         
     with open(PUBLICATIONS_FILE, 'w', encoding='utf-8') as f:
         json.dump(combined, f, ensure_ascii=False, indent=2)

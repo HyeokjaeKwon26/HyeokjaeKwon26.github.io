@@ -564,7 +564,7 @@
 
       let html = '';
       pubs.forEach((pub, idx) => {
-        const authors = pub.authors.replace(/Kwon H/g, '<strong>Kwon H</strong>');
+        const authors = pub.authors.replace(/\b(Kwon\s+H\b|Hyeokjae\s+Kwon\b|Kwon,\s*Hyeokjae\b)/gi, '<strong>$1</strong>');
         html += `
           <div class="cv-pub-item">
             <span class="cv-pub-num">[${idx + 1}]</span>

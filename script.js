@@ -931,7 +931,7 @@ function renderPublications() {
       html += `<h3 class="year-heading">${currentYearGroup}</h3>`;
     }
 
-    const formattedAuthors = pub.authors.replace(/Kwon H/g, '<strong>Kwon H</strong>');
+    const formattedAuthors = pub.authors.replace(/\b(Kwon\s+H\b|Hyeokjae\s+Kwon\b|Kwon,\s*Hyeokjae\b)/gi, '<strong>$1</strong>');
     const isPrimary = pub.category === 'primary';
     const roleBadgeText = isPrimary ? (dict['badge_primary'] || 'Lead Author') : (dict['badge_coauthor'] || 'Co-Author');
     const badgeClass = isPrimary ? 'badge-primary' : 'badge-coauthor';
