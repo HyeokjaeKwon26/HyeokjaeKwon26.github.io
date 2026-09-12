@@ -417,10 +417,37 @@
       .top-bar h2 {
         font-size: 0.85rem;
         width: 100%;
+        text-align: center;
+        justify-content: center;
       }
       .top-bar-btns {
         width: 100%;
-        justify-content: space-between;
+        display: flex;
+        gap: 8px;
+      }
+      /* Hide Print / Save as PDF button on mobile for cleaner UX */
+      .top-bar-btns .btn-download-pdf {
+        display: none !important;
+      }
+      .top-bar-btns .btn-back,
+      .top-bar-btns .btn-pdf-direct {
+        flex: 1;
+        justify-content: center;
+        padding: 9px 12px;
+        font-size: 0.82rem;
+        text-align: center;
+      }
+      .inapp-banner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+        padding: 10px 16px;
+        text-align: left;
+      }
+      .inapp-banner-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 7px 12px;
       }
       .cv-paper {
         padding: 30px 18px;
@@ -461,9 +488,9 @@
   <div id="inapp-banner" class="inapp-banner">
     <div class="inapp-banner-content">
       <i class="ri-information-line" style="font-size: 1.2rem; flex-shrink: 0;"></i>
-      <span>카카오톡 등 인앱 브라우저 환경에서는 직접 다운로드가 제한될 수 있습니다. <strong>[외부 브라우저로 열기]</strong>를 누르시거나 메뉴(⋮)에서 <strong>'다른 브라우저로 열기'</strong>를 이용해 주세요.</span>
+      <span>File downloads may be restricted in in-app browsers (e.g. KakaoTalk, Instagram). Tap <strong>[Open in External Browser]</strong> or use the menu (⋮) to select <strong>'Open in Default Browser'</strong> (Chrome / Safari).</span>
     </div>
-    <button id="btn-open-external" class="inapp-banner-btn"><i class="ri-external-link-line"></i> 외부 브라우저로 열기</button>
+    <button id="btn-open-external" class="inapp-banner-btn"><i class="ri-external-link-line"></i> Open in External Browser</button>
   </div>
 
   <div class="cv-paper">
@@ -800,7 +827,7 @@
               const cleanUrl = window.location.href.replace(/^https?:\/\//i, '');
               window.location.href = `intent://${cleanUrl}#Intent;scheme=https;package=com.android.chrome;end;`;
             } else {
-              alert('카카오톡 화면 상단 또는 하단의 [⋮] 혹은 [...] 메뉴를 누른 후 [Safari로 열기]를 선택해 주세요.');
+              alert("Please tap the menu button (⋮ or ...) in your app and select 'Open in Safari' to save the PDF.");
             }
           });
         }
