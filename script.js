@@ -48,7 +48,7 @@ const TRANSLATIONS = {
     travel_diary_tech: "Tech Stack: Android, Kotlin, Jetpack Compose, Material Design 3, Custom Vector Canvas Engine, Coil, WGS-84 Geodesic",
     travel_diary_btn: "View GitHub Repository",
     
-    travel_diary_3d_title: "My Travel Diary 3D (Offline 3D Globe & Terrain-Aware Travel Reconstructor)",
+    travel_diary_3d_title: "My Travel Diary 3D (Offline 3D Globe Travel Reconstructor)",
     travel_diary_3d_badge: "Android App",
     travel_diary_3d_desc: "An offline 3D travel diary for Android featuring OpenGL ES 2.0 globe & real-world DEM terrain meshes (Mapzen/USGS). Seamlessly animates journeys with chase cameras and 3D vehicles/airplanes over realistic topography, supports automatic terrain preparation, and exports hardware-accelerated 1080p/720p H.264 MP4 videos with AAC music entirely on-device.",
     travel_diary_3d_tech: "Tech Stack: Android, Kotlin, Jetpack Compose, OpenGL ES 2.0, Mapzen / USGS Elevation DEM, MediaCodec (H.264 MP4), Room, Material Design 3",
@@ -164,7 +164,7 @@ const TRANSLATIONS = {
     travel_diary_tech: "주요 기술: Android, Kotlin, Jetpack Compose, Material Design 3, 커스텀 벡터 캔버스 엔진, Coil, WGS-84 Geodesic",
     travel_diary_btn: "GitHub 리파지토리 방문",
     
-    travel_diary_3d_title: "My Travel Diary 3D (오프라인 3D 지구본 및 실지형 시네마틱 여행 다이어리)",
+    travel_diary_3d_title: "My Travel Diary 3D (오프라인 3D 지구본 여행 다이어리)",
     travel_diary_3d_badge: "Android 앱",
     travel_diary_3d_desc: "OpenGL ES 2.0 기반 3D 지구본과 실제 공개 고도 DEM 지형 메쉬(Mapzen/USGS) 위에서 이동 경로를 입체적으로 시뮬레이션하는 오프라인 3D 여행 다이어리 Android 앱. 3D 차량·항공기 모델과 추적 카메라를 통한 역동적 시네마틱 재생, 지형 자동 다운로드 및 100% 온디바이스 H.264 MP4(1080p/720p) 고화질 영상 내보내기를 지원합니다.",
     travel_diary_3d_tech: "주요 기술: Android, Kotlin, Jetpack Compose, OpenGL ES 2.0, Mapzen / USGS 고도 DEM, MediaCodec (H.264 MP4), Room, Material Design 3",
@@ -639,7 +639,7 @@ function executeCLICommand(cmd) {
           <div>  • GitHub: <a href="https://github.com/HyeokjaeKwon26/My-Travel-Diary" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline;">https://github.com/HyeokjaeKwon26/My-Travel-Diary</a></div>
         </div>
         <div>
-          <div>  <strong class="cli-success">3. My Travel Diary 3D</strong> (오프라인 3D 지구본 및 실지형 여행 다이어리) 🌐⛰️</div>
+          <div>  <strong class="cli-success">3. My Travel Diary 3D</strong> (오프라인 3D 지구본 여행 다이어리) 🌐⛰️</div>
           <div>  • Description: Offline 3D travel reconstructor with OpenGL ES 2.0 globe, real USGS DEM terrain meshes, 3D vehicles & on-device MP4 video export.</div>
           <div>  • Tech Stack: Android, Kotlin, Jetpack Compose, OpenGL ES 2.0, Mapzen / USGS DEM, MediaCodec (H.264), Room</div>
           <div>  • GitHub: <a href="https://github.com/HyeokjaeKwon26/My-Travel-Diary-3D" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline;">https://github.com/HyeokjaeKwon26/My-Travel-Diary-3D</a></div>
