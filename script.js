@@ -402,6 +402,7 @@ function executeCLICommand(cmd) {
         <div>  <span class="cli-success">education</span>    - List academic degrees (KAIST & CNU)</div>
         <div>  <span class="cli-success">pubs [query]</span> - List or search peer-reviewed publications</div>
         <div>  <span class="cli-success">awards</span>       - View honors, certifications & awards</div>
+        <div>  <span class="cli-success">reviewer</span>     - View editorial & peer reviewer activities</div>
         <div>  <span class="cli-success">projects</span>     - View open-source projects (SolarLess Navi)</div>
         <div>  <span class="cli-success">contact</span>      - Show email, phone & ORCID info</div>
         <div>  <span class="cli-success">game [snake|pacman|guess|ttt]</span> - Play retro CLI mini games 🎮</div>
@@ -456,6 +457,27 @@ function executeCLICommand(cmd) {
           <div>• Location: Boston, MA, USA / Daejeon, South Korea</div>
           <div>• ORCID: https://orcid.org/0000-0002-1418-3448</div>
           <div>• Google Scholar: https://scholar.google.com/citations?user=ouc34HsAAAAJ</div>
+        `;
+      } else if (targetFile === 'awards' || targetFile === 'honors') {
+        responseHTML = `
+          <div class="cli-highlight">Honors & Certifications:</div>
+          <div>• Fellow of the Korean Wound Academy (FKWA) - Nov. 2024</div>
+          <div>• Medical Record Documentation Excellence Award - Feb. 2024</div>
+          <div>• Outstanding Reviewer Award (JWMR) - Mar. 2023</div>
+          <div>• Certified Physician in Biomedical Informatics (CPBMI / 정보의학인증의) - Dec. 2022</div>
+          <div>• Outstanding Research Award, CNU Graduate School - Aug. 2022</div>
+          <div>• Brigadier General Commendation, 7th Special Forces Brigade - Nov. 2019</div>
+          <div>• Engineer Information Processing (정보처리기사) - Nov. 2019</div>
+          <div>• Board Certified Specialist in Plastic & Reconstructive Surgery - Mar. 2019</div>
+          <div>• 3rd Place, National Resident Knowledge Competition (PRS Korea 2017) - Nov. 2017</div>
+        `;
+      } else if (targetFile === 'reviewer' || targetFile === 'reviewers' || targetFile === 'editorial') {
+        responseHTML = `
+          <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>
+          <div>• Reviewer, Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
+          <div>• Reviewer, Healthcare [ORCID Verified]</div>
+          <div>• Reviewer, Journal of Wound Management and Research (JWMR)</div>
+          <div>• Reviewer, Archives of Plastic Surgery (APS)</div>
         `;
       } else if (targetFile === 'orcid') {
         responseHTML = `<div>https://orcid.org/0000-0002-1418-3448</div>`;
@@ -587,6 +609,23 @@ function executeCLICommand(cmd) {
         <div>• Engineer Information Processing (정보처리기사) - Nov. 2019</div>
         <div>• Board Certified Specialist in Plastic & Reconstructive Surgery - Mar. 2019</div>
         <div>• 3rd Place, National Resident Knowledge Competition (PRS Korea 2017) - Nov. 2017</div>
+        <div style="margin-top:6px;"><strong class="cli-highlight">Peer Reviewer Activities:</strong></div>
+        <div>• Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
+        <div>• Healthcare [ORCID Verified]</div>
+        <div>• Journal of Wound Management and Research (JWMR)</div>
+        <div>• Archives of Plastic Surgery (APS)</div>
+      `;
+      break;
+
+    case 'reviewer':
+    case 'reviewers':
+    case 'editorial':
+      responseHTML = `
+        <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>
+        <div>• Reviewer, Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
+        <div>• Reviewer, Healthcare [ORCID Verified]</div>
+        <div>• Reviewer, Journal of Wound Management and Research (JWMR)</div>
+        <div>• Reviewer, Archives of Plastic Surgery (APS)</div>
       `;
       break;
 
@@ -606,9 +645,10 @@ function executeCLICommand(cmd) {
       responseHTML = `
         <div style="color:#38bdf8;">
           bio.txt          experience.txt    education.txt<br>
-          publications.json awards.txt       projects.txt<br>
-          contact.txt      orcid.link        scholar.link<br>
-          solarless-navi.app travel-diary.app travel-diary-3d.app matrix.sh
+          publications.json awards.txt       reviewer.txt<br>
+          projects.txt     contact.txt       orcid.link<br>
+          scholar.link     solarless-navi.app travel-diary.app<br>
+          travel-diary-3d.app matrix.sh
         </div>
       `;
       break;
