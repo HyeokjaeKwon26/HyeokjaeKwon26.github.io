@@ -4,13 +4,22 @@ import os
 import re
 import difflib
 import sys
+import shutil
+import subprocess
 
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
 ORCID_ID = "0000-0002-1418-3448"
-ORCID_URL = f"https://pub.orcid.org/v3.0/{ORCID_ID}/works"
-PUBLICATIONS_FILE = os.path.join(os.path.dirname(__file__), "..", "publications.json")
+ORCID_WORKS_URL = f"https://pub.orcid.org/v3.0/{ORCID_ID}/works"
+ORCID_PEER_REVIEWS_URL = f"https://pub.orcid.org/v3.0/{ORCID_ID}/peer-reviews"
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PUBLICATIONS_FILE = os.path.join(BASE_DIR, "publications.json")
+REVIEWERS_FILE = os.path.join(BASE_DIR, "reviewers.json")
+INDEX_HTML_FILE = os.path.join(BASE_DIR, "index.html")
+CV_HTML_FILE = os.path.join(BASE_DIR, "cv.html")
+PDF_FILE = os.path.join(BASE_DIR, "assets", "Hyeokjae_Kwon_CV.pdf")
 
 JOURNAL_MAP = {
     "J Craniofac Surg": "Journal of Craniofacial Surgery",
@@ -33,6 +42,13 @@ JOURNAL_MAP = {
     "Archives of Hand & Microsurgery": "Archives of Hand and Microsurgery"
 }
 
+ISSN_JOURNAL_MAP = {
+    "2077-0383": "Journal of Clinical Medicine (JCM)",
+    "2227-9032": "Healthcare",
+    "2586-0402": "Journal of Wound Management and Research (JWMR)",
+    "2234-6171": "Archives of Plastic Surgery (APS)"
+}
+
 def expand_journal_name(journal_str):
     if not journal_str:
         return "Peer-Reviewed Journal"
@@ -48,6 +64,30 @@ def normalize_doi(doi):
     if not doi:
         return ""
     return doi.strip().lower().replace("https://doi.org/", "").replace("http://doi.org/", "").replace("doi:", "")
+
+def normalize_issn(issn_str):
+    if not issn_str:
+        return ""
+    clean = issn_str.lower().replace("issn:", "").strip()
+    return clean
+
+def resolve_journal_from_issn(issn):
+    clean_issn = normalize_issn(issn)
+    if clean_issn in ISSN_JOURNAL_MAP:
+        return ISSN_JOURNAL_MAP[clean_issn]
+    
+    url = f"https://api.crossref.org/journals/{clean_issn}"
+    req = urllib.request.Request(url, headers={'User-Agent': 'AcademicWeb/1.0 (mailto:kwon.hyeokjae@cnuh.co.kr)'})
+    try:
+        with urllib.request.urlopen(req, timeout=10) as res:
+            data = json.loads(res.read().decode('utf-8'))
+            title = data.get('message', {}).get('title', '').strip()
+            if title:
+                return title
+    except Exception as e:
+        print(f"[ISSN Lookup] Could not resolve ISSN {clean_issn} via CrossRef: {e}")
+        
+    return f"Peer-Reviewed Journal (ISSN: {clean_issn})"
 
 def format_author_name(author):
     family = author.get('family', '').strip()
@@ -75,7 +115,6 @@ def normalize_single_name(name):
     name = name.strip()
     if not name:
         return ""
-    # If already in 'Family Initials' Vancouver format (e.g. 'Kwon H', 'Oh S-H', 'Jeong CH', 'Kim J-H')
     if re.match(r'^[A-Z][a-zA-Z\'-]+(\-[A-Z][a-zA-Z\'-]+)?\s+[A-Z](\-[A-Z])?$', name):
         return name
     if re.match(r'^[A-Z][a-zA-Z\'-]+(\-[A-Z][a-zA-Z\'-]+)?\s+[A-Z]{1,3}$', name):
@@ -175,13 +214,11 @@ def apply_et_al_rule(authors_list):
         return ", ".join(authors_list[:13]) + ", et al."
 
 def determine_authorship_category(doi, authors_str='', crossref_authors=None):
-    # 1. 1저자 여부: authors_str의 첫 번째 저자가 Kwon H인지 확인
     if authors_str:
         first_author = authors_str.split(',')[0].strip().lower()
         if 'kwon' in first_author and ('h' in first_author or 'hyeokjae' in first_author):
             return 'primary'
 
-    # 2. CrossRef sequence 'first' 여부 확인 (공동 1저자 포함)
     if crossref_authors:
         for idx, a in enumerate(crossref_authors):
             fam = a.get('family', '').lower()
@@ -190,18 +227,16 @@ def determine_authorship_category(doi, authors_str='', crossref_authors=None):
                 if idx == 0 or a.get('sequence') == 'first':
                     return 'primary'
 
-    # 3. 알려진 기출간 논문 중 교신저자/공동교신/공동1저자 DOI 매핑
     known_primary_dois = {
-        '10.1097/md.0000000000043410', # Medicine (Corresponding author)
-        '10.12998/wjcc.v12.i28.6204', # WJCC (Co-corresponding author)
-        '10.12998/wjcc.v12.i20.4446', # WJCC (Corresponding author)
-        '10.1007/s10877-023-00988-5', # JCMC (Co-first author)
-        '10.3390/healthcare14172866', # Healthcare (Corresponding author)
+        '10.1097/md.0000000000043410',
+        '10.12998/wjcc.v12.i28.6204',
+        '10.12998/wjcc.v12.i20.4446',
+        '10.1007/s10877-023-00988-5',
+        '10.3390/healthcare14172866',
     }
     if doi and doi.strip().lower() in known_primary_dois:
         return 'primary'
 
-    # 4. OpenAlex API를 통한 author_position == 'first' 또는 is_corresponding == True 확인
     if doi:
         clean_doi = doi.strip().replace('https://doi.org/', '').replace('http://doi.org/', '').replace('doi:', '')
         url = f"https://api.openalex.org/works/https://doi.org/{clean_doi}"
@@ -292,7 +327,7 @@ def fetch_orcid_work_details(put_code):
                 'title': title_val,
                 'authors': authors_str,
                 'journal': full_journal,
-                'year': year_val or '2025',
+                'year': year_val or '2026',
                 'volume': volume_val,
                 'doi': doi_val,
                 'url': url_val or (f"https://doi.org/{doi_val}" if doi_val else f"https://orcid.org/{ORCID_ID}"),
@@ -303,7 +338,7 @@ def fetch_orcid_work_details(put_code):
         return None
 
 def fetch_all_orcid_works():
-    req = urllib.request.Request(ORCID_URL, headers={'Accept': 'application/json'})
+    req = urllib.request.Request(ORCID_WORKS_URL, headers={'Accept': 'application/json'})
     try:
         with urllib.request.urlopen(req) as res:
             data = json.loads(res.read().decode('utf-8'))
@@ -326,7 +361,171 @@ def fetch_all_orcid_works():
         print(f"Error fetching ORCID summary: {e}")
         return []
 
-def main():
+def fetch_all_orcid_peer_reviews():
+    req = urllib.request.Request(ORCID_PEER_REVIEWS_URL, headers={'Accept': 'application/json'})
+    reviews = []
+    try:
+        with urllib.request.urlopen(req) as res:
+            data = json.loads(res.read().decode('utf-8'))
+            groups = data.get('group', [])
+            
+            for g in groups:
+                ext_ids = g.get('external-ids', {}).get('external-id', [])
+                group_issn = ""
+                for eid in ext_ids:
+                    if eid.get('external-id-type') == 'peer-review':
+                        group_issn = eid.get('external-id-value', '')
+                        break
+                        
+                review_groups = g.get('peer-review-group', [])
+                for rg in review_groups:
+                    summaries = rg.get('peer-review-summary', [])
+                    for s in summaries:
+                        issn_val = group_issn or s.get('review-group-id', '')
+                        clean_issn = normalize_issn(issn_val)
+                        
+                        comp_date = s.get('completion-date')
+                        date_str = ""
+                        if comp_date:
+                            y = comp_date.get('year', {}).get('value', '') if comp_date.get('year') else ''
+                            m = comp_date.get('month', {}).get('value', '') if comp_date.get('month') else ''
+                            d = comp_date.get('day', {}).get('value', '') if comp_date.get('day') else ''
+                            if y:
+                                date_str = f"{y}-{m.zfill(2)}-{d.zfill(2)}" if (m and d) else y
+                                
+                        journal_title = resolve_journal_from_issn(clean_issn)
+                        reviews.append({
+                            'journal': journal_title,
+                            'role': 'Reviewer',
+                            'issn': clean_issn,
+                            'source': 'ORCID',
+                            'verified': True,
+                            'completion_date': date_str,
+                            'put_code': s.get('put-code')
+                        })
+    except Exception as e:
+        print(f"[Peer Reviews] Error fetching ORCID peer reviews: {e}")
+        
+    return reviews
+
+def update_cv_html_publications(pubs):
+    if not os.path.exists(CV_HTML_FILE):
+        return
+    sorted_pubs = sorted(pubs, key=lambda p: int(p.get('year', 0)) if str(p.get('year', '')).isdigit() else 9999, reverse=True)
+    pub_items = []
+    for idx, p in enumerate(sorted_pubs):
+        authors = p.get('authors', '')
+        authors_bold = re.sub(r'\b(Kwon\s+H\b|Hyeokjae\s+Kwon\b|Kwon,\s*Hyeokjae\b)', r'<strong>\1</strong>', authors)
+        title = p.get('title', '').strip()
+        if not title.endswith('.'):
+            title += '.'
+        journal = p.get('journal', '').strip()
+        year = p.get('year', '').strip()
+        volume = p.get('volume', '').strip()
+        doi = p.get('doi', '').strip()
+        url = f'https://doi.org/{doi}' if doi else p.get('url', '')
+        
+        meta_str = f'{journal}. {year}'
+        if volume:
+            meta_str += f';{volume}'
+        meta_str += '.'
+        
+        item = f'''        <div class="cv-pub-item">
+          <div class="cv-pub-authors"><span class="cv-pub-num">{idx+1}.</span> {authors_bold}.</div>
+          <div class="cv-pub-title">{title}</div>
+          <div class="cv-pub-meta">{meta_str} <a href="{url}" target="_blank" rel="noopener">{url}</a></div>
+        </div>'''
+        pub_items.append(item)
+        
+    pubs_html = "\n".join(pub_items)
+    with open(CV_HTML_FILE, 'r', encoding='utf-8') as f:
+        content = f.read()
+    pattern = r'(<div class="cv-pub-list" id="cv-pub-list">)(.*?)(</div>\s*</section>)'
+    new_content = re.sub(pattern, r'\g<1>\n' + pubs_html + r'\n      \g<3>', content, flags=re.DOTALL)
+    with open(CV_HTML_FILE, 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    print("Successfully updated cv.html publications list.")
+
+def update_reviewers_in_html(reviewers):
+    # 1. Update index.html
+    if os.path.exists(INDEX_HTML_FILE):
+        with open(INDEX_HTML_FILE, 'r', encoding='utf-8') as f:
+            idx_content = f.read()
+            
+        items = []
+        for r in reviewers:
+            j_title = r.get('journal', '')
+            items.append(f'''            <li>
+              <strong data-i18n="reviewer_role">Reviewer</strong>
+              <div class="subtext">{j_title}</div>
+            </li>''')
+        idx_block = "\n" + "\n".join(items) + "\n            "
+        
+        pattern = r'(<!-- REVIEWER_LIST_START -->)(.*?)(<!-- REVIEWER_LIST_END -->)'
+        new_idx = re.sub(pattern, r'\g<1>' + idx_block + r'\g<3>', idx_content, flags=re.DOTALL)
+        with open(INDEX_HTML_FILE, 'w', encoding='utf-8') as f:
+            f.write(new_idx)
+        print("Successfully updated index.html reviewers list.")
+
+    # 2. Update cv.html
+    if os.path.exists(CV_HTML_FILE):
+        with open(CV_HTML_FILE, 'r', encoding='utf-8') as f:
+            cv_content = f.read()
+            
+        items = []
+        for r in reviewers:
+            j_title = r.get('journal', '')
+            items.append(f'        <div>Reviewer, {j_title}</div>')
+        cv_block = "\n" + "\n".join(items) + "\n        "
+        
+        pattern = r'(<!-- CV_REVIEWER_LIST_START -->)(.*?)(<!-- CV_REVIEWER_LIST_END -->)'
+        new_cv = re.sub(pattern, r'\g<1>' + cv_block + r'\g<3>', cv_content, flags=re.DOTALL)
+        with open(CV_HTML_FILE, 'w', encoding='utf-8') as f:
+            f.write(new_cv)
+        print("Successfully updated cv.html professional activities list.")
+
+def recompile_cv_pdf():
+    cv_url = f"file:///{os.path.abspath(CV_HTML_FILE).replace(os.sep, '/')}"
+    pdf_path = os.path.abspath(PDF_FILE)
+    
+    candidates = [
+        'google-chrome',
+        'google-chrome-stable',
+        'chromium',
+        'chromium-browser',
+        r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe',
+        r'C:\Program Files\Microsoft\Edge\Application\msedge.exe',
+        'msedge'
+    ]
+    
+    browser_bin = next((c for c in candidates if shutil.which(c) or os.path.exists(c)), None)
+    if not browser_bin:
+        print("[PDF] No suitable headless browser found to compile PDF. Skipping.")
+        return False
+        
+    cmd = [
+        browser_bin,
+        '--headless=new',
+        '--disable-gpu',
+        f'--print-to-pdf={pdf_path}',
+        '--no-pdf-header-footer',
+        cv_url
+    ]
+    try:
+        subprocess.run(cmd, check=True, timeout=30)
+        print(f"[PDF] Successfully recompiled {pdf_path}")
+        
+        # Verify page count
+        with open(pdf_path, 'rb') as f:
+            pdf_bytes = f.read()
+        counts = re.findall(rb'/Count\s+(\d+)', pdf_bytes)
+        print(f"[PDF] Verified Page Count: {counts}")
+        return True
+    except Exception as e:
+        print(f"[PDF] Error compiling PDF: {e}")
+        return False
+
+def sync_publications():
     existing = []
     if os.path.exists(PUBLICATIONS_FILE):
         with open(PUBLICATIONS_FILE, 'r', encoding='utf-8') as f:
@@ -357,6 +556,8 @@ def main():
             new_items.append(ow)
             print(f"Added new unique publication: {ow['title']}")
 
+    has_changes = len(new_items) > 0
+
     combined = new_items + existing
     for i, p in enumerate(combined):
         p['id'] = i + 1
@@ -366,47 +567,73 @@ def main():
         json.dump(combined, f, ensure_ascii=False, indent=2)
         
     print(f"Successfully updated publication database. Total: {len(combined)} publications.")
-    
-    update_cv_html(combined)
+    update_cv_html_publications(combined)
+    return has_changes
 
-def update_cv_html(pubs):
-    cv_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'cv.html')
-    if not os.path.exists(cv_file):
-        return
-    sorted_pubs = sorted(pubs, key=lambda p: int(p.get('year', 0)) if str(p.get('year', '')).isdigit() else 9999, reverse=True)
-    pub_items = []
-    for idx, p in enumerate(sorted_pubs):
-        authors = p.get('authors', '')
-        authors_bold = re.sub(r'\b(Kwon\s+H\b|Hyeokjae\s+Kwon\b|Kwon,\s*Hyeokjae\b)', r'<strong>\1</strong>', authors)
-        title = p.get('title', '').strip()
-        if not title.endswith('.'):
-            title += '.'
-        journal = p.get('journal', '').strip()
-        year = p.get('year', '').strip()
-        volume = p.get('volume', '').strip()
-        doi = p.get('doi', '').strip()
-        url = f'https://doi.org/{doi}' if doi else p.get('url', '')
+def sync_peer_reviews():
+    existing_reviewers = []
+    if os.path.exists(REVIEWERS_FILE):
+        with open(REVIEWERS_FILE, 'r', encoding='utf-8') as f:
+            try:
+                existing_reviewers = json.load(f)
+            except Exception:
+                existing_reviewers = []
+
+    print("Fetching peer-review activities from ORCID API...")
+    orcid_reviews = fetch_all_orcid_peer_reviews()
+    print(f"Fetched {len(orcid_reviews)} peer review activities from ORCID.")
+
+    has_changes = False
+    
+    # Track existing journal normalized titles and ISSNs
+    existing_map = {}
+    for r in existing_reviewers:
+        if r.get('issn'):
+            existing_map[normalize_issn(r['issn'])] = r
+        existing_map[normalize_text(r.get('journal', ''))] = r
+
+    for ow in orcid_reviews:
+        issn_key = normalize_issn(ow.get('issn', ''))
+        title_key = normalize_text(ow.get('journal', ''))
         
-        meta_str = f'{journal}. {year}'
-        if volume:
-            meta_str += f';{volume}'
-        meta_str += '.'
+        matched_existing = existing_map.get(issn_key) or existing_map.get(title_key)
         
-        item = f'''        <div class="cv-pub-item">
-          <div class="cv-pub-authors"><span class="cv-pub-num">{idx+1}.</span> {authors_bold}.</div>
-          <div class="cv-pub-title">{title}</div>
-          <div class="cv-pub-meta">{meta_str} <a href="{url}" target="_blank" rel="noopener">{url}</a></div>
-        </div>'''
-        pub_items.append(item)
-        
-    pubs_html = "\n".join(pub_items)
-    with open(cv_file, 'r', encoding='utf-8') as f:
-        content = f.read()
-    pattern = r'(<div class="cv-pub-list" id="cv-pub-list">)(.*?)(</div>\s*</section>)'
-    new_content = re.sub(pattern, r'\g<1>\n' + pubs_html + r'\n      \g<3>', content, flags=re.DOTALL)
-    with open(cv_file, 'w', encoding='utf-8') as f:
-        f.write(new_content)
-    print("Successfully updated cv.html publications list.")
+        if matched_existing:
+            # Update verification metadata if needed
+            if not matched_existing.get('verified'):
+                matched_existing['verified'] = True
+                has_changes = True
+            if ow.get('completion_date') and not matched_existing.get('completion_date'):
+                matched_existing['completion_date'] = ow['completion_date']
+                has_changes = True
+        else:
+            # New reviewer activity detected!
+            print(f"[Reviewer] New peer review detected: {ow['journal']} (ISSN: {ow.get('issn')})")
+            existing_reviewers.insert(0, ow)
+            if issn_key:
+                existing_map[issn_key] = ow
+            existing_map[title_key] = ow
+            has_changes = True
+
+    if has_changes or not os.path.exists(REVIEWERS_FILE):
+        with open(REVIEWERS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(existing_reviewers, f, ensure_ascii=False, indent=2)
+        print(f"Saved updated reviewers.json ({len(existing_reviewers)} records).")
+        update_reviewers_in_html(existing_reviewers)
+
+    return has_changes
+
+def main():
+    print("=== Starting ORCID Synchronization Pipeline ===")
+    pubs_changed = sync_publications()
+    reviews_changed = sync_peer_reviews()
+
+    if pubs_changed or reviews_changed:
+        print("[Pipeline] Changes detected in publications or peer reviews. Recompiling official CV PDF...")
+        recompile_cv_pdf()
+    else:
+        print("[Pipeline] No new publications or peer reviews detected. Everything is up to date.")
+    print("=== ORCID Synchronization Pipeline Completed ===")
 
 if __name__ == '__main__':
     main()

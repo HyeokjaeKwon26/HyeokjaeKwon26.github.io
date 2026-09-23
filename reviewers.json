@@ -1,0 +1,32 @@
+[
+  {
+    "journal": "Journal of Clinical Medicine (JCM)",
+    "role": "Reviewer",
+    "issn": "2077-0383",
+    "source": "ORCID",
+    "verified": true,
+    "completion_date": "2026-09-11"
+  },
+  {
+    "journal": "Healthcare",
+    "role": "Reviewer",
+    "issn": "2227-9032",
+    "source": "ORCID",
+    "verified": true,
+    "completion_date": "2026-09-18"
+  },
+  {
+    "journal": "Journal of Wound Management and Research (JWMR)",
+    "role": "Reviewer",
+    "issn": "2586-0402",
+    "source": "Manual",
+    "verified": true
+  },
+  {
+    "journal": "Archives of Plastic Surgery (APS)",
+    "role": "Reviewer",
+    "issn": "2234-6171",
+    "source": "Manual",
+    "verified": true
+  }
+]
