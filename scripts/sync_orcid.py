@@ -27,6 +27,7 @@ JOURNAL_MAP = {
     "Front Surg": "Frontiers in Surgery",
     "World J Clin Cases": "World Journal of Clinical Cases",
     "Arch Hand Microsurg": "Archives of Hand and Microsurgery",
+    "Archives of Hand & Microsurgery": "Archives of Hand and Microsurgery",
     "J Clin Med": "Journal of Clinical Medicine",
     "Arch Aesthetic Plast Surg": "Archives of Aesthetic Plastic Surgery",
     "J Clin Monit Comput": "Journal of Clinical Monitoring and Computing",
@@ -36,10 +37,7 @@ JOURNAL_MAP = {
     "J Wound Manag Res": "Journal of Wound Management and Research",
     "J Oral Maxillofac Surg": "Journal of Oral and Maxillofacial Surgery",
     "PLoS One": "PLOS ONE",
-    "Medicine (Baltimore)": "Medicine",
-    "Journal of Plastic, Reconstructive & Aesthetic Surgery": "Journal of Plastic, Reconstructive & Aesthetic Surgery",
-    "Archives of Hand and Microsurgery": "Archives of Hand and Microsurgery",
-    "Archives of Hand & Microsurgery": "Archives of Hand and Microsurgery"
+    "Medicine (Baltimore)": "Medicine"
 }
 
 ISSN_JOURNAL_MAP = {
