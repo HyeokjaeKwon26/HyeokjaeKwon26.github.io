@@ -19,6 +19,7 @@ PUBLICATIONS_FILE = os.path.join(BASE_DIR, "publications.json")
 REVIEWERS_FILE = os.path.join(BASE_DIR, "reviewers.json")
 INDEX_HTML_FILE = os.path.join(BASE_DIR, "index.html")
 CV_HTML_FILE = os.path.join(BASE_DIR, "cv.html")
+SCRIPT_JS_FILE = os.path.join(BASE_DIR, "script.js")
 PDF_FILE = os.path.join(BASE_DIR, "assets", "Hyeokjae_Kwon_CV.pdf")
 
 JOURNAL_MAP = {
@@ -41,6 +42,8 @@ JOURNAL_MAP = {
 }
 
 ISSN_JOURNAL_MAP = {
+    "1718-7729": "Current Oncology",
+    "1660-4601": "International Journal of Environmental Research and Public Health (IJERPH)",
     "2077-0383": "Journal of Clinical Medicine (JCM)",
     "2227-9032": "Healthcare",
     "2586-0402": "Journal of Wound Management and Research (JWMR)",
@@ -481,6 +484,39 @@ def update_reviewers_in_html(reviewers):
         with open(CV_HTML_FILE, 'w', encoding='utf-8') as f:
             f.write(new_cv)
         print("Successfully updated cv.html professional activities list.")
+
+    # 3. Update script.js CLI output
+    if os.path.exists(SCRIPT_JS_FILE):
+        with open(SCRIPT_JS_FILE, 'r', encoding='utf-8') as f:
+            js_content = f.read()
+
+        cli_rev_items_1 = []
+        cli_rev_items_2 = []
+        cli_rev_items_3 = []
+        for r in reviewers:
+            j_title = r.get('journal', '')
+            badge = ' [ORCID Verified]' if r.get('source') == 'ORCID' else ''
+            cli_rev_items_1.append(f'          <div>• Reviewer, {j_title}{badge}</div>')
+            cli_rev_items_2.append(f'        <div>• {j_title}{badge}</div>')
+            cli_rev_items_3.append(f'        <div>• Reviewer, {j_title}{badge}</div>')
+
+        block1 = '          <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>\n' + "\n".join(cli_rev_items_1)
+        block2 = '        <div style="margin-top:6px;"><strong class="cli-highlight">Peer Reviewer Activities:</strong></div>\n' + "\n".join(cli_rev_items_2)
+        block3 = '        <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>\n' + "\n".join(cli_rev_items_3)
+
+        js_content = re.sub(
+            r'([ \t]*<div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>\s*(?:<div>• Reviewer,.*?</div>\s*)+)',
+            lambda m: (block1 + "\n        ") if "          <div" in m.group(0) else (block3 + "\n      "),
+            js_content
+        )
+        js_content = re.sub(
+            r'([ \t]*<div style="margin-top:6px;"><strong class="cli-highlight">Peer Reviewer Activities:</strong></div>\s*(?:<div>• .*?</div>\s*)+)',
+            block2 + "\n      ",
+            js_content
+        )
+        with open(SCRIPT_JS_FILE, 'w', encoding='utf-8') as f:
+            f.write(js_content)
+        print("Successfully updated script.js CLI reviewer lists.")
 
 def recompile_cv_pdf():
     cv_url = f"file:///{os.path.abspath(CV_HTML_FILE).replace(os.sep, '/')}"
