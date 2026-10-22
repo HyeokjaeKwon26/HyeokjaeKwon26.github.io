@@ -1,5 +1,14 @@
 [
   {
+    "journal": "BioMedInformatics",
+    "role": "Reviewer",
+    "issn": "2673-7426",
+    "source": "ORCID",
+    "verified": true,
+    "completion_date": "2026-10-22",
+    "put_code": 29662112
+  },
+  {
     "journal": "Current Oncology",
     "role": "Reviewer",
     "issn": "1718-7729",
