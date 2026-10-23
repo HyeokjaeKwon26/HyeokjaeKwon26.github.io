@@ -42,6 +42,7 @@ JOURNAL_MAP = {
 }
 
 ISSN_JOURNAL_MAP = {
+    "2673-7426": "BioMedInformatics",
     "1718-7729": "Current Oncology",
     "1660-4601": "International Journal of Environmental Research and Public Health (IJERPH)",
     "2077-0383": "Journal of Clinical Medicine (JCM)",
@@ -255,7 +256,13 @@ def determine_authorship_category(doi, authors_str='', crossref_authors=None):
 
     return 'coauthor'
 
+def is_correction_work(item):
+    title = item.get('title', '').strip()
+    return bool(re.match(r'^(Correction|Erratum|Corrigendum|Author Correction|Publisher Correction)\s*:', title, re.IGNORECASE))
+
 def is_duplicate(new_item, existing_items):
+    if is_correction_work(new_item):
+        return True
     new_title_norm = normalize_text(new_item.get('title', ''))
     new_doi_norm = normalize_doi(new_item.get('doi', ''))
 
@@ -431,10 +438,23 @@ def update_cv_html_publications(pubs):
             meta_str += f';{volume}'
         meta_str += '.'
         
+        corr_html = ""
+        corr = p.get('correction')
+        if corr:
+            c_journal = corr.get('journal', 'Frontiers in Surgery')
+            c_year = corr.get('year', '')
+            c_vol = corr.get('volume', '')
+            c_doi = corr.get('doi', '')
+            c_meta = f"{c_journal}. {c_year}"
+            if c_vol:
+                c_meta += f";{c_vol}"
+            c_doi_url = f"https://doi.org/{c_doi}" if c_doi else corr.get('url', '')
+            corr_html = f' <span style="font-size:0.88em; color:#475569;">[Correction: {c_meta}. <a href="{c_doi_url}" target="_blank" rel="noopener">doi:{c_doi}</a>]</span>'
+
         item = f'''        <div class="cv-pub-item">
           <div class="cv-pub-authors"><span class="cv-pub-num">{idx+1}.</span> {authors_bold}.</div>
           <div class="cv-pub-title">{title}</div>
-          <div class="cv-pub-meta">{meta_str} <a href="{url}" target="_blank" rel="noopener">{url}</a></div>
+          <div class="cv-pub-meta">{meta_str} <a href="{url}" target="_blank" rel="noopener">{url}</a>{corr_html}</div>
         </div>'''
         pub_items.append(item)
         
@@ -553,7 +573,7 @@ def recompile_cv_pdf():
         with open(pdf_path, 'rb') as f:
             pdf_bytes = f.read()
         counts = re.findall(rb'/Count\s+(\d+)', pdf_bytes)
-        print(f"[PDF] Verified Page Count: {counts}")
+        print(f"[PDF] Page Count: {counts}")
         return True
     except Exception as e:
         print(f"[PDF] Error compiling PDF: {e}")
@@ -583,12 +603,42 @@ def sync_publications():
     print(f"Fetched {len(orcid_works)} works from ORCID API.")
 
     new_items = []
+    corrections_found = []
     for ow in reversed(orcid_works):
+        if is_correction_work(ow):
+            corrections_found.append(ow)
+            continue
         if not is_duplicate(ow, existing) and not is_duplicate(ow, new_items):
             ow['id'] = len(existing) + len(new_items) + 1
             ow['authors'] = normalize_authors_string(ow.get('authors', ''))
             new_items.append(ow)
             print(f"Added new unique publication: {ow['title']}")
+
+    for cw in corrections_found:
+        cw_title = cw.get('title', '')
+        clean_base = re.sub(r'^(Correction|Erratum|Corrigendum|Author Correction|Publisher Correction)\s*:\s*', '', cw_title, flags=re.IGNORECASE)
+        clean_base = re.sub(r'\s*\([^)]*doi[^)]*\)', '', clean_base, flags=re.IGNORECASE).strip()
+        norm_base = normalize_text(clean_base)
+
+        matched_pub = None
+        for p in existing + new_items:
+            p_norm = normalize_text(p.get('title', ''))
+            if p_norm and (p_norm in norm_base or norm_base in p_norm or difflib.SequenceMatcher(None, p_norm, norm_base).ratio() >= 0.7):
+                matched_pub = p
+                break
+
+        if matched_pub:
+            corr_data = {
+                'journal': cw.get('journal', matched_pub.get('journal', '')),
+                'year': cw.get('year', ''),
+                'volume': cw.get('volume', ''),
+                'doi': cw.get('doi', ''),
+                'url': cw.get('url', '')
+            }
+            if matched_pub.get('correction') != corr_data:
+                matched_pub['correction'] = corr_data
+                has_changes = True
+                print(f"[Correction Attached] Linked {cw_title} to {matched_pub.get('title')}")
 
     has_changes = len(new_items) > 0
 

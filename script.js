@@ -1043,6 +1043,16 @@ function renderPublications() {
         <div class="pub-meta-text">
           <strong>${pub.journal}</strong>. ${pub.year}; ${pub.volume}.
         </div>
+        ${pub.correction ? `
+          <div class="pub-correction-note" style="margin-top: 6px; font-size: 0.85rem; color: #475569;">
+            <span style="display: inline-flex; align-items: center; gap: 4px; background: rgba(100, 116, 139, 0.08); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(100, 116, 139, 0.2);">
+              <i class="ri-information-line"></i> <strong>Correction:</strong>
+              <span>${pub.correction.journal}. ${pub.correction.year}${pub.correction.volume ? ';' + pub.correction.volume : ''}.</span>
+              <a href="${pub.correction.url || ('https://doi.org/' + pub.correction.doi)}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-navy, #1e40af); text-decoration: underline; margin-left: 2px;">
+                [doi:${pub.correction.doi}]
+              </a>
+            </span>
+          </div>` : ''}
         <div class="pub-links">
           <a href="${pub.url}" target="_blank" rel="noopener noreferrer" class="pub-link-btn">
             [DOI / Publisher Link]

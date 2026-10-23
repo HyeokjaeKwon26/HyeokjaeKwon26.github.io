@@ -1,23 +1,23 @@
 [
   {
-    "title": "Novel method to measure marginal reflex distance-1(MRD-1) using based on deep learning method",
-    "authors": "Song B, Kwon H, Ha Y, Kim S, Oh S-H, HS S",
+    "title": "Breast Reconstruction-Related Procedures in Korea Across the COVID-19 Pandemic: A Nationwide Interrupted Time-Series and Provider–Location Analysis, 2015–2024",
+    "authors": "Kim J, Choi A, Ko HM, Kwon H",
+    "journal": "Medicina",
+    "year": "2026",
+    "volume": "62(11):2054",
+    "doi": "10.3390/medicina62112054",
+    "url": "https://doi.org/10.3390/medicina62112054",
+    "category": "coauthor",
+    "id": 1
+  },
+  {
+    "title": "Novel method to measure marginal reflex distance-1 (MRD-1) using based on deep learning method",
+    "authors": "Song B, Kwon H, Ha Y, Kim S, Oh S-H, Song SH",
     "journal": "2023 IEEE Conference on Artificial Intelligence (CAI)",
     "year": "2023",
     "volume": "In press",
     "doi": "10.1109/CAI54212.2023.00140",
     "url": "https://doi.org/10.1109/CAI54212.2023.00140",
-    "category": "coauthor",
-    "id": 1
-  },
-  {
-    "title": "Correction: Anterolateral thigh free flap using modified turbocharging method: a case report (Frontiers in Surgery, (2024), 11, (1273843), 10.3389/fsurg.2024.1273843)",
-    "authors": "Ha Y, Kim D, Kwon H, Kim S, Song SH, Oh S-H, Kim J-H, Yang HJ, Kyung H",
-    "journal": "Frontiers in Surgery",
-    "year": "2026",
-    "volume": "13",
-    "doi": "10.3389/fsurg.2026.1804333",
-    "url": "https://doi.org/10.3389/fsurg.2026.1804333",
     "category": "coauthor",
     "id": 2
   },
@@ -85,7 +85,14 @@
     "volume": "11",
     "doi": "10.3389/fsurg.2024.1273843",
     "url": "https://doi.org/10.3389/fsurg.2024.1273843",
-    "category": "coauthor"
+    "category": "coauthor",
+    "correction": {
+      "journal": "Frontiers in Surgery",
+      "year": "2026",
+      "volume": "13",
+      "doi": "10.3389/fsurg.2026.1804333",
+      "url": "https://doi.org/10.3389/fsurg.2026.1804333"
+    }
   },
   {
     "id": 9,
