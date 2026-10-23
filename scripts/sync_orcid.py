@@ -235,6 +235,7 @@ def determine_authorship_category(doi, authors_str='', crossref_authors=None):
         '10.12998/wjcc.v12.i20.4446',
         '10.1007/s10877-023-00988-5',
         '10.3390/healthcare14172866',
+        '10.3390/medicina62112054',
     }
     if doi and doi.strip().lower() in known_primary_dois:
         return 'primary'
