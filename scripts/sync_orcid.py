@@ -215,7 +215,124 @@ def apply_et_al_rule(authors_list):
     else:
         return ", ".join(authors_list[:13]) + ", et al."
 
-def determine_authorship_category(doi, authors_str='', crossref_authors=None):
+KNOWN_PRIMARY_DOIS = {
+    '10.1097/md.0000000000043410',
+    '10.12998/wjcc.v12.i28.6204',
+    '10.12998/wjcc.v12.i20.4446',
+    '10.1007/s10877-023-00988-5',
+    '10.3390/healthcare14172866',
+    '10.3390/medicina62112054',
+}
+
+def check_direct_doi_corresponding(clean_doi):
+    """
+    Directly accesses the article landing page via DOI to search for
+    corresponding author indicators (email in mailto or name in Correspondence note).
+    """
+    if not clean_doi:
+        return False
+    url = f"https://doi.org/{clean_doi}"
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    }
+    try:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            if resp.status == 200:
+                html = resp.read().decode('utf-8', errors='ignore')
+                
+                # 1. Search for Dr. Kwon's emails in mailto: links
+                mailtos = re.findall(r'mailto:([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)', html, re.IGNORECASE)
+                kwon_emails = ['kwon.hyeokjae@cnuh.co.kr', 'kwon.hyeokjae@cnu.ac.kr', 'hyeokjaekwon@']
+                for m in mailtos:
+                    for ke in kwon_emails:
+                        if ke in m.lower():
+                            print(f"[DOI Direct] Verified corresponding author email '{m}' on landing page for {clean_doi}!")
+                            return True
+                            
+                # 2. Search for correspondence author name specifically
+                clean_text = re.sub(r'<[^>]+>', ' ', html)
+                corresp_matches = re.findall(r'(?:Correspondence|Corresponding\s+author)\s*:\s*([A-Za-z\s\.\-]+?)(?:\s+[a-zA-Z0-9_\.\+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-\.]+|$|\n|\. )', clean_text, re.IGNORECASE)
+                for cm in corresp_matches:
+                    name_clean = cm.strip().lower()
+                    if 'kwon' in name_clean and ('h' in name_clean or 'hyeokjae' in name_clean):
+                        print(f"[DOI Direct] Verified corresponding author name '{cm.strip()}' on landing page for {clean_doi}!")
+                        return True
+    except Exception:
+        # Expected if publisher blocks automated access (e.g. 403 Forbidden) or times out
+        pass
+    return False
+
+def check_openalex_corresponding(clean_doi):
+    url = f"https://api.openalex.org/works/https://doi.org/{clean_doi}"
+    req = urllib.request.Request(url, headers={'User-Agent': 'AcademicWeb/1.0 (mailto:kwon.hyeokjae@cnuh.co.kr)'})
+    try:
+        with urllib.request.urlopen(req, timeout=5) as res:
+            data = json.loads(res.read().decode('utf-8'))
+            for a in data.get('authorships', []):
+                name = a.get('author', {}).get('display_name', '').lower()
+                if 'kwon' in name and ('h' in name or 'hyeokjae' in name):
+                    if a.get('author_position') == 'first' or a.get('is_corresponding') is True:
+                        print(f"[OpenAlex] Verified First / Corresponding authorship for {clean_doi}!")
+                        return True
+    except Exception:
+        pass
+    return False
+
+def check_europepmc_corresponding(clean_doi):
+    url = f"https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI:{clean_doi}&resultType=core&format=json"
+    req = urllib.request.Request(url, headers={'User-Agent': 'AcademicWeb/1.0 (mailto:kwon.hyeokjae@cnuh.co.kr)'})
+    try:
+        with urllib.request.urlopen(req, timeout=5) as res:
+            data = json.loads(res.read().decode('utf-8'))
+            results = data.get('resultList', {}).get('result', [])
+            if results:
+                authors = results[0].get('authorList', {}).get('author', [])
+                for a in authors:
+                    fam = a.get('lastName', '').lower()
+                    giv = (a.get('firstName', '') + ' ' + a.get('initials', '')).lower()
+                    if 'kwon' in fam and ('h' in giv or 'hyeokjae' in giv):
+                        if a.get('isCorresponding') in ('Y', 'true', True):
+                            print(f"[EuropePMC] Verified Corresponding authorship for {clean_doi}!")
+                            return True
+                        if 'kwon.hyeokjae@cnuh.co.kr' in a.get('affiliation', '').lower():
+                            print(f"[EuropePMC] Verified Corresponding email affiliation for {clean_doi}!")
+                            return True
+    except Exception:
+        pass
+    return False
+
+def check_pubmed_corresponding(clean_doi):
+    esearch_url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term={clean_doi}&retmode=json"
+    try:
+        req = urllib.request.Request(esearch_url, headers={'User-Agent': 'AcademicWeb/1.0 (mailto:kwon.hyeokjae@cnuh.co.kr)'})
+        with urllib.request.urlopen(req, timeout=5) as res:
+            data = json.loads(res.read().decode('utf-8'))
+            id_list = data.get('esearchresult', {}).get('idlist', [])
+            if id_list:
+                pmid = id_list[0]
+                efetch_url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id={pmid}&retmode=xml"
+                req_xml = urllib.request.Request(efetch_url, headers={'User-Agent': 'AcademicWeb/1.0 (mailto:kwon.hyeokjae@cnuh.co.kr)'})
+                with urllib.request.urlopen(req_xml, timeout=5) as res_xml:
+                    xml_text = res_xml.read().decode('utf-8', errors='ignore')
+                    if 'kwon.hyeokjae@cnuh.co.kr' in xml_text.lower():
+                        print(f"[PubMed] Verified Corresponding author email in PubMed XML for {clean_doi} (PMID {pmid})!")
+                        return True
+                    match = re.search(r'<Author[\s\S]*?<LastName>Kwon</LastName>[\s\S]*?</Author>', xml_text, re.IGNORECASE)
+                    if match and ('equalcontrib' in match.group(0).lower() or 'kwon.hyeokjae' in match.group(0).lower()):
+                        print(f"[PubMed] Verified Equal / Corresponding authorship for {clean_doi} (PMID {pmid})!")
+                        return True
+    except Exception:
+        pass
+    return False
+
+def determine_authorship_category(doi, authors_str='', crossref_authors=None, existing_category=None):
+    # Tier 1: Preservation rule - never demote an already confirmed primary paper
+    if existing_category == 'primary':
+        return 'primary'
+
+    # Tier 2: Check first author in authors_str or crossref_authors
     if authors_str:
         first_author = authors_str.split(',')[0].strip().lower()
         if 'kwon' in first_author and ('h' in first_author or 'hyeokjae' in first_author):
@@ -229,31 +346,25 @@ def determine_authorship_category(doi, authors_str='', crossref_authors=None):
                 if idx == 0 or a.get('sequence') == 'first':
                     return 'primary'
 
-    known_primary_dois = {
-        '10.1097/md.0000000000043410',
-        '10.12998/wjcc.v12.i28.6204',
-        '10.12998/wjcc.v12.i20.4446',
-        '10.1007/s10877-023-00988-5',
-        '10.3390/healthcare14172866',
-        '10.3390/medicina62112054',
-    }
-    if doi and doi.strip().lower() in known_primary_dois:
+    # Tier 3: Verified known primary DOIs
+    if doi and doi.strip().lower() in KNOWN_PRIMARY_DOIS:
         return 'primary'
 
+    # Tier 4: Direct DOI Landing Page inspection & Academic APIs
     if doi:
         clean_doi = doi.strip().replace('https://doi.org/', '').replace('http://doi.org/', '').replace('doi:', '')
-        url = f"https://api.openalex.org/works/https://doi.org/{clean_doi}"
-        req = urllib.request.Request(url, headers={'User-Agent': 'AcademicWeb/1.0 (mailto:kwon.hyeokjae@cnuh.co.kr)'})
-        try:
-            with urllib.request.urlopen(req, timeout=5) as res:
-                data = json.loads(res.read().decode('utf-8'))
-                for a in data.get('authorships', []):
-                    name = a.get('author', {}).get('display_name', '').lower()
-                    if 'kwon' in name and ('h' in name or 'hyeokjae' in name):
-                        if a.get('author_position') == 'first' or a.get('is_corresponding') is True:
-                            return 'primary'
-        except Exception:
-            pass
+        
+        # Step 4A: Try direct DOI landing page fetch
+        if check_direct_doi_corresponding(clean_doi):
+            return 'primary'
+
+        # Step 4B: Multi-source academic APIs cross-check
+        if check_openalex_corresponding(clean_doi):
+            return 'primary'
+        if check_europepmc_corresponding(clean_doi):
+            return 'primary'
+        if check_pubmed_corresponding(clean_doi):
+            return 'primary'
 
     return 'coauthor'
 
@@ -596,7 +707,16 @@ def sync_publications():
                     p['volume'] = crossref['volume']
                 if crossref.get('year'):
                     p['year'] = crossref['year']
-            p['category'] = determine_authorship_category(doi, p.get('authors', ''), crossref.get('raw_authors') if crossref else None)
+            current_cat = p.get('category', 'coauthor')
+            if current_cat == 'primary':
+                # Preserve confirmed primary authorship
+                pass
+            else:
+                resolved_cat = determine_authorship_category(doi, p.get('authors', ''), crossref.get('raw_authors') if crossref else None, existing_category=current_cat)
+                if resolved_cat == 'primary':
+                    p['category'] = 'primary'
+                    has_changes = True
+                    print(f"[Auto-Promote] Automatically promoted to First / Corresponding Author: {p.get('title')}")
         p['authors'] = normalize_authors_string(p.get('authors', ''))
 
     print("Fetching publication details from ORCID API...")
