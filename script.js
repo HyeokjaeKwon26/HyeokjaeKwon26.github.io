@@ -1,0 +1,1196 @@
+// Academic Portfolio & Publications Engine (Optimized & Dual-Language i18n)
+let publications = [];
+let currentCategory = 'all';
+let searchQuery = '';
+let currentLang = 'en';
+
+// DOM Elements Cache
+let containerEl, searchInputEl, toastEl, themeBtnEl, langBtnEl;
+
+const TRANSLATIONS = {
+  en: {
+    page_title: "Hyeokjae Kwon, M.D., Ph.D. | Chungnam National University Hospital, MGH & Harvard Medical School",
+    cv_page_title: "Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae",
+    name_header: "Hyeokjae Kwon, M.D., Ph.D.",
+    name_hero: "Hyeokjae Kwon, M.D., Ph.D.",
+    cv_bar_title: "Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae",
+    brand_sub: "CNUH, MGH & Harvard Medical School",
+    nav_about: "About",
+    nav_experience: "Experience",
+    nav_education: "Education",
+    nav_publications: "Publications",
+    nav_honors: "Grants & Honors",
+    section_honors: "Research Grants, Honors & Activities",
+    card_grants: "Research Grants & Funding",
+    grant_role_pi: "Principal Investigator (PI)",
+    grant_ssi_title: "Development and Performance Testing of an AI-based System for Post-discharge Surveillance of Surgical Site Infections",
+    grant_ssi_meta: "Dec. 2024 – Nov. 2027 (3 Years) — Biomedical Research Institute, Chungnam National University Hospital (2024 CNUH Intramural Collaborative Research Grant)",
+    nav_projects: "Projects",
+    nav_contact: "Contact",
+    hero_title_sub: "Plastic and Reconstructive Surgeon & Computer Scientist",
+    role_visiting: "Visiting Professor",
+    org_visiting: "Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), USA",
+    role_clinical: "Clinical Assistant Professor",
+    org_clinical: "Dept. of Plastic & Reconstructive Surgery, Chungnam National University Hospital",
+    hero_bio: "Dr. Hyeokjae Kwon combines a unique interdisciplinary background in Computer Science (B.S., <strong>KAIST</strong>) and Medicine (M.D., Ph.D., <strong>Chungnam National University</strong>). His research integrates artificial intelligence, medical computer vision, and virtual reality preoperative education into plastic and reconstructive surgery, with dedicated research interests in chronic wounds and surgical site infections (SSI).",
+    btn_cv: "Academic CV (PDF)",
+    section_exp: "Professional Experience",
+    section_edu: "Education",
+    section_pub: "Publications",
+    section_projects: "Personal & Open Source Projects",
+    section_contact: "Contact & Information",
+    
+    solarless_title: "SolarLess Navi (Solar-Aware Smart Navigation)",
+    solarless_badge: "Android App",
+    solarless_desc: "An experimental solar-aware smart navigation system comparing Fastest, Glare-Avoidance (CIE Stiles–Holladay), and Shade-Priority routes. Features MapLibre GL vector rendering with 3D heading-up orientation, precalculated 2.5D building & terrain occlusion across the USA (4 regions) and South Korea (154,000+ tiles), NREL SPA solar positioning, Open-Meteo DNI forecasts, voice turn guidance, free-drive detection, and PiP mode on Android.",
+    solarless_tech: "Tech Stack: TypeScript, Capacitor 6.2 (Android), MapLibre GL (Vector / 3D Heading-Up), NREL SPA, Bird Clear-Sky Model, Open-Meteo, 2.5D OSM/DEM Terrain, OSRM",
+    solarless_btn: "View GitHub Repository",
+    
+    travel_diary_title: "My Travel Diary (Offline Cinematic Travel Story Reconstructor)",
+    travel_diary_badge: "Android App",
+    travel_diary_desc: "A 100% offline, privacy-first cinematic travel story reconstructor & video creation studio for Android. Transforms Google Timeline JSON and photo/video timestamps entirely on-device into animated journey playback with transport characters (car, train, flight, boat), video clip placement with audio & BGM mixing, 1080p/720p MP4 export, and lossless full ZIP backup.",
+    travel_diary_tech: "Tech Stack: Android, Kotlin, Jetpack Compose, Material Design 3, MediaCodec (H.264/AAC MP4), Custom Vector Canvas Engine, Coil, WGS-84 Geodesic",
+    travel_diary_btn: "View GitHub Repository",
+    
+    travel_diary_3d_title: "My Travel Diary 3D (Offline 3D Globe Travel Reconstructor)",
+    travel_diary_3d_badge: "Android App",
+    travel_diary_3d_desc: "An offline 3D globe & real-world DEM terrain travel reconstructor for Android. Simulates travel journeys with OpenGL ES 2.0 globe & USGS/Mapzen elevation meshes, featuring dynamic 3D vehicle models with bounce physics, cinematic chase/free camera switching, video clip insertion with audio mixing, and hardware-accelerated 1080p/720p H.264 MP4 export.",
+    travel_diary_3d_tech: "Tech Stack: Android, Kotlin, Jetpack Compose, OpenGL ES 2.0, Mapzen / USGS Elevation DEM, MediaCodec (H.264/AAC MP4), Room, Material Design 3",
+    travel_diary_3d_btn: "View GitHub Repository",
+    
+    tab_all: "All",
+    tab_primary: "First / Corresponding Author",
+    tab_coauthor: "Co-Author",
+    badge_primary: "First / Corresponding Author",
+    badge_coauthor: "Co-Author",
+    search_placeholder: "Search publications (title, author, journal)...",
+    pub_empty: "No publications found matching your search.",
+    
+    card_honors: "Honors & Awards",
+    card_certs: "Certifications & Courses",
+    card_memberships: "Professional Memberships",
+    card_editorial: "Editorial & Reviewer Activities",
+    
+    contact_email: "Email",
+    contact_phone: "Office Phone",
+    contact_fax: "Fax",
+    contact_orcid: "ORCID",
+    footer_copy: "© 2026 Hyeokjae Kwon, M.D., Ph.D. | Chungnam National University Hospital, Massachusetts General Hospital & Harvard Medical School",
+    toast_copy: "Citation copied to clipboard",
+
+    // Specific Items
+    org_cnuh: "Chungnam National University Hospital, Daejeon, South Korea",
+    org_cnuh_short: "Chungnam National University Hospital",
+    org_cnu: "Chungnam National University, South Korea",
+    org_kaist: "KAIST (Korea Advanced Institute of Science and Technology), South Korea",
+    item_visiting_desc: "Collaborative research on clinical surgical innovation, medical AI, and surgical outcomes.",
+    item_cnuh_dept: "Department of Plastic and Reconstructive Surgery.",
+    item_fellow_role: "Clinical Fellow",
+    item_army_role: "Army Medical Officer",
+    item_army_1115: "1115th Corps of Engineers, Second Operations Command, ROK Army",
+    item_army_7th: "7th Airborne Special Forces Brigade, ROK Army",
+    item_residency_role: "Residency in Plastic & Reconstructive Surgery",
+    item_internship_role: "Medical Internship",
+    item_phd_role: "Ph.D. in Medicine (Plastic & Reconstructive Surgery)",
+    item_ms_role: "M.D. / M.S. in Medicine",
+    item_bs_role: "B.S. in Computer Science",
+
+    // Awards & Certs
+    award_med_record: "Excellence Award for Medical Record Documentation",
+    award_reviewer: "Outstanding Reviewer Award",
+    award_research: "Outstanding Research Award",
+    award_army_commend: "Brigadier General Commendation for Meritorious Service",
+    award_golden_bell: "3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz)",
+    award_golden_bell_sub: "Nov. 2017 — PRS Korea 2017",
+    cv_ksprs_sub: "PRS Korea 2017",
+    award_hygiene: "Hospital Infection Control & Hand Hygiene Excellence Award",
+    cert_fkwa: "Fellow of the Korean Wound Academy (FKWA)",
+    cert_cpbmi: "Certified Physician in Biomedical Informatics (CPBMI)",
+    cert_hrdk: "Engineer Information Processing",
+    cert_board: "Board Certified Specialist in Plastic & Reconstructive Surgery",
+    cert_aocmf: "AOCMF Course — Management of Facial Trauma",
+    cert_license: "Medical Doctor (M.D.) License",
+    member_regular: "Regular Member",
+    reviewer_role: "Reviewer",
+    org_cnu_grad: "Graduate School of Chungnam National University",
+    kwms_name: "Korean Wound Management Society",
+    kosmi_name: "Korea Society of Medical Informatics (KOSMI)",
+    hrdk_name: "Human Resources Development Service of Korea (HRDK)",
+    mohw_name: "Ministry of Health and Welfare, Republic of Korea",
+    ksprs_name: "Korean Society of Plastic and Reconstructive Surgeons (KSPRS)",
+    
+    // CV Page Specifics
+    btn_back: "Return to Website",
+    btn_pdf: "Save / Download PDF",
+    cv_title_rank: "Visiting Professor, MGH & Harvard Medical School | Clinical Assistant Professor, CNUH",
+    cv_sec_appointments: "Academic & Clinical Appointments",
+    cv_sec_focus: "Research Focus & Specializations",
+    cv_sec_pubs: "Peer-Reviewed Publications",
+    cv_focus_text: "• <strong>Medical AI & Computer Vision:</strong> AI-driven Eyeball Exposure Rate (EER) Analysis, 3D Gaussian Splatting for Surgical Measurement.<br>• <strong>Digital Health & Preoperative VR:</strong> VR Simulation Preoperative Education, Mobile Wound Management Systems.<br>• <strong>Clinical Surgical Innovation:</strong> Surgical Site Infection (SSI) Prevention, Chronic Wound Healing, Facial Trauma Reconstruction."
+  },
+  kr: {
+    page_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) | 충남대학교병원, MGH & 하버드 의과대학",
+    cv_page_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) — 학술 이력서 (CV)",
+    name_header: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.)",
+    name_hero: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.)",
+    cv_bar_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) — 학술 이력서 (CV)",
+    brand_sub: "충남대학교병원, MGH & 하버드 의과대학",
+    nav_about: "소개",
+    nav_experience: "경력",
+    nav_education: "학력",
+    nav_publications: "논문 실적",
+    nav_honors: "연구과제·수상",
+    section_honors: "연구과제, 수상 및 학술 활동",
+    card_grants: "연구과제 및 연구비 수주 (Research Grants)",
+    grant_role_pi: "연구책임자 (PI)",
+    grant_ssi_title: "AI 기반 수술 후 감염의 퇴원 후 감시를 위한 시스템 개발 및 성능시험에 관한 연구",
+    grant_ssi_meta: "2024.12 ~ 2027.11 (3년) — 충남대학교병원 의생명연구원 (2024년도 제2차 원내공모과제 - 산학연 융합연구)",
+    nav_projects: "프로젝트",
+    nav_contact: "문의",
+    hero_title_sub: "성형외과 전문의 & 컴퓨터 과학자",
+    role_visiting: "방문교수",
+    org_visiting: "매사추세츠 종합병원 (MGH) & 하버드 의과대학 (HMS), 미국",
+    role_clinical: "임상조교수",
+    org_clinical: "충남대학교병원 성형외과",
+    hero_bio: "권혁재 교수는 <strong>KAIST</strong> 전산학 학사와 <strong>충남대학교</strong> 의무석사·박사 학위를 보유한 융합형 연구자입니다. 성형외과 및 재건외과 영역에 인공지능(AI), 의료 컴퓨터 비전, 가상현실(VR) 수술 전 교육 기술을 융합하고 있으며, 만성 상처 치료 및 수술 부위 감염(SSI) 예방 연구를 집중적으로 수행하고 있습니다.",
+    btn_cv: "학술 이력서 (PDF)",
+    section_exp: "주요 경력",
+    section_edu: "학력",
+    section_pub: "논문 실적",
+    section_projects: "개인 및 오픈소스 프로젝트",
+    section_contact: "연락처 및 연구실 정보",
+    
+    solarless_title: "SolarLess Navi (태양광 및 눈부심·그늘 분석 스마트 내비게이션)",
+    solarless_badge: "Android 앱",
+    solarless_desc: "태양 위치, 진행 방향, 건물·터널·지형 차광을 종합 분석해 빠른 경로, 전방 눈부심 회피 경로(CIE 모델), 그늘 우선 경로를 비교·안내하는 스마트 내비게이션. MapLibre GL 기반 3D 헤딩업 벡터 지도, 미국 4대 권역 및 대한민국 전역 154,000개 이상 타일의 2.5D 건물·지형 차광 사전계산 데이터셋, NREL SPA 태양 위치 알고리즘, Open-Meteo 직달일사 예보, 음성 턴바이턴 안내, 자유 주행 및 PiP(화면 속 화면) 모드를 지원합니다.",
+    solarless_tech: "주요 기술: TypeScript, Capacitor 6.2 (Android), MapLibre GL (벡터 / 3D 헤딩업), NREL SPA, Bird Solar Model, Open-Meteo, 2.5D OSM/DEM 지형, OSRM",
+    solarless_btn: "GitHub 리파지토리 방문",
+    
+    travel_diary_title: "My Travel Diary (오프라인 시네마틱 여행 다이어리)",
+    travel_diary_badge: "Android 앱",
+    travel_diary_desc: "외부 서버 통신 없이 100% 기기 내부(On-device)에서 동작하는 프라이버시 중심 오프라인 시네마틱 여행 다이어리 및 비디오 스튜디오 앱. 구글 타임라인 JSON과 사진·동영상 타임스탬프를 결합하여 이동수단(KTX, 비행기, 자동차 등) 애니메이션 경로 재생, 실제 동영상 클립 삽입 및 비디오 원본 소리·배경음악 음량 믹싱 편집, 1080p/720p MP4 영상 내보내기, 미디어 포함 무손실 ZIP 백업을 지원합니다.",
+    travel_diary_tech: "주요 기술: Android, Kotlin, Jetpack Compose, Material Design 3, MediaCodec (H.264/AAC MP4), 커스텀 벡터 캔버스 엔진, Coil, WGS-84 Geodesic",
+    travel_diary_btn: "GitHub 리파지토리 방문",
+    
+    travel_diary_3d_title: "My Travel Diary 3D (오프라인 3D 지구본 여행 다이어리)",
+    travel_diary_3d_badge: "Android 앱",
+    travel_diary_3d_desc: "OpenGL ES 2.0 기반 3D 지구본과 실제 공개 고도 DEM 지형 메쉬(Mapzen/USGS) 위에서 이동 경로를 입체적으로 시뮬레이션하는 오프라인 3D 여행 다이어리 Android 앱. 물리 바운스가 적용된 3D 차량·항공기 모델, 시네마틱 추적 및 자유 카메라 시점 전환, 실제 동영상 클립 배치 및 음량 믹싱, 100% 온디바이스 1080p/720p H.264 MP4 영상 제작과 사진·미디어 무손실 ZIP 백업을 제공합니다.",
+    travel_diary_3d_tech: "주요 기술: Android, Kotlin, Jetpack Compose, OpenGL ES 2.0, Mapzen / USGS 고도 DEM, MediaCodec (H.264/AAC MP4), Room, Material Design 3",
+    travel_diary_3d_btn: "GitHub 리파지토리 방문",
+    
+    tab_all: "전체",
+    tab_primary: "주저자 (1저자·교신)",
+    tab_coauthor: "공저자",
+    badge_primary: "주저자 (1저자·교신)",
+    badge_coauthor: "공저자",
+    search_placeholder: "논문 검색 (제목, 저자, 저널명)...",
+    pub_empty: "검색 조건에 맞는 논문 실적이 없습니다.",
+    
+    card_honors: "수상 내역",
+    card_certs: "자격증 및 이수 과정",
+    card_memberships: "학회 활동",
+    card_editorial: "학술지 심사위원 활동",
+    
+    contact_email: "이메일",
+    contact_phone: "연구실 전화",
+    contact_fax: "팩스",
+    contact_orcid: "ORCID",
+    footer_copy: "© 2026 권혁재 (Hyeokjae Kwon) | 충남대학교병원, 매사추세츠 종합병원 & 하버드 의과대학",
+    toast_copy: "인용문이 클립보드에 복사되었습니다",
+
+    // Specific Items
+    org_cnuh: "충남대학교병원",
+    org_cnuh_short: "충남대학교병원",
+    org_cnu: "충남대학교, 대한민국",
+    org_kaist: "KAIST(한국과학기술원), 대한민국",
+    item_visiting_desc: "임상 수술 혁신, 의료 AI 및 수술 성과에 대한 공동 연구.",
+    item_cnuh_dept: "성형외과",
+    item_fellow_role: "전임의 (펠로우)",
+    item_army_role: "육군 군의관",
+    item_army_1115: "대한민국 육군 제2작전사령부 제1115공병단",
+    item_army_7th: "대한민국 육군 제7공수특전여단",
+    item_residency_role: "성형외과 전공의 (레지던트)",
+    item_internship_role: "수련의 (인턴)",
+    item_phd_role: "의학박사 (성형외과학 전공)",
+    item_ms_role: "의무석사",
+    item_bs_role: "전산학 학사",
+
+    // Awards & Certs
+    award_med_record: "의무기록 작성 우수자상",
+    award_reviewer: "우수 심사위원상 (JWMR)",
+    award_research: "우수 연구상",
+    award_army_commend: "여단장 표창 (공로상)",
+    award_golden_bell: "전국 성형외과 전공의 지식경진대회 3위 (골든벨 퀴즈)",
+    award_golden_bell_sub: "2017년 11월 — PRS Korea 2017",
+    cv_ksprs_sub: "PRS Korea 2017",
+    award_hygiene: "손위생 우수직원상",
+    cert_fkwa: "대한창상학회 창상전문가(FKWA)",
+    cert_cpbmi: "정보의학인증의(CPBMI)",
+    cert_hrdk: "정보처리기사",
+    cert_board: "성형외과 전문의 자격증 (보건복지부)",
+    cert_aocmf: "AOCMF 코스 — 안면외상 이수",
+    cert_license: "의사 면허증",
+    member_regular: "정회원",
+    reviewer_role: "심사위원 (Reviewer)",
+    org_cnu_grad: "충남대학교 대학원",
+    kwms_name: "대한창상학회",
+    kosmi_name: "대한의료정보학회",
+    hrdk_name: "한국산업인력공단",
+    mohw_name: "대한민국 보건복지부",
+    ksprs_name: "대한성형외과학회",
+
+    // CV Page Specifics
+    btn_back: "메인 웹사이트로 돌아가기",
+    btn_pdf: "PDF 저장 / 인쇄",
+    cv_title_rank: "방문교수 (MGH & 하버드 의대) | 임상조교수 (충남대병원)",
+    cv_sec_appointments: "경력 및 소속 (Academic & Clinical Appointments)",
+    cv_sec_focus: "주요 연구 분야 (Research Focus & Specializations)",
+    cv_sec_pubs: "학술지 논문 게재 실적 (Peer-Reviewed Publications)",
+    cv_focus_text: "• <strong>의료 AI & 컴퓨터 비전:</strong> AI 기반 안구 노출 비율(EER) 분석, 수술 계측용 3D Gaussian Splatting.<br>• <strong>디지털 헬스 & 수술전 VR:</strong> VR 시뮬레이션 수술전 환자 교육, 모바일 상처 관리 시스템.<br>• <strong>임상 수술 혁신:</strong> 수술 부위 감염(SSI) 예방, 만성 상처 치료, 안면 외상 재건 외과."
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  cacheDOMElements();
+  initTheme();
+  initLanguage();
+  setupEmailProtection();
+  setupScrollToTop();
+  setupCLITerminal();
+  loadPublications();
+  setupEventListeners();
+  setupScrollSpy();
+});
+
+let cliHistory = [];
+let cliHistoryIndex = -1;
+
+function escapeHTML(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function setupCLITerminal() {
+  const cliBtn = document.getElementById('cli-toggle-btn');
+  const cliModal = document.getElementById('cli-modal');
+  const cliCloseBtn = document.getElementById('cli-close-btn');
+  const cliInput = document.getElementById('cli-input');
+
+  if (!cliBtn || !cliModal) return;
+
+  function openCLI() {
+    cliModal.classList.add('active');
+    setTimeout(() => { if (cliInput) cliInput.focus(); }, 100);
+  }
+
+  function closeCLI() {
+    cliModal.classList.remove('active');
+  }
+
+  cliBtn.addEventListener('click', openCLI);
+  if (cliCloseBtn) cliCloseBtn.addEventListener('click', closeCLI);
+
+  cliModal.addEventListener('click', (e) => {
+    if (e.target === cliModal) closeCLI();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cliModal.classList.contains('active')) {
+      closeCLI();
+    }
+  });
+
+  const cliForm = document.getElementById('cli-form');
+
+  function handleRun() {
+    if (!cliInput) return;
+    const cmdText = cliInput.value.trim();
+    if (cmdText) {
+      cliHistory.push(cmdText);
+      cliHistoryIndex = cliHistory.length;
+    }
+    executeCLICommand(cmdText);
+    cliInput.value = '';
+  }
+
+  if (cliForm) {
+    cliForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleRun();
+    });
+  }
+
+  if (cliInput) {
+    cliInput.addEventListener('focus', () => {
+      setTimeout(() => {
+        if (cliBody) cliBody.scrollTop = cliBody.scrollHeight;
+      }, 200);
+    });
+
+    cliInput.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp') {
+        if (cliHistoryIndex > 0) {
+          cliHistoryIndex--;
+          cliInput.value = cliHistory[cliHistoryIndex];
+        }
+      } else if (e.key === 'ArrowDown') {
+        if (cliHistoryIndex < cliHistory.length - 1) {
+          cliHistoryIndex++;
+          cliInput.value = cliHistory[cliHistoryIndex];
+        } else {
+          cliHistoryIndex = cliHistory.length;
+          cliInput.value = '';
+        }
+      }
+    });
+  }
+}
+
+function logAnalyticsEvent(eventName, params = {}) {
+  try {
+    if (typeof gtag === 'function') {
+      gtag('event', eventName, params);
+    }
+  } catch (err) {}
+}
+
+function ensureGamesEngine(callback) {
+  if (window.CLI_GAMES_LOADED && typeof startSnakeGame === 'function') {
+    if (callback) callback();
+    return;
+  }
+  const script = document.createElement('script');
+  script.src = 'games.js';
+  script.onload = () => {
+    window.CLI_GAMES_LOADED = true;
+    if (callback) callback();
+  };
+  document.head.appendChild(script);
+}
+
+function saveLocalGameLog(gameName, detail) {
+  try {
+    let logs = JSON.parse(localStorage.getItem('cli_game_logs') || '[]');
+    const now = new Date();
+    const timeStr = `${now.getMonth()+1}/${now.getDate()} ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+    logs.unshift({ game: gameName, detail: detail, time: timeStr });
+    if (logs.length > 20) logs = logs.slice(0, 20);
+    localStorage.setItem('cli_game_logs', JSON.stringify(logs));
+  } catch (e) {}
+}
+
+function getLocalGameLogs() {
+  try {
+    return JSON.parse(localStorage.getItem('cli_game_logs') || '[]');
+  } catch (e) {
+    return [];
+  }
+}
+
+function executeCLICommand(cmd) {
+  const cliOutput = document.getElementById('cli-output');
+  const cliBody = document.getElementById('cli-body');
+  if (!cliOutput) return;
+
+  if (!cmd || cmd.trim() === '') {
+    const cmdDiv = document.createElement('div');
+    cmdDiv.className = 'cli-cmd-result';
+    cmdDiv.innerHTML = `<div class="cli-cmd-history"><span class="cli-prompt">kwon@hms-mgh:~$</span></div>`;
+    cliOutput.appendChild(cmdDiv);
+    if (cliBody) cliBody.scrollTop = cliBody.scrollHeight;
+    return;
+  }
+
+  const parts = cmd.split(' ');
+  const mainCmd = parts[0].toLowerCase();
+  const args = parts.slice(1).join(' ').toLowerCase();
+
+  logAnalyticsEvent('cli_command_executed', { command: mainCmd, full_cmd: cmd });
+
+  let responseHTML = '';
+
+  switch (mainCmd) {
+    case 'help':
+      responseHTML = `
+        <div class="cli-highlight">Available Commands:</div>
+        <div>  <span class="cli-success">whoami</span>       - Display Dr. Kwon's background and affiliations</div>
+        <div>  <span class="cli-success">bio</span>          - View interdisciplinary research bio</div>
+        <div>  <span class="cli-success">experience</span>   - List academic & clinical appointments</div>
+        <div>  <span class="cli-success">education</span>    - List academic degrees (KAIST & CNU)</div>
+        <div>  <span class="cli-success">pubs [query]</span> - List or search peer-reviewed publications</div>
+        <div>  <span class="cli-success">awards</span>       - View honors, certifications & awards</div>
+        <div>  <span class="cli-success">grants</span>       - View research grants & funding (PI projects)</div>
+        <div>  <span class="cli-success">reviewer</span>     - View editorial & peer reviewer activities</div>
+        <div>  <span class="cli-success">projects</span>     - View open-source projects (SolarLess Navi)</div>
+        <div>  <span class="cli-success">contact</span>      - Show email, phone & ORCID info</div>
+        <div>  <span class="cli-success">game [snake|pacman|guess|ttt]</span> - Play retro CLI mini games 🎮</div>
+        <div>  <span class="cli-success">lang [kr|en]</span> - Switch site language</div>
+        <div>  <span class="cli-success">ls / dir</span>      - List virtual files</div>
+        <div>  <span class="cli-success">matrix</span>       - Trigger Matrix digital rain Easter egg</div>
+        <div>  <span class="cli-success">clear</span>        - Clear terminal screen</div>
+        <div>  <span class="cli-success">exit</span>         - Close CLI terminal</div>
+      `;
+      break;
+
+    case 'whoami':
+    case 'who':
+    case 'id':
+      responseHTML = `
+        <div><strong class="cli-highlight">Hyeokjae Kwon, M.D., Ph.D. (권혁재)</strong></div>
+        <div>• Plastic & Reconstructive Surgeon & Computer Scientist</div>
+        <div>• Visiting Professor, Massachusetts General Hospital (MGH) & Harvard Medical School (HMS)</div>
+        <div>• Clinical Assistant Professor, Dept. of Plastic & Reconstructive Surgery, CNUH</div>
+        <div style="margin-top:6px;"><strong class="cli-highlight">Education & Degrees:</strong></div>
+        <div>• Ph.D. in Medicine (Plastic & Reconstructive Surgery) — Chungnam National University (2021 ~ 2023)</div>
+        <div>• M.D. / M.S. in Medicine — Chungnam National University (2010 ~ 2014)</div>
+        <div>• B.S. in Computer Science — KAIST (2006 ~ 2010)</div>
+      `;
+      break;
+
+    case 'cat':
+      const targetFile = args.replace(/\.txt|\.json|\.link|\.sh/g, '').trim();
+      if (targetFile === 'bio') {
+        responseHTML = `<div>${TRANSLATIONS[currentLang || 'en']['hero_bio']}</div>`;
+      } else if (targetFile === 'experience' || targetFile === 'exp') {
+        responseHTML = `
+          <div class="cli-highlight">Academic & Clinical Appointments:</div>
+          <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
+          <div>[2024 ~ Present] Clinical Assistant Professor - Chungnam National University Hospital (CNUH)</div>
+          <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
+          <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>
+          <div>[2015 ~ 2019] Resident - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
+        `;
+      } else if (targetFile === 'education' || targetFile === 'edu') {
+        responseHTML = `
+          <div class="cli-highlight">Education:</div>
+          <div>[2021 ~ 2023] Ph.D. in Medicine (Plastic & Reconstructive Surgery) - Chungnam National University</div>
+          <div>[2010 ~ 2014] M.D. / M.S. in Medicine - Chungnam National University</div>
+          <div>[2006 ~ 2010] B.S. in Computer Science - KAIST (Korea Advanced Institute of Science and Technology)</div>
+        `;
+      } else if (targetFile === 'contact') {
+        responseHTML = `
+          <div class="cli-highlight">Contact & Information:</div>
+          <div>• Email: kwon.hyeokjae@cnuh.co.kr</div>
+          <div>• Office Phone: +82 42-280-7380</div>
+          <div>• Location: Boston, MA, USA / Daejeon, South Korea</div>
+          <div>• ORCID: https://orcid.org/0000-0002-1418-3448</div>
+          <div>• Google Scholar: https://scholar.google.com/citations?user=ouc34HsAAAAJ</div>
+        `;
+      } else if (targetFile === 'grant' || targetFile === 'grants' || targetFile === 'funding') {
+        responseHTML = `
+          <div class="cli-highlight">Research Grants & Funding:</div>
+          <div>• [2024.12 ~ 2027.11] <strong class="cli-success">Principal Investigator (PI)</strong></div>
+          <div>  Project: Development and Performance Testing of an AI-based System for Post-discharge Surveillance of Surgical Site Infections</div>
+          <div>  (AI 기반 수술 후 감염의 퇴원 후 감시를 위한 시스템 개발 및 성능시험에 관한 연구)</div>
+          <div>  Funder: Biomedical Research Institute, Chungnam National University Hospital (CNUH)</div>
+          <div>  Program: 2024 CNUH Intramural Collaborative Research Grant (Industry-Academia-Research)</div>
+        `;
+      } else if (targetFile === 'awards' || targetFile === 'honors') {
+        responseHTML = `
+          <div class="cli-highlight">Honors & Certifications:</div>
+          <div>• Fellow of the Korean Wound Academy (FKWA) - Nov. 2024</div>
+          <div>• Medical Record Documentation Excellence Award - Feb. 2024</div>
+          <div>• Outstanding Reviewer Award (JWMR) - Mar. 2023</div>
+          <div>• Certified Physician in Biomedical Informatics (CPBMI / 정보의학인증의) - Dec. 2022</div>
+          <div>• Outstanding Research Award, CNU Graduate School - Aug. 2022</div>
+          <div>• Brigadier General Commendation, 7th Special Forces Brigade - Nov. 2019</div>
+          <div>• Engineer Information Processing (정보처리기사) - Nov. 2019</div>
+          <div>• Board Certified Specialist in Plastic & Reconstructive Surgery - Mar. 2019</div>
+          <div>• 3rd Place, National Resident Knowledge Competition (PRS Korea 2017) - Nov. 2017</div>
+        `;
+      } else if (targetFile === 'reviewer' || targetFile === 'reviewers' || targetFile === 'editorial') {
+        responseHTML = `
+          <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>
+          <div>• Reviewer, BioMedInformatics [ORCID Verified]</div>
+          <div>• Reviewer, Current Oncology [ORCID Verified]</div>
+          <div>• Reviewer, International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
+          <div>• Reviewer, Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
+          <div>• Reviewer, Healthcare [ORCID Verified]</div>
+          <div>• Reviewer, Journal of Wound Management and Research (JWMR)</div>
+          <div>• Reviewer, Archives of Plastic Surgery (APS)</div>
+        `;
+      } else if (targetFile === 'orcid') {
+        responseHTML = `<div>https://orcid.org/0000-0002-1418-3448</div>`;
+      } else if (targetFile === 'scholar') {
+        responseHTML = `<div>https://scholar.google.com/citations?user=ouc34HsAAAAJ</div>`;
+      } else if (targetFile === 'matrix') {
+        responseHTML = `
+          <div class="cli-success" style="font-family:monospace; line-height:1.3;">
+            01001011 01000001 01001001 01000011 01010100<br>
+            01001101 01000100 00100000 01010000 01101000 01000100<br>
+            [SYSTEM]: KAIST CS + MGH / HARVARD MEDICAL SCHOOL AI MATRIX INITIALIZED...
+          </div>
+        `;
+      } else {
+        responseHTML = `<div style="color:#ef4444;">cat: ${escapeHTML(args)}: No such file or directory. Try 'ls' to view files.</div>`;
+      }
+      break;
+
+    case 'pwd':
+      responseHTML = `<div>/home/hyeokjae/harvard_mgh_cnuh</div>`;
+      break;
+
+    case 'sudo':
+      responseHTML = `<div style="color:#ef4444;">[PERMISSION DENIED]: Nice try! Dr. Kwon's site is secured with root defense. 🛡️</div>`;
+      break;
+
+    case 'kaist':
+      responseHTML = `<div class="cli-success">🎓 KAIST Department of Computer Science (Class of '10) Alumni Pride!</div>`;
+      break;
+
+    case 'cnu':
+    case 'cnuh':
+    case 'cnumed':
+    case 'cnu-med':
+      responseHTML = `<div class="cli-highlight">🩺 충남대학교 의과대학 & 충남대학교병원 (M.D., M.S., Ph.D.) Alumni & Faculty Pride! 🏛️</div>`;
+      break;
+
+    case 'harvard':
+    case 'mgh':
+    case 'hms':
+      responseHTML = `<div class="cli-highlight">🏛️ Massachusetts General Hospital & Harvard Medical School - Visiting Professor (2026 ~ Present)</div>`;
+      break;
+
+    case 'date':
+      responseHTML = `<div>${new Date().toUTCString()}</div>`;
+      break;
+
+    case 'ping':
+      responseHTML = `
+        <div class="cli-success">PING hyeokjaekwon26.github.io (185.199.108.153): 56 data bytes</div>
+        <div>64 bytes from 185.199.108.153: icmp_seq=0 ttl=57 time=1.182 ms</div>
+        <div>64 bytes from 185.199.108.153: icmp_seq=1 ttl=57 time=1.045 ms</div>
+        <div class="cli-highlight">--- hyeokjaekwon26.github.io ping statistics --- 2 packets transmitted, 0% packet loss</div>
+      `;
+      break;
+
+    case 'theme':
+      toggleTheme();
+      responseHTML = `<div class="cli-success">Theme toggled successfully!</div>`;
+      break;
+
+    case 'bio':
+      responseHTML = `
+        <div>${TRANSLATIONS[currentLang || 'en']['hero_bio']}</div>
+      `;
+      break;
+
+    case 'experience':
+      responseHTML = `
+        <div class="cli-highlight">Academic & Clinical Appointments:</div>
+        <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
+        <div>[2024 ~ Present] Clinical Assistant Professor - Chungnam National University Hospital (CNUH)</div>
+        <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
+        <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>
+        <div>[2015 ~ 2019] Resident - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
+      `;
+      break;
+
+    case 'education':
+      responseHTML = `
+        <div class="cli-highlight">Education:</div>
+        <div>[2021 ~ 2023] Ph.D. in Medicine (Plastic & Reconstructive Surgery) - Chungnam National University</div>
+        <div>[2010 ~ 2014] M.D. / M.S. in Medicine - Chungnam National University</div>
+        <div>[2006 ~ 2010] B.S. in Computer Science - KAIST (Korea Advanced Institute of Science and Technology)</div>
+      `;
+      break;
+
+    case 'pubs':
+    case 'publications':
+      let matched = publications;
+      if (args) {
+        const lowerArgs = args.toLowerCase();
+        if (lowerArgs === 'primary' || lowerArgs === 'lead' || lowerArgs === 'first') {
+          matched = publications.filter(p => p.category === 'primary');
+        } else if (lowerArgs === 'coauthor' || lowerArgs === 'co-author' || lowerArgs === 'co') {
+          matched = publications.filter(p => p.category === 'coauthor');
+        } else {
+          matched = publications.filter(p => 
+            p.title.toLowerCase().includes(lowerArgs) || 
+            p.journal.toLowerCase().includes(lowerArgs) || 
+            p.year.toString().includes(lowerArgs)
+          );
+        }
+      }
+      if (!matched || matched.length === 0) {
+        responseHTML = `<div style="color:#ef4444;">No publications found matching '${escapeHTML(args)}'.</div>`;
+      } else {
+        responseHTML = `<div class="cli-highlight">Publications (${matched.length} found):</div>`;
+        matched.slice(0, 8).forEach((p, idx) => {
+          const roleBadge = p.category === 'primary' ? '<span style="color:#38bdf8;">[First/Corresponding]</span>' : '<span style="color:#94a3b8;">[Co-Author]</span>';
+          responseHTML += `<div>[${idx + 1}] ${roleBadge} <strong>"${escapeHTML(p.title)}"</strong> - <em>${escapeHTML(p.journal)}</em> (${p.year})</div>`;
+        });
+        if (matched.length > 8) {
+          responseHTML += `<div style="color:#94a3b8;">...and ${matched.length - 8} more. Try 'pubs primary' or search keywords.</div>`;
+        }
+      }
+      break;
+
+    case 'awards':
+    case 'honors':
+      responseHTML = `
+        <div class="cli-highlight">Honors & Certifications:</div>
+        <div>• Fellow of the Korean Wound Academy (FKWA) - Nov. 2024</div>
+        <div>• Medical Record Documentation Excellence Award - Feb. 2024</div>
+        <div>• Outstanding Reviewer Award (JWMR) - Mar. 2023</div>
+        <div>• Certified Physician in Biomedical Informatics (CPBMI / 정보의학인증의) - Dec. 2022</div>
+        <div>• Outstanding Research Award, CNU Graduate School - Aug. 2022</div>
+        <div>• Brigadier General Commendation, 7th Special Forces Brigade - Nov. 2019</div>
+        <div>• Engineer Information Processing (정보처리기사) - Nov. 2019</div>
+        <div>• Board Certified Specialist in Plastic & Reconstructive Surgery - Mar. 2019</div>
+        <div>• 3rd Place, National Resident Knowledge Competition (PRS Korea 2017) - Nov. 2017</div>
+        <div style="margin-top:6px;"><strong class="cli-highlight">Peer Reviewer Activities:</strong></div>
+        <div>• BioMedInformatics [ORCID Verified]</div>
+        <div>• Current Oncology [ORCID Verified]</div>
+        <div>• International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
+        <div>• Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
+        <div>• Healthcare [ORCID Verified]</div>
+        <div>• Journal of Wound Management and Research (JWMR)</div>
+        <div>• Archives of Plastic Surgery (APS)</div>
+      `;
+      break;
+
+    case 'reviewer':
+    case 'reviewers':
+    case 'editorial':
+      responseHTML = `
+        <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>
+        <div>• Reviewer, BioMedInformatics [ORCID Verified]</div>
+        <div>• Reviewer, Current Oncology [ORCID Verified]</div>
+        <div>• Reviewer, International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
+        <div>• Reviewer, Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
+        <div>• Reviewer, Healthcare [ORCID Verified]</div>
+        <div>• Reviewer, Journal of Wound Management and Research (JWMR)</div>
+        <div>• Reviewer, Archives of Plastic Surgery (APS)</div>
+      `;
+      break;
+
+    case 'contact':
+      responseHTML = `
+        <div class="cli-highlight">Contact & Information:</div>
+        <div>• Email: kwon.hyeokjae@cnuh.co.kr</div>
+        <div>• Office Phone: +82 42-280-7380</div>
+        <div>• Location: Boston, MA, USA / Daejeon, South Korea</div>
+        <div>• ORCID: https://orcid.org/0000-0002-1418-3448</div>
+        <div>• Google Scholar: https://scholar.google.com/citations?user=ouc34HsAAAAJ</div>
+      `;
+      break;
+
+    case 'ls':
+    case 'dir':
+      responseHTML = `
+        <div style="color:#38bdf8;">
+          bio.txt          experience.txt    education.txt<br>
+          grants.txt       publications.json awards.txt<br>
+          reviewer.txt<br>
+          projects.txt     contact.txt       orcid.link<br>
+          scholar.link     solarless-navi.app travel-diary.app<br>
+          travel-diary-3d.app matrix.sh
+        </div>
+      `;
+      break;
+
+    case 'grant':
+    case 'grants':
+    case 'funding':
+      responseHTML = `
+        <div class="cli-highlight">Research Grants & Funding:</div>
+        <div style="margin-bottom:8px;">
+          <div><strong class="cli-success">[2024.12 ~ 2027.11] Principal Investigator (PI)</strong></div>
+          <div>• <strong>Project:</strong> Development and Performance Testing of an AI-based System for Post-discharge Surveillance of Surgical Site Infections</div>
+          <div style="color:var(--text-muted); font-size:0.9em;">  (AI 기반 수술 후 감염의 퇴원 후 감시를 위한 시스템 개발 및 성능시험에 관한 연구)</div>
+          <div>• <strong>Funder:</strong> Biomedical Research Institute, Chungnam National University Hospital (CNUH)</div>
+          <div>• <strong>Program:</strong> 2024 CNUH Intramural Collaborative Research Grant (Industry-Academia-Research)</div>
+        </div>
+      `;
+      break;
+
+    case 'projects':
+    case 'project':
+    case 'solarless':
+    case 'solarless-navi':
+    case 'travel':
+    case 'diary':
+    case 'my-travel-diary':
+    case 'travel3d':
+    case 'diary3d':
+    case 'my-travel-diary-3d':
+    case 'travel-diary-3d':
+      responseHTML = `
+        <div class="cli-highlight">Personal & Open Source Projects:</div>
+        <div style="margin-bottom:10px;">
+          <div>  <strong class="cli-success">1. SolarLess Navi</strong> [v1.3.37] (태양광 및 눈부심·그늘 분석 스마트 내비게이션) ☀️🕶️</div>
+          <div>  • Description: Solar-aware smart navigation with MapLibre GL 3D heading-up vector map, precalculated 2.5D building & terrain occlusion across USA/Korea (154K+ tiles), NREL SPA, and voice turn guidance.</div>
+          <div>  • Tech Stack: TypeScript, Capacitor 6.2 (Android), MapLibre GL, NREL SPA, Bird Solar Model, Open-Meteo, 2.5D OSM/DEM Terrain, OSRM</div>
+          <div>  • GitHub: <a href="https://github.com/HyeokjaeKwon26/Solarless-Navi" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline;">https://github.com/HyeokjaeKwon26/Solarless-Navi</a></div>
+        </div>
+        <div style="margin-bottom:10px;">
+          <div>  <strong class="cli-success">2. My Travel Diary</strong> [v2.1.0] (오프라인 시네마틱 여행 다이어리) 🗺️🎬</div>
+          <div>  • Description: 100% offline cinematic travel story reconstructor & video creation studio. Video clip insertion, BGM/audio mixing, 1080p MP4 export, and lossless full ZIP backup.</div>
+          <div>  • Tech Stack: Android, Kotlin, Jetpack Compose, Material Design 3, MediaCodec (H.264/AAC MP4), Custom Vector Canvas, Coil</div>
+          <div>  • GitHub: <a href="https://github.com/HyeokjaeKwon26/My-Travel-Diary" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline;">https://github.com/HyeokjaeKwon26/My-Travel-Diary</a></div>
+        </div>
+        <div>
+          <div>  <strong class="cli-success">3. My Travel Diary 3D</strong> [v2.1.0] (오프라인 3D 지구본 여행 다이어리) 🌐⛰️</div>
+          <div>  • Description: Offline 3D globe & USGS DEM terrain reconstructor. Physics-based 3D vehicle bounce, cinematic chase/free camera switching, video clip editing & on-device MP4 export.</div>
+          <div>  • Tech Stack: Android, Kotlin, Jetpack Compose, OpenGL ES 2.0, Mapzen / USGS Elevation DEM, MediaCodec (H.264/AAC MP4), Room</div>
+          <div>  • GitHub: <a href="https://github.com/HyeokjaeKwon26/My-Travel-Diary-3D" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline;">https://github.com/HyeokjaeKwon26/My-Travel-Diary-3D</a></div>
+        </div>
+      `;
+      break;
+
+    case 'lang':
+      if (args === 'kr' || args === 'en') {
+        currentLang = args;
+        localStorage.setItem('preferred_lang', currentLang);
+        applyLanguage(currentLang);
+        responseHTML = `<div class="cli-success">Language updated to ${args.toUpperCase()}.</div>`;
+      } else {
+        responseHTML = `<div>Usage: lang kr OR lang en. Current language: ${currentLang}</div>`;
+      }
+      break;
+
+    case 'game':
+    case 'games':
+      if (args === 'snake') {
+        responseHTML = `<div class="cli-highlight">🎮 Launching Retro Snake Game...</div><div id="game-snake-mount"></div>`;
+        ensureGamesEngine(() => setTimeout(() => startSnakeGame('game-snake-mount'), 50));
+      } else if (args === 'pacman') {
+        responseHTML = `<div class="cli-highlight">🎮 Launching Retro Pac-Man...</div><div id="game-pacman-mount"></div>`;
+        ensureGamesEngine(() => setTimeout(() => startPacmanGame('game-pacman-mount'), 50));
+      } else if (args === 'ttt' || args === 'tictactoe') {
+        responseHTML = `<div class="cli-highlight">🎮 Launching Tic-Tac-Toe vs AI...</div><div id="game-ttt-mount"></div>`;
+        ensureGamesEngine(() => setTimeout(() => startTTTGame('game-ttt-mount'), 50));
+      } else if (args === 'guess') {
+        responseHTML = `<div class="cli-highlight">🎮 Launching Number Guessing Game (1 ~ 100)...</div><div id="game-guess-mount"></div>`;
+        ensureGamesEngine(() => setTimeout(() => startGuessGame('game-guess-mount'), 50));
+      } else {
+        responseHTML = `
+          <div class="cli-highlight">🎮 Available CLI Retro Mini Games:</div>
+          <div>  • <span class="cli-success">game snake</span> - Classic Retro Snake Game 🐍</div>
+          <div>  • <span class="cli-success">game pacman</span> - Retro Pac-Man 🟡</div>
+          <div>  • <span class="cli-success">game ttt</span>   - Tic-Tac-Toe vs Medical AI ❌⭕</div>
+          <div>  • <span class="cli-success">game guess</span> - Number Guessing Game (1 ~ 100) 🎯</div>
+          <div style="margin-top:6px; color:#94a3b8;">Type e.g. <span class="cli-success">'snake'</span> or <span class="cli-success">'game snake'</span> to start playing!</div>
+        `;
+      }
+      break;
+
+    case 'snake':
+      responseHTML = `<div class="cli-highlight">🎮 Launching Retro Snake Game...</div><div id="game-snake-mount"></div>`;
+      ensureGamesEngine(() => setTimeout(() => startSnakeGame('game-snake-mount'), 50));
+      break;
+
+    case 'pacman':
+      responseHTML = `<div class="cli-highlight">🎮 Launching Retro Pac-Man...</div><div id="game-pacman-mount"></div>`;
+      ensureGamesEngine(() => setTimeout(() => startPacmanGame('game-pacman-mount'), 50));
+      break;
+
+    case 'ttt':
+    case 'tictactoe':
+      responseHTML = `<div class="cli-highlight">🎮 Launching Tic-Tac-Toe vs AI...</div><div id="game-ttt-mount"></div>`;
+      ensureGamesEngine(() => setTimeout(() => startTTTGame('game-ttt-mount'), 50));
+      break;
+
+    case 'guess':
+      responseHTML = `<div class="cli-highlight">🎮 Launching Number Guessing Game (1 ~ 100)...</div><div id="game-guess-mount"></div>`;
+      ensureGamesEngine(() => setTimeout(() => startGuessGame('game-guess-mount'), 50));
+      break;
+
+    case 'gamelog':
+    case 'gamelogs':
+      const logs = getLocalGameLogs();
+      if (logs.length === 0) {
+        responseHTML = `<div style="color:#94a3b8;">No local game logs recorded yet. Play a game to record scores!</div>`;
+      } else {
+        responseHTML = `<div class="cli-highlight">🎮 Local Game Play Log History:</div>`;
+        logs.forEach(l => {
+          responseHTML += `<div>[${l.time}] <span class="cli-success">${escapeHTML(l.game)}</span> — ${escapeHTML(l.detail)}</div>`;
+        });
+      }
+      break;
+
+    case 'rank':
+    case 'top':
+    case 'leaderboard':
+    case 'halloffame':
+      ensureGamesEngine();
+      if (typeof renderLeaderboardHTML === 'function') {
+        responseHTML = renderLeaderboardHTML('snake') + '<br>' + renderLeaderboardHTML('guess');
+      } else {
+        responseHTML = `<div class="cli-highlight">Loading Hall of Fame...</div>`;
+      }
+      break;
+
+    case 'clear':
+    case 'cls':
+      cliOutput.innerHTML = '';
+      return;
+
+    case 'exit':
+    case 'quit':
+      document.getElementById('cli-modal').classList.remove('active');
+      return;
+
+    case 'matrix':
+      responseHTML = `
+        <div class="cli-success" style="font-family:monospace; line-height:1.3;">
+          01001011 01000001 01001001 01000011 01010100<br>
+          01001101 01000100 00100000 01010000 01101000 01000100<br>
+          [SYSTEM]: KAIST CS + MGH / HARVARD MEDICAL SCHOOL AI MATRIX INITIALIZED...<br>
+          "Combining Computer Science and Plastic Surgery to innovate clinical care."
+        </div>
+      `;
+      break;
+
+    default:
+      responseHTML = `<div style="color:#ef4444;">Command not found: '${escapeHTML(cmd)}'. Type <span class="cli-success">'help'</span> for assistance.</div>`;
+      break;
+  }
+
+  const cmdDiv = document.createElement('div');
+  cmdDiv.className = 'cli-cmd-result';
+  cmdDiv.innerHTML = `
+    <div class="cli-cmd-history"><span class="cli-prompt">kwon@hms-mgh:~$</span> ${escapeHTML(cmd)}</div>
+    <div>${responseHTML}</div>
+  `;
+  cliOutput.appendChild(cmdDiv);
+
+  if (cliBody) {
+    cliBody.scrollTop = cliBody.scrollHeight;
+  }
+}
+
+function setupScrollToTop() {
+  const scrollTopBtn = document.getElementById('scroll-top-btn');
+  if (!scrollTopBtn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      scrollTopBtn.classList.add('visible');
+    } else {
+      scrollTopBtn.classList.remove('visible');
+    }
+  });
+
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
+function setupEmailProtection() {
+  document.querySelectorAll('.protected-email').forEach(el => {
+    try {
+      const u = atob(el.getAttribute('data-u') || '');
+      const d = atob(el.getAttribute('data-d') || '');
+      if (u && d) {
+        const email = `${u}@${d}`;
+        el.innerHTML = `<a href="mailto:${email}">${email}</a>`;
+      }
+    } catch (e) {
+      console.error('Email decode error:', e);
+    }
+  });
+}
+
+function cacheDOMElements() {
+  containerEl = document.getElementById('pub-list-container');
+  searchInputEl = document.getElementById('pub-search-input');
+  toastEl = document.getElementById('toast');
+  themeBtnEl = document.getElementById('theme-toggle-btn');
+  langBtnEl = document.getElementById('lang-toggle-btn');
+}
+
+function initLanguage() {
+  // 1. URL Query Parameter Priority (?lang=kr or ?lang=en)
+  const urlParams = new URLSearchParams(window.location.search);
+  const langParam = urlParams.get('lang');
+  
+  if (langParam && (langParam === 'kr' || langParam === 'en')) {
+    currentLang = langParam;
+    localStorage.setItem('preferred_lang', currentLang);
+  } else {
+    // 2. LocalStorage User Preference Priority
+    const savedLang = localStorage.getItem('preferred_lang');
+    if (savedLang) {
+      currentLang = savedLang;
+    } else {
+      // 3. Browser / OS Default Language Auto-Detection (navigator.language)
+      const userLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (userLang.startsWith('ko')) {
+        currentLang = 'kr';
+      } else {
+        currentLang = 'en';
+      }
+    }
+  }
+
+  applyLanguage(currentLang);
+}
+
+function toggleLanguage() {
+  currentLang = currentLang === 'en' ? 'kr' : 'en';
+  localStorage.setItem('preferred_lang', currentLang);
+  applyLanguage(currentLang);
+}
+
+function applyLanguage(lang) {
+  const dict = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+
+  // Update browser tab document.title dynamically
+  const isCVPage = window.location.pathname.includes('cv.html');
+  if (isCVPage && dict['cv_page_title']) {
+    document.title = dict['cv_page_title'];
+  } else if (dict['page_title']) {
+    document.title = dict['page_title'];
+  }
+  
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[key]) {
+      el.innerHTML = dict[key];
+    }
+  });
+
+  // Update navbar language button label
+  const langTextEl = document.getElementById('lang-text');
+  if (langTextEl) {
+    langTextEl.innerHTML = lang === 'en' 
+      ? '<img src="assets/flag_kr.svg" alt="KR" style="width:18px; height:12px; vertical-align:-1px; margin-right:5px; border-radius:2px; box-shadow:0 0 1px rgba(0,0,0,0.4); object-fit:cover;"> KR' 
+      : '<img src="assets/flag_us.svg" alt="US" style="width:18px; height:12px; vertical-align:-1px; margin-right:5px; border-radius:2px; box-shadow:0 0 1px rgba(0,0,0,0.4); object-fit:cover;"> EN';
+  }
+
+  // Update search input placeholder
+  if (searchInputEl && dict['search_placeholder']) {
+    searchInputEl.placeholder = dict['search_placeholder'];
+  }
+
+  // Update filter tabs
+  const allTab = document.querySelector('.tab-btn[data-filter="all"]');
+  if (allTab) {
+    const count = publications.length || 26;
+    allTab.innerText = `${dict['tab_all']} (${count})`;
+  }
+
+  const primaryTab = document.querySelector('.tab-btn[data-filter="primary"]');
+  if (primaryTab) {
+    const pCount = publications.filter(p => p.category === 'primary').length;
+    primaryTab.innerText = pCount ? `${dict['tab_primary']} (${pCount})` : dict['tab_primary'];
+  }
+
+  const coauthorTab = document.querySelector('.tab-btn[data-filter="coauthor"]');
+  if (coauthorTab) {
+    const cCount = publications.filter(p => p.category === 'coauthor').length;
+    coauthorTab.innerText = cCount ? `${dict['tab_coauthor']} (${cCount})` : dict['tab_coauthor'];
+  }
+}
+
+function initTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateThemeIcon(savedTheme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateThemeIcon(next);
+}
+
+function updateThemeIcon(theme) {
+  if (!themeBtnEl) return;
+  themeBtnEl.innerHTML = theme === 'dark' ? '<i class="ri-sun-line"></i>' : '<i class="ri-moon-line"></i>';
+}
+
+async function loadPublications() {
+  try {
+    const response = await fetch('publications.json?v=' + Date.now());
+    if (response.ok) {
+      publications = await response.json();
+      applyLanguage(currentLang);
+      renderPublications();
+    }
+  } catch (e) {
+    console.error('Error loading publications data:', e);
+  }
+}
+
+function renderPublications() {
+  if (!containerEl) return;
+
+  const query = searchQuery.toLowerCase().trim();
+  const filtered = publications.filter(pub => {
+    const matchesCategory = currentCategory === 'all' || pub.category === currentCategory;
+    const matchesSearch = !query || 
+      pub.title.toLowerCase().includes(query) ||
+      pub.authors.toLowerCase().includes(query) ||
+      pub.journal.toLowerCase().includes(query) ||
+      pub.year.includes(query);
+      
+    return matchesCategory && matchesSearch;
+  });
+
+  if (filtered.length === 0) {
+    containerEl.innerHTML = `<div style="padding: 24px 0; color: var(--text-muted);">No publications found matching your search.</div>`;
+    return;
+  }
+
+  // Sort by year descending (newest first)
+  filtered.sort((a, b) => (parseInt(b.year) || 9999) - (parseInt(a.year) || 9999));
+
+  let html = '';
+  let currentYearGroup = '';
+  let globalIndex = 1;
+  const dict = TRANSLATIONS[currentLang] || TRANSLATIONS['en'];
+
+  filtered.forEach((pub) => {
+    const pubYear = pub.year || 'Recent';
+    if (pubYear !== currentYearGroup) {
+      currentYearGroup = pubYear;
+      html += `<h3 class="year-heading">${currentYearGroup}</h3>`;
+    }
+
+    const formattedAuthors = pub.authors.replace(/\b(Kwon\s+H\b|Hyeokjae\s+Kwon\b|Kwon,\s*Hyeokjae\b)/gi, '<strong>$1</strong>');
+    const isPrimary = pub.category === 'primary';
+    const roleBadgeText = isPrimary ? (dict['badge_primary'] || 'First / Corresponding Author') : (dict['badge_coauthor'] || 'Co-Author');
+    const badgeClass = isPrimary ? 'badge-primary' : 'badge-coauthor';
+
+    html += `
+      <div class="pub-item">
+        <div class="pub-header-row">
+          <div class="pub-number">[${globalIndex++}]</div>
+          <span class="pub-role-badge ${badgeClass}">${roleBadgeText}</span>
+        </div>
+        <div class="pub-title-text">${pub.title}</div>
+        <div class="pub-authors-text">${formattedAuthors}</div>
+        <div class="pub-meta-text">
+          <strong>${pub.journal}</strong>. ${pub.year}; ${pub.volume}.
+        </div>
+        ${pub.correction ? `
+          <div class="pub-correction-note" style="margin-top: 6px; font-size: 0.85rem; color: #475569;">
+            <span style="display: inline-flex; align-items: center; gap: 4px; background: rgba(100, 116, 139, 0.08); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(100, 116, 139, 0.2);">
+              <i class="ri-information-line"></i> <strong>Correction:</strong>
+              <span>${pub.correction.journal}. ${pub.correction.year}${pub.correction.volume ? ';' + pub.correction.volume : ''}.</span>
+              <a href="${pub.correction.url || ('https://doi.org/' + pub.correction.doi)}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-navy, #1e40af); text-decoration: underline; margin-left: 2px;">
+                [doi:${pub.correction.doi}]
+              </a>
+            </span>
+          </div>` : ''}
+        <div class="pub-links">
+          <a href="${pub.url}" target="_blank" rel="noopener noreferrer" class="pub-link-btn">
+            [DOI / Publisher Link]
+          </a>
+          <button class="pub-link-btn copy-btn" data-id="${pub.id}">
+            [Copy Citation]
+          </button>
+        </div>
+      </div>
+    `;
+  });
+
+  containerEl.innerHTML = html;
+}
+
+function copyCitation(id) {
+  const pub = publications.find(p => p.id == id);
+  if (!pub) return;
+
+  const citation = `${pub.authors}. ${pub.title}. ${pub.journal}. ${pub.year};${pub.volume}. https://doi.org/${pub.doi}`;
+  
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(citation).then(() => {
+      showToast('Citation copied to clipboard');
+      if (typeof gtag === 'function') {
+        gtag('event', 'copy_citation', {
+          'event_category': 'Engagement',
+          'event_label': pub.title
+        });
+      }
+    });
+  }
+}
+
+function showToast(message) {
+  if (!toastEl) return;
+  toastEl.innerText = message;
+  toastEl.classList.add('show');
+  setTimeout(() => toastEl.classList.remove('show'), 2500);
+}
+
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), wait);
+  };
+}
+
+function setupEventListeners() {
+  if (themeBtnEl) themeBtnEl.addEventListener('click', toggleTheme);
+  if (langBtnEl) langBtnEl.addEventListener('click', toggleLanguage);
+
+  if (searchInputEl) {
+    searchInputEl.addEventListener('input', debounce((e) => {
+      searchQuery = e.target.value;
+      renderPublications();
+    }, 150));
+  }
+
+  // Category filter tabs
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.getAttribute('data-filter');
+      renderPublications();
+    });
+  });
+
+  // Event Delegation for Copy Citation Buttons
+  if (containerEl) {
+    containerEl.addEventListener('click', (e) => {
+      const copyBtn = e.target.closest('.copy-btn');
+      if (copyBtn) {
+        const id = copyBtn.getAttribute('data-id');
+        copyCitation(id);
+      }
+    });
+  }
+}
+
+// Active Nav Link ScrollSpy via IntersectionObserver
+function setupScrollSpy() {
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  if (!sections.length || !navLinks.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3, rootMargin: "-80px 0px 0px 0px" });
+
+  sections.forEach(sec => observer.observe(sec));
+}
+

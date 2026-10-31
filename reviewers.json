@@ -1,0 +1,59 @@
+[
+  {
+    "journal": "BioMedInformatics",
+    "role": "Reviewer",
+    "issn": "2673-7426",
+    "source": "ORCID",
+    "verified": true,
+    "completion_date": "2026-10-22",
+    "put_code": 29662112
+  },
+  {
+    "journal": "Current Oncology",
+    "role": "Reviewer",
+    "issn": "1718-7729",
+    "source": "ORCID",
+    "verified": true,
+    "completion_date": "2026-10-12",
+    "put_code": 29500818
+  },
+  {
+    "journal": "International Journal of Environmental Research and Public Health (IJERPH)",
+    "role": "Reviewer",
+    "issn": "1660-4601",
+    "source": "ORCID",
+    "verified": true,
+    "completion_date": "2026-10-02",
+    "put_code": 29348034
+  },
+  {
+    "journal": "Journal of Clinical Medicine (JCM)",
+    "role": "Reviewer",
+    "issn": "2077-0383",
+    "source": "ORCID",
+    "verified": true,
+    "completion_date": "2026-09-26"
+  },
+  {
+    "journal": "Healthcare",
+    "role": "Reviewer",
+    "issn": "2227-9032",
+    "source": "ORCID",
+    "verified": true,
+    "completion_date": "2026-09-18"
+  },
+  {
+    "journal": "Journal of Wound Management and Research (JWMR)",
+    "role": "Reviewer",
+    "issn": "2586-0402",
+    "source": "Manual",
+    "verified": true
+  },
+  {
+    "journal": "Archives of Plastic Surgery (APS)",
+    "role": "Reviewer",
+    "issn": "2234-6171",
+    "source": "Manual",
+    "verified": true
+  }
+]

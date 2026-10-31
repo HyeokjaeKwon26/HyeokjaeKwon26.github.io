@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Page Not Found | Hyeokjae Kwon, M.D., Ph.D.</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <meta http-equiv="refresh" content="5;url=index.html">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: var(--bg-main, #f8fafc);
+      color: var(--text-primary, #0f172a);
+      font-family: 'Inter', sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .error-card {
+      max-width: 480px;
+      padding: 40px 30px;
+      background: var(--bg-card, #ffffff);
+      border: 1px solid var(--border-color, #e2e8f0);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .error-code {
+      font-size: 4rem;
+      font-weight: 800;
+      color: var(--accent-blue, #2563eb);
+      margin: 0 0 10px 0;
+      line-height: 1;
+    }
+    .error-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .error-desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary, #64748b);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .btn-home {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--accent-navy, #0f2942);
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: background 0.2s ease;
+    }
+    .btn-home:hover {
+      background: var(--accent-blue, #2563eb);
+    }
+  </style>
+</head>
+<body>
+  <div class="error-card">
+    <div class="error-code">404</div>
+    <div class="error-title">Page Not Found</div>
+    <div class="error-desc">The requested page or file does not exist. Redirecting to home in 5 seconds...</div>
+    <a href="index.html" class="btn-home">Return to Homepage</a>
+  </div>
+</body>
+</html>
