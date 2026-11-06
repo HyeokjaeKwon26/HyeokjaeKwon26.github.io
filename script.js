@@ -30,6 +30,7 @@ const TRANSLATIONS = {
     hero_title_sub: "Plastic and Reconstructive Surgeon & Computer Scientist",
     role_visiting: "Visiting Professor",
     org_visiting: "Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), USA",
+    role_adjunct: "Adjunct Assistant Professor",
     role_clinical: "Clinical Assistant Professor",
     org_clinical: "Dept. of Plastic & Reconstructive Surgery, Chungnam National University Hospital",
     hero_bio: "Dr. Hyeokjae Kwon combines a unique interdisciplinary background in Computer Science (B.S., <strong>KAIST</strong>) and Medicine (M.D., Ph.D., <strong>Chungnam National University</strong>). His research integrates artificial intelligence, medical computer vision, and virtual reality preoperative education into plastic and reconstructive surgery, with dedicated research interests in chronic wounds and surgical site infections (SSI).",
@@ -84,6 +85,7 @@ const TRANSLATIONS = {
     org_cnu: "Chungnam National University, South Korea",
     org_kaist: "KAIST (Korea Advanced Institute of Science and Technology), South Korea",
     item_visiting_desc: "Collaborative research on clinical surgical innovation, medical AI, and surgical outcomes.",
+    item_adjunct_desc: "Department of Plastic and Reconstructive Surgery (Concurrent Faculty).",
     item_cnuh_dept: "Department of Plastic and Reconstructive Surgery.",
     item_fellow_role: "Clinical Fellow",
     item_army_role: "Army Medical Officer",
@@ -123,7 +125,7 @@ const TRANSLATIONS = {
     // CV Page Specifics
     btn_back: "Return to Website",
     btn_pdf: "Save / Download PDF",
-    cv_title_rank: "Visiting Professor, MGH & Harvard Medical School | Clinical Assistant Professor, CNUH",
+    cv_title_rank: "Visiting Professor, MGH & Harvard Medical School | Adjunct Assistant Professor, CNUH",
     cv_sec_appointments: "Academic & Clinical Appointments",
     cv_sec_focus: "Research Focus & Specializations",
     cv_sec_pubs: "Peer-Reviewed Publications",
@@ -151,6 +153,7 @@ const TRANSLATIONS = {
     hero_title_sub: "성형외과 전문의 & 컴퓨터 과학자",
     role_visiting: "방문교수",
     org_visiting: "매사추세츠 종합병원 (MGH) & 하버드 의과대학 (HMS), 미국",
+    role_adjunct: "겸직교원",
     role_clinical: "임상조교수",
     org_clinical: "충남대학교병원 성형외과",
     hero_bio: "권혁재 교수는 <strong>KAIST</strong> 전산학 학사와 <strong>충남대학교</strong> 의무석사·박사 학위를 보유한 융합형 연구자입니다. 성형외과 및 재건외과 영역에 인공지능(AI), 의료 컴퓨터 비전, 가상현실(VR) 수술 전 교육 기술을 융합하고 있으며, 만성 상처 치료 및 수술 부위 감염(SSI) 예방 연구를 집중적으로 수행하고 있습니다.",
@@ -244,7 +247,7 @@ const TRANSLATIONS = {
     // CV Page Specifics
     btn_back: "메인 웹사이트로 돌아가기",
     btn_pdf: "PDF 저장 / 인쇄",
-    cv_title_rank: "방문교수 (MGH & 하버드 의대) | 임상조교수 (충남대병원)",
+    cv_title_rank: "방문교수 (MGH & 하버드 의대) | 겸직교원 (충남대병원)",
     cv_sec_appointments: "경력 및 소속 (Academic & Clinical Appointments)",
     cv_sec_focus: "주요 연구 분야 (Research Focus & Specializations)",
     cv_sec_pubs: "학술지 논문 게재 실적 (Peer-Reviewed Publications)",
@@ -446,7 +449,7 @@ function executeCLICommand(cmd) {
         <div><strong class="cli-highlight">Hyeokjae Kwon, M.D., Ph.D. (권혁재)</strong></div>
         <div>• Plastic & Reconstructive Surgeon & Computer Scientist</div>
         <div>• Visiting Professor, Massachusetts General Hospital (MGH) & Harvard Medical School (HMS)</div>
-        <div>• Clinical Assistant Professor, Dept. of Plastic & Reconstructive Surgery, CNUH</div>
+        <div>• Adjunct Assistant Professor (겸직교원), Dept. of Plastic & Reconstructive Surgery, CNUH</div>
         <div style="margin-top:6px;"><strong class="cli-highlight">Education & Degrees:</strong></div>
         <div>• Ph.D. in Medicine (Plastic & Reconstructive Surgery) — Chungnam National University (2021 ~ 2023)</div>
         <div>• M.D. / M.S. in Medicine — Chungnam National University (2010 ~ 2014)</div>
@@ -462,7 +465,8 @@ function executeCLICommand(cmd) {
         responseHTML = `
           <div class="cli-highlight">Academic & Clinical Appointments:</div>
           <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
-          <div>[2024 ~ Present] Clinical Assistant Professor - Chungnam National University Hospital (CNUH)</div>
+          <div>[2026.09 ~ Present] Adjunct Assistant Professor (겸직교원) - Chungnam National University Hospital (CNUH)</div>
+          <div>[2024.03 ~ 2026.08] Clinical Assistant Professor (임상교원) - Chungnam National University Hospital (CNUH)</div>
           <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
           <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>
           <div>[2015 ~ 2019] Resident - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
@@ -587,7 +591,8 @@ function executeCLICommand(cmd) {
       responseHTML = `
         <div class="cli-highlight">Academic & Clinical Appointments:</div>
         <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
-        <div>[2024 ~ Present] Clinical Assistant Professor - Chungnam National University Hospital (CNUH)</div>
+        <div>[2026.09 ~ Present] Adjunct Assistant Professor (겸직교원) - Chungnam National University Hospital (CNUH)</div>
+        <div>[2024.03 ~ 2026.08] Clinical Assistant Professor (임상교원) - Chungnam National University Hospital (CNUH)</div>
         <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
         <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>
         <div>[2015 ~ 2019] Resident - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
