@@ -96,6 +96,7 @@ const TRANSLATIONS = {
     item_bs_role: "B.S. in Computer Science",
 
     // Awards & Certs
+    award_reviewer_aps: "2026 Outstanding Reviewer Award",
     award_med_record: "Excellence Award for Medical Record Documentation",
     award_reviewer: "Outstanding Reviewer Award",
     award_research: "Outstanding Research Award",
@@ -216,6 +217,7 @@ const TRANSLATIONS = {
     item_bs_role: "전산학 학사",
 
     // Awards & Certs
+    award_reviewer_aps: "2026 우수 심사위원상 (APS)",
     award_med_record: "의무기록 작성 우수자상",
     award_reviewer: "우수 심사위원상 (JWMR)",
     award_research: "우수 연구상",
@@ -493,6 +495,7 @@ function executeCLICommand(cmd) {
       } else if (targetFile === 'awards' || targetFile === 'honors') {
         responseHTML = `
           <div class="cli-highlight">Honors & Certifications:</div>
+          <div>• 2026 Outstanding Reviewer Award (APS) - Nov. 2026</div>
           <div>• Fellow of the Korean Wound Academy (FKWA) - Nov. 2024</div>
           <div>• Medical Record Documentation Excellence Award - Feb. 2024</div>
           <div>• Outstanding Reviewer Award (JWMR) - Mar. 2023</div>
@@ -635,6 +638,7 @@ function executeCLICommand(cmd) {
     case 'honors':
       responseHTML = `
         <div class="cli-highlight">Honors & Certifications:</div>
+        <div>• 2026 Outstanding Reviewer Award (APS) - Nov. 2026</div>
         <div>• Fellow of the Korean Wound Academy (FKWA) - Nov. 2024</div>
         <div>• Medical Record Documentation Excellence Award - Feb. 2024</div>
         <div>• Outstanding Reviewer Award (JWMR) - Mar. 2023</div>
