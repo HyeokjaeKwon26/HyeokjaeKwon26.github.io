@@ -87,7 +87,7 @@ const TRANSLATIONS = {
     org_cnu: "Chungnam National University, South Korea",
     org_kaist: "KAIST (Korea Advanced Institute of Science and Technology), South Korea",
     item_visiting_desc: "Collaborative research on clinical surgical innovation, medical AI, and surgical outcomes.",
-    item_professor_desc: "Department of Plastic and Reconstructive Surgery (Chungnam National University Hospital Joint Appointment).",
+    item_professor_desc: "Department of Plastic and Reconstructive Surgery.",
     item_cnuh_dept: "Department of Plastic and Reconstructive Surgery.",
     item_fellow_role: "Clinical Fellow",
     item_army_role: "Army Medical Officer",
@@ -156,7 +156,7 @@ const TRANSLATIONS = {
     role_visiting: "방문교수",
     org_visiting: "매사추세츠 종합병원 (MGH) & 하버드 의과대학 (HMS), 미국",
     role_professor: "조교수",
-    org_cnumed: "충남대학교 의과대학 성형외과학교실 (충남대병원 겸직)",
+    org_cnumed: "충남대학교 의과대학 성형외과학교실",
     org_cnumed_full: "충남대학교 의과대학 성형외과학교실, 대전",
     role_clinical: "임상조교수 (임상교원)",
     org_clinical: "충남대학교병원 성형외과",
@@ -453,7 +453,7 @@ function executeCLICommand(cmd) {
         <div><strong class="cli-highlight">Hyeokjae Kwon, M.D., Ph.D. (권혁재)</strong></div>
         <div>• Plastic & Reconstructive Surgeon & Computer Scientist</div>
         <div>• Visiting Professor, Massachusetts General Hospital (MGH) & Harvard Medical School (HMS)</div>
-        <div>• Assistant Professor (조교수), Dept. of Plastic & Reconstructive Surgery, Chungnam National University College of Medicine (CNUH Joint Appointment)</div>
+        <div>• Assistant Professor (조교수), Dept. of Plastic & Reconstructive Surgery, Chungnam National University College of Medicine</div>
         <div style="margin-top:6px;"><strong class="cli-highlight">Education & Degrees:</strong></div>
         <div>• Ph.D. in Medicine (Plastic & Reconstructive Surgery) — Chungnam National University (2021 ~ 2023)</div>
         <div>• M.D. / M.S. in Medicine — Chungnam National University (2010 ~ 2014)</div>
@@ -469,7 +469,7 @@ function executeCLICommand(cmd) {
         responseHTML = `
           <div class="cli-highlight">Academic & Clinical Appointments:</div>
           <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
-          <div>[2026.09 ~ Present] Assistant Professor (조교수) - Chungnam National University College of Medicine & Hospital</div>
+          <div>[2026.09 ~ Present] Assistant Professor (조교수) - Chungnam National University College of Medicine</div>
           <div>[2024.03 ~ 2026.08] Clinical Assistant Professor (임상교원) - Chungnam National University Hospital (CNUH)</div>
           <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
           <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>
@@ -595,7 +595,7 @@ function executeCLICommand(cmd) {
       responseHTML = `
         <div class="cli-highlight">Academic & Clinical Appointments:</div>
         <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
-        <div>[2026.09 ~ Present] Assistant Professor (조교수) - Chungnam National University College of Medicine & Hospital</div>
+        <div>[2026.09 ~ Present] Assistant Professor (조교수) - Chungnam National University College of Medicine</div>
         <div>[2024.03 ~ 2026.08] Clinical Assistant Professor (임상교원) - Chungnam National University Hospital (CNUH)</div>
         <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
         <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>
