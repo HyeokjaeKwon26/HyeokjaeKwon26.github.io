@@ -31,8 +31,8 @@ const TRANSLATIONS = {
     role_visiting: "Visiting Professor",
     org_visiting: "Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), USA",
     role_professor: "Assistant Professor",
-    org_cnumed: "Dept. of Plastic & Reconstructive Surgery, Chungnam National University College of Medicine",
-    org_cnumed_full: "Chungnam National University College of Medicine, Daejeon, South Korea",
+    org_cnumed: "Dept. of Plastic & Reconstructive Surgery, College of Medicine, Chungnam National University",
+    org_cnumed_full: "College of Medicine, Chungnam National University, Daejeon, South Korea",
     role_clinical: "Clinical Assistant Professor",
     org_clinical: "Dept. of Plastic & Reconstructive Surgery, Chungnam National University Hospital",
     hero_bio: "Dr. Hyeokjae Kwon combines a unique interdisciplinary background in Computer Science (B.S., <strong>KAIST</strong>) and Medicine (M.D., Ph.D., <strong>Chungnam National University</strong>). His research integrates artificial intelligence, medical computer vision, and virtual reality preoperative education into plastic and reconstructive surgery, with dedicated research interests in chronic wounds and surgical site infections (SSI).",
@@ -127,7 +127,7 @@ const TRANSLATIONS = {
     // CV Page Specifics
     btn_back: "Return to Website",
     btn_pdf: "Save / Download PDF",
-    cv_title_rank: "Visiting Professor, MGH & Harvard Medical School | Assistant Professor, CNU College of Medicine",
+    cv_title_rank: "Visiting Professor, MGH & Harvard Medical School | Assistant Professor, College of Medicine, CNU",
     cv_sec_appointments: "Academic & Clinical Appointments",
     cv_sec_focus: "Research Focus & Specializations",
     cv_sec_pubs: "Peer-Reviewed Publications",
@@ -453,7 +453,7 @@ function executeCLICommand(cmd) {
         <div><strong class="cli-highlight">Hyeokjae Kwon, M.D., Ph.D. (권혁재)</strong></div>
         <div>• Plastic & Reconstructive Surgeon & Computer Scientist</div>
         <div>• Visiting Professor, Massachusetts General Hospital (MGH) & Harvard Medical School (HMS)</div>
-        <div>• Assistant Professor (조교수), Dept. of Plastic & Reconstructive Surgery, Chungnam National University College of Medicine</div>
+        <div>• Assistant Professor (조교수), Dept. of Plastic & Reconstructive Surgery, College of Medicine, Chungnam National University</div>
         <div style="margin-top:6px;"><strong class="cli-highlight">Education & Degrees:</strong></div>
         <div>• Ph.D. in Medicine (Plastic & Reconstructive Surgery) — Chungnam National University (2021 ~ 2023)</div>
         <div>• M.D. / M.S. in Medicine — Chungnam National University (2010 ~ 2014)</div>
@@ -469,7 +469,7 @@ function executeCLICommand(cmd) {
         responseHTML = `
           <div class="cli-highlight">Academic & Clinical Appointments:</div>
           <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
-          <div>[2026.09 ~ Present] Assistant Professor (조교수) - Chungnam National University College of Medicine</div>
+          <div>[2026.09 ~ Present] Assistant Professor (조교수) - College of Medicine, Chungnam National University</div>
           <div>[2024.03 ~ 2026.08] Clinical Assistant Professor (임상교원) - Chungnam National University Hospital (CNUH)</div>
           <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
           <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>
@@ -595,7 +595,7 @@ function executeCLICommand(cmd) {
       responseHTML = `
         <div class="cli-highlight">Academic & Clinical Appointments:</div>
         <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
-        <div>[2026.09 ~ Present] Assistant Professor (조교수) - Chungnam National University College of Medicine</div>
+        <div>[2026.09 ~ Present] Assistant Professor (조교수) - College of Medicine, Chungnam National University</div>
         <div>[2024.03 ~ 2026.08] Clinical Assistant Professor (임상교원) - Chungnam National University Hospital (CNUH)</div>
         <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
         <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>
