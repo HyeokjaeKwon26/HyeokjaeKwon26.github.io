@@ -9,12 +9,12 @@ let containerEl, searchInputEl, toastEl, themeBtnEl, langBtnEl;
 
 const TRANSLATIONS = {
   en: {
-    page_title: "Hyeokjae Kwon, M.D., Ph.D. | Chungnam National University Hospital, MGH & Harvard Medical School",
+    page_title: "Hyeokjae Kwon, M.D., Ph.D. | College of Medicine, Chungnam National University & CNUH, HMS & MGH",
     cv_page_title: "Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae",
     name_header: "Hyeokjae Kwon, M.D., Ph.D.",
     name_hero: "Hyeokjae Kwon, M.D., Ph.D.",
     cv_bar_title: "Hyeokjae Kwon, M.D., Ph.D. — Academic Curriculum Vitae",
-    brand_sub: "CNUH, MGH & Harvard Medical School",
+    brand_sub: "CNU & CNUH, HMS & MGH",
     nav_about: "About",
     nav_experience: "Experience",
     nav_education: "Education",
@@ -29,7 +29,7 @@ const TRANSLATIONS = {
     nav_contact: "Contact",
     hero_title_sub: "Plastic and Reconstructive Surgeon & Computer Scientist",
     role_visiting: "Visiting Professor",
-    org_visiting: "Massachusetts General Hospital (MGH) & Harvard Medical School (HMS), USA",
+    org_visiting: "Harvard Medical School (HMS) & Massachusetts General Hospital (MGH), USA",
     role_professor: "Assistant Professor",
     org_cnumed: "Dept. of Plastic & Reconstructive Surgery, College of Medicine, Chungnam National University",
     org_cnumed_full: "College of Medicine, Chungnam National University, Daejeon, South Korea",
@@ -78,7 +78,7 @@ const TRANSLATIONS = {
     contact_phone: "Office Phone",
     contact_fax: "Fax",
     contact_orcid: "ORCID",
-    footer_copy: "© 2026 Hyeokjae Kwon, M.D., Ph.D. | Chungnam National University Hospital, Massachusetts General Hospital & Harvard Medical School",
+    footer_copy: "© 2026 Hyeokjae Kwon, M.D., Ph.D. | College of Medicine, Chungnam National University & CNUH, Harvard Medical School & Massachusetts General Hospital",
     toast_copy: "Citation copied to clipboard",
 
     // Specific Items
@@ -127,19 +127,19 @@ const TRANSLATIONS = {
     // CV Page Specifics
     btn_back: "Return to Website",
     btn_pdf: "Save / Download PDF",
-    cv_title_rank: "Visiting Professor, MGH & Harvard Medical School | Assistant Professor, College of Medicine, CNU",
+    cv_title_rank: "Assistant Professor, College of Medicine, CNU | Visiting Professor, HMS & MGH",
     cv_sec_appointments: "Academic & Clinical Appointments",
     cv_sec_focus: "Research Focus & Specializations",
     cv_sec_pubs: "Peer-Reviewed Publications",
     cv_focus_text: "• <strong>Medical AI & Computer Vision:</strong> AI-driven Eyeball Exposure Rate (EER) Analysis, 3D Gaussian Splatting for Surgical Measurement.<br>• <strong>Digital Health & Preoperative VR:</strong> VR Simulation Preoperative Education, Mobile Wound Management Systems.<br>• <strong>Clinical Surgical Innovation:</strong> Surgical Site Infection (SSI) Prevention, Chronic Wound Healing, Facial Trauma Reconstruction."
   },
   kr: {
-    page_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) | 충남대학교병원, MGH & 하버드 의과대학",
+    page_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) | 충남대 의대·병원, 하버드 의대 & MGH",
     cv_page_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) — 학술 이력서 (CV)",
     name_header: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.)",
     name_hero: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.)",
     cv_bar_title: "권혁재 (Hyeokjae Kwon, M.D., Ph.D.) — 학술 이력서 (CV)",
-    brand_sub: "충남대학교병원, MGH & 하버드 의과대학",
+    brand_sub: "충남대 의대·병원, 하버드 의대 & MGH",
     nav_about: "소개",
     nav_experience: "경력",
     nav_education: "학력",
@@ -154,7 +154,7 @@ const TRANSLATIONS = {
     nav_contact: "문의",
     hero_title_sub: "성형외과 전문의 & 컴퓨터 과학자",
     role_visiting: "방문교수",
-    org_visiting: "매사추세츠 종합병원 (MGH) & 하버드 의과대학 (HMS), 미국",
+    org_visiting: "하버드 의과대학 (HMS) & 매사추세츠 종합병원 (MGH), 미국",
     role_professor: "조교수",
     org_cnumed: "충남대학교 의과대학 성형외과학교실",
     org_cnumed_full: "충남대학교 의과대학",
@@ -203,7 +203,7 @@ const TRANSLATIONS = {
     contact_phone: "연구실 전화",
     contact_fax: "팩스",
     contact_orcid: "ORCID",
-    footer_copy: "© 2026 권혁재 (Hyeokjae Kwon) | 충남대학교병원, 매사추세츠 종합병원 & 하버드 의과대학",
+    footer_copy: "© 2026 권혁재 (Hyeokjae Kwon) | 충남대학교 의과대학 & 충남대학교병원, 하버드 의과대학 & 매사추세츠 종합병원",
     toast_copy: "인용문이 클립보드에 복사되었습니다",
 
     // Specific Items
@@ -252,7 +252,7 @@ const TRANSLATIONS = {
     // CV Page Specifics
     btn_back: "메인 웹사이트로 돌아가기",
     btn_pdf: "PDF 저장 / 인쇄",
-    cv_title_rank: "방문교수 (MGH & 하버드 의대) | 조교수 (충남대학교 의과대학)",
+    cv_title_rank: "조교수 (충남대학교 의과대학) | 방문교수 (하버드 의대 & MGH)",
     cv_sec_appointments: "경력 및 소속 (Academic & Clinical Appointments)",
     cv_sec_focus: "주요 연구 분야 (Research Focus & Specializations)",
     cv_sec_pubs: "학술지 논문 게재 실적 (Peer-Reviewed Publications)",
@@ -469,8 +469,8 @@ function executeCLICommand(cmd) {
       } else if (targetFile === 'experience' || targetFile === 'exp') {
         responseHTML = `
           <div class="cli-highlight">Academic & Clinical Appointments:</div>
-          <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
           <div>[2026.09 ~ Present] Assistant Professor (조교수) - College of Medicine, Chungnam National University</div>
+          <div>[2026.03 ~ Present] Visiting Professor - Harvard Medical School & MGH, Boston, MA, USA</div>
           <div>[2024.03 ~ 2026.08] Clinical Assistant Professor (임상교원) - Chungnam National University Hospital (CNUH)</div>
           <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
           <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>
@@ -595,8 +595,8 @@ function executeCLICommand(cmd) {
     case 'experience':
       responseHTML = `
         <div class="cli-highlight">Academic & Clinical Appointments:</div>
-        <div>[2026 ~ Present] Visiting Professor - MGH & Harvard Medical School, Boston, MA, USA</div>
         <div>[2026.09 ~ Present] Assistant Professor (조교수) - College of Medicine, Chungnam National University</div>
+        <div>[2026.03 ~ Present] Visiting Professor - Harvard Medical School & MGH, Boston, MA, USA</div>
         <div>[2024.03 ~ 2026.08] Clinical Assistant Professor (임상교원) - Chungnam National University Hospital (CNUH)</div>
         <div>[2022 ~ 2024] Clinical Fellow - Dept. of Plastic & Reconstructive Surgery, CNUH</div>
         <div>[2019 ~ 2022] Army Medical Officer - 7th Special Forces Brigade & 1115th Engineer Group, ROK Army</div>

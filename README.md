@@ -1,8 +1,8 @@
 # Hyeokjae Kwon, M.D., Ph.D. — Academic Website
 
 Official academic website and portfolio of **Dr. Hyeokjae Kwon, M.D., Ph.D.**
-- **Visiting Professor**, Massachusetts General Hospital (MGH) & Harvard Medical School (HMS)
 - **Assistant Professor** (조교수), Dept. of Plastic & Reconstructive Surgery, College of Medicine, Chungnam National University
+- **Visiting Professor**, Harvard Medical School (HMS) & Massachusetts General Hospital (MGH)
 
 ## Featured Open Source Projects
 - **SolarLess Navi**: Experimental solar-aware smart navigation system comparing Fastest, Glare-Avoidance, and Shade-Priority routes using MapLibre GL 3D vector maps, NREL SPA, and precalculated 2.5D building/terrain occlusion across USA and Korea (154K+ tiles). [GitHub Repository](https://github.com/HyeokjaeKwon26/Solarless-Navi)
