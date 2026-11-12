@@ -9,6 +9,14 @@
     "put_code": 30033579
   },
   {
+    "journal": "International Wound Journal",
+    "role": "Reviewer",
+    "issn": "1742-481x",
+    "source": "Manual",
+    "verified": true,
+    "completion_date": "2026-11"
+  },
+  {
     "journal": "BioMedInformatics",
     "role": "Reviewer",
     "issn": "2673-7426",
@@ -50,6 +58,14 @@
     "source": "ORCID",
     "verified": true,
     "completion_date": "2026-09-18"
+  },
+  {
+    "journal": "Nursing Open",
+    "role": "Reviewer",
+    "issn": "2054-1058",
+    "source": "Manual",
+    "verified": true,
+    "completion_date": "2025-02"
   },
   {
     "journal": "Journal of Wound Management and Research (JWMR)",

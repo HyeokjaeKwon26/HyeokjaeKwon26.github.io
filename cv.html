@@ -343,9 +343,15 @@
     .cv-simple-list {
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      font-size: 10pt;
-      line-height: 1.4;
+      gap: 4px;
+      font-size: 9.8pt;
+      line-height: 1.35;
+    }
+
+    #cv-reviewer-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 4px 24px;
     }
 
     .cv-simple-list div {
@@ -468,6 +474,10 @@
       .cv-grid-row {
         grid-template-columns: 1fr;
         gap: 2px;
+      }
+      #cv-reviewer-list {
+        grid-template-columns: 1fr;
+        gap: 4px;
       }
     }
   </style>
@@ -831,11 +841,13 @@
       <div class="cv-simple-list" id="cv-reviewer-list">
         <!-- CV_REVIEWER_LIST_START -->
         <div>Reviewer, Sinusitis</div>
+        <div>Reviewer, International Wound Journal</div>
         <div>Reviewer, BioMedInformatics</div>
         <div>Reviewer, Current Oncology</div>
         <div>Reviewer, International Journal of Environmental Research and Public Health (IJERPH)</div>
         <div>Reviewer, Journal of Clinical Medicine (JCM)</div>
         <div>Reviewer, Healthcare</div>
+        <div>Reviewer, Nursing Open</div>
         <div>Reviewer, Journal of Wound Management and Research (JWMR)</div>
         <div>Reviewer, Archives of Plastic Surgery (APS)</div>
         <!-- CV_REVIEWER_LIST_END -->

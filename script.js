@@ -534,11 +534,13 @@ function executeCLICommand(cmd) {
         responseHTML = `
           <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>
           <div>• Reviewer, Sinusitis [ORCID Verified]</div>
+          <div>• Reviewer, International Wound Journal</div>
           <div>• Reviewer, BioMedInformatics [ORCID Verified]</div>
           <div>• Reviewer, Current Oncology [ORCID Verified]</div>
           <div>• Reviewer, International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
           <div>• Reviewer, Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
           <div>• Reviewer, Healthcare [ORCID Verified]</div>
+          <div>• Reviewer, Nursing Open</div>
           <div>• Reviewer, Journal of Wound Management and Research (JWMR)</div>
           <div>• Reviewer, Archives of Plastic Surgery (APS)</div>
         `;
@@ -676,11 +678,13 @@ function executeCLICommand(cmd) {
         <div>• 3rd Place, Plastic Surgery Resident Quiz Bowl (PRS Korea 2017) - Nov. 2017</div>
         <div style="margin-top:6px;"><strong class="cli-highlight">Peer Reviewer Activities:</strong></div>
         <div>• Sinusitis [ORCID Verified]</div>
+        <div>• International Wound Journal</div>
         <div>• BioMedInformatics [ORCID Verified]</div>
         <div>• Current Oncology [ORCID Verified]</div>
         <div>• International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
         <div>• Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
         <div>• Healthcare [ORCID Verified]</div>
+        <div>• Nursing Open</div>
         <div>• Journal of Wound Management and Research (JWMR)</div>
         <div>• Archives of Plastic Surgery (APS)</div>
       `;
@@ -692,11 +696,13 @@ function executeCLICommand(cmd) {
       responseHTML = `
         <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>
         <div>• Reviewer, Sinusitis [ORCID Verified]</div>
+        <div>• Reviewer, International Wound Journal</div>
         <div>• Reviewer, BioMedInformatics [ORCID Verified]</div>
         <div>• Reviewer, Current Oncology [ORCID Verified]</div>
         <div>• Reviewer, International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
         <div>• Reviewer, Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
         <div>• Reviewer, Healthcare [ORCID Verified]</div>
+        <div>• Reviewer, Nursing Open</div>
         <div>• Reviewer, Journal of Wound Management and Research (JWMR)</div>
         <div>• Reviewer, Archives of Plastic Surgery (APS)</div>
       `;
