@@ -840,29 +840,11 @@ section[id] {
   background: var(--bg-surface);
 }
 
-.btn-cert-pdf {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 14px;
+.btn-cert-dismiss {
+  padding: 8px 18px;
   font-size: 0.85rem;
   font-weight: 500;
-  color: #ffffff;
-  background: var(--accent-blue);
-  border-radius: 6px;
-  text-decoration: none;
-  transition: var(--transition);
-}
-
-.btn-cert-pdf:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-.btn-cert-dismiss {
-  padding: 7px 14px;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   background: var(--bg-primary);
   border: 1px solid var(--border-color);
   border-radius: 6px;
@@ -872,6 +854,7 @@ section[id] {
 
 .btn-cert-dismiss:hover {
   background: var(--bg-subtle);
+  border-color: var(--border-dark);
 }
 
 @media (max-width: 640px) {
