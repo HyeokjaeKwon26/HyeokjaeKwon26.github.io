@@ -100,7 +100,7 @@ const TRANSLATIONS = {
     item_bs_role: "B.S. in Computer Science",
 
     // Awards & Certs
-    award_reviewer_aps: "2026 Outstanding Reviewer Award",
+    award_reviewer_aps: "Outstanding Reviewer Award",
     award_cert_badge: "Certificate",
     cert_click_hint: "Click to view full certificate",
     cert_modal_title: "Archives of Plastic Surgery — Outstanding Reviewer Award (2026)",
@@ -231,10 +231,10 @@ const TRANSLATIONS = {
     item_bs_role: "전산학 학사",
 
     // Awards & Certs
-    award_reviewer_aps: "2026 우수 심사위원상 (APS)",
+    award_reviewer_aps: "우수 심사위원상 (APS)",
     award_cert_badge: "상장",
     cert_click_hint: "클릭하여 상장 크게 보기",
-    cert_modal_title: "Archives of Plastic Surgery (APS) — 2026 우수 심사위원상",
+    cert_modal_title: "Archives of Plastic Surgery (APS) — 우수 심사위원상",
     cert_modal_sub: "대한성형외과학회 (2026년 11월 8일)",
     cert_open_pdf: "원본 PDF 보기",
     cert_close: "닫기",
@@ -517,7 +517,7 @@ function executeCLICommand(cmd) {
       } else if (targetFile === 'awards' || targetFile === 'honors') {
         responseHTML = `
           <div class="cli-highlight">Honors & Certifications:</div>
-          <div>• 2026 Outstanding Reviewer Award (APS) - Nov. 2026</div>
+          <div>• Outstanding Reviewer Award (APS) - Nov. 2026</div>
           <div>• Fellow of the Korean Wound Academy (FKWA) - Nov. 2024</div>
           <div>• Medical Record Documentation Excellence Award - Feb. 2024</div>
           <div>• Outstanding Reviewer Award (JWMR) - Mar. 2023</div>
@@ -661,7 +661,7 @@ function executeCLICommand(cmd) {
     case 'honors':
       responseHTML = `
         <div class="cli-highlight">Honors & Certifications:</div>
-        <div>• 2026 Outstanding Reviewer Award (APS) - Nov. 2026</div>
+        <div>• Outstanding Reviewer Award (APS) - Nov. 2026</div>
         <div>• Fellow of the Korean Wound Academy (FKWA) - Nov. 2024</div>
         <div>• Medical Record Documentation Excellence Award - Feb. 2024</div>
         <div>• Outstanding Reviewer Award (JWMR) - Mar. 2023</div>
