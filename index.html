@@ -376,8 +376,36 @@
         <div class="academic-card">
           <h3><i class="ri-trophy-line" style="color:var(--accent-crimson);"></i> <span data-i18n="card_honors">Honors & Awards</span></h3>
           <ul class="academic-sublist">
-            <li>
-              <strong data-i18n="award_reviewer_aps">2026 Outstanding Reviewer Award</strong>
+            <li class="award-item-with-cert">
+              <div class="award-header-line">
+                <span class="cert-preview-trigger" id="cert-aps-trigger" tabindex="0" role="button" aria-haspopup="dialog" aria-expanded="false" aria-label="View 2026 Outstanding Reviewer Award Certificate">
+                  <strong data-i18n="award_reviewer_aps">2026 Outstanding Reviewer Award</strong>
+                  <span class="cert-view-badge" title="Preview Certificate">
+                    <i class="ri-file-paper-line" aria-hidden="true"></i>
+                    <span data-i18n="award_cert_badge">Certificate</span>
+                  </span>
+
+                  <!-- Hover Popover Thumbnail Preview -->
+                  <span class="cert-popover" role="tooltip" aria-hidden="true">
+                    <span class="cert-popover-arrow"></span>
+                    <span class="cert-popover-card">
+                      <span class="cert-popover-meta">
+                        <span class="cert-popover-journal"><i class="ri-award-line"></i> Archives of Plastic Surgery</span>
+                        <span class="cert-popover-date">Nov. 8, 2026</span>
+                      </span>
+                      <span class="cert-popover-img-wrap">
+                        <picture>
+                          <source srcset="assets/award_aps_2026.webp" type="image/webp">
+                          <img src="assets/award_aps_2026.png" alt="2026 APS Outstanding Reviewer Award Certificate" width="310" height="219" loading="lazy">
+                        </picture>
+                      </span>
+                      <span class="cert-popover-action">
+                        <i class="ri-zoom-in-line"></i> <span data-i18n="cert_click_hint">Click to view full certificate</span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+              </div>
               <div class="subtext">Nov. 2026 — Archives of Plastic Surgery (APS)</div>
             </li>
             <li>
@@ -603,6 +631,36 @@
   <button class="scroll-top-btn" id="scroll-top-btn" title="Scroll to top" aria-label="Scroll to top">
     <i class="ri-arrow-up-line"></i>
   </button>
+
+  <!-- Certificate Lightbox Modal -->
+  <div class="cert-modal-backdrop" id="cert-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="cert-modal-title">
+    <div class="cert-modal-box">
+      <div class="cert-modal-header">
+        <div class="cert-modal-title-group">
+          <i class="ri-award-fill cert-modal-icon"></i>
+          <div>
+            <h4 id="cert-modal-title" class="cert-modal-title" data-i18n="cert_modal_title">Archives of Plastic Surgery — Outstanding Reviewer Award (2026)</h4>
+            <div class="cert-modal-sub" data-i18n="cert_modal_sub">The Korean Society of Plastic and Reconstructive Surgeons (Nov. 8, 2026)</div>
+          </div>
+        </div>
+        <button type="button" class="cert-modal-close" id="cert-modal-close" aria-label="Close Certificate Preview">
+          <i class="ri-close-line"></i>
+        </button>
+      </div>
+      <div class="cert-modal-body">
+        <picture>
+          <source srcset="assets/award_aps_2026.webp" type="image/webp">
+          <img src="assets/award_aps_2026.png" alt="2026 APS Outstanding Reviewer Award Certificate" class="cert-modal-img">
+        </picture>
+      </div>
+      <div class="cert-modal-footer">
+        <a href="assets/award_aps_2026.pdf" target="_blank" rel="noopener noreferrer" class="btn-cert-pdf">
+          <i class="ri-file-pdf-2-line"></i> <span data-i18n="cert_open_pdf">Open Original PDF</span>
+        </a>
+        <button type="button" class="btn-cert-dismiss" id="cert-modal-dismiss" data-i18n="cert_close">Close</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Developer CLI Terminal Modal -->
   <div class="cli-modal-overlay" id="cli-modal">

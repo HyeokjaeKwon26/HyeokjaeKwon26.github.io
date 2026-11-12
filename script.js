@@ -101,6 +101,12 @@ const TRANSLATIONS = {
 
     // Awards & Certs
     award_reviewer_aps: "2026 Outstanding Reviewer Award",
+    award_cert_badge: "Certificate",
+    cert_click_hint: "Click to view full certificate",
+    cert_modal_title: "Archives of Plastic Surgery — Outstanding Reviewer Award (2026)",
+    cert_modal_sub: "The Korean Society of Plastic and Reconstructive Surgeons (Nov. 8, 2026)",
+    cert_open_pdf: "Open Original PDF",
+    cert_close: "Close",
     award_med_record: "Excellence Award for Medical Record Documentation",
     award_reviewer: "Outstanding Reviewer Award",
     award_research: "Outstanding Research Award",
@@ -226,6 +232,12 @@ const TRANSLATIONS = {
 
     // Awards & Certs
     award_reviewer_aps: "2026 우수 심사위원상 (APS)",
+    award_cert_badge: "상장",
+    cert_click_hint: "클릭하여 상장 크게 보기",
+    cert_modal_title: "Archives of Plastic Surgery (APS) — 2026 우수 심사위원상",
+    cert_modal_sub: "대한성형외과학회 (2026년 11월 8일)",
+    cert_open_pdf: "원본 PDF 보기",
+    cert_close: "닫기",
     award_med_record: "의무기록 작성 우수자상",
     award_reviewer: "우수 심사위원상 (JWMR)",
     award_research: "우수 연구상",
@@ -267,6 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupEmailProtection();
   setupScrollToTop();
   setupCLITerminal();
+  setupCertModal();
   loadPublications();
   setupEventListeners();
   setupScrollSpy();
@@ -897,6 +910,56 @@ function setupScrollToTop() {
       top: 0,
       behavior: 'smooth'
     });
+  });
+}
+
+function setupCertModal() {
+  const trigger = document.getElementById('cert-aps-trigger');
+  const modal = document.getElementById('cert-modal');
+  const closeBtn = document.getElementById('cert-modal-close');
+  const dismissBtn = document.getElementById('cert-modal-dismiss');
+
+  if (!trigger || !modal) return;
+
+  function openModal(e) {
+    if (e) {
+      // Don't intercept if clicking direct link (e.g. target="_blank")
+      if (e.target && e.target.closest('a')) return;
+      e.preventDefault();
+    }
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    trigger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    trigger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  trigger.addEventListener('click', openModal);
+
+  trigger.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openModal();
+    }
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (dismissBtn) dismissBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+      closeModal();
+    }
   });
 }
 
