@@ -110,7 +110,7 @@ const TRANSLATIONS = {
     award_reviewer: "Outstanding Reviewer Award",
     award_research: "Outstanding Research Award",
     award_army_commend: "Brigadier General Commendation for Meritorious Service",
-    award_golden_bell: "3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz)",
+    award_golden_bell: "3rd Place, Plastic Surgery Resident Quiz Bowl (Golden Bell)",
     award_golden_bell_sub: "Nov. 2017 — PRS Korea 2017",
     award_news_badge: "News",
     news_open_article: "Read Article (Medical Times)",
@@ -242,7 +242,7 @@ const TRANSLATIONS = {
     award_reviewer: "우수 심사위원상 (JWMR)",
     award_research: "우수 연구상",
     award_army_commend: "여단장 표창 (공로상)",
-    award_golden_bell: "전국 성형외과 전공의 지식경진대회 3위 (골든벨 퀴즈)",
+    award_golden_bell: "전공의 골든벨 3위",
     award_golden_bell_sub: "2017년 11월 — PRS Korea 2017",
     award_news_badge: "기사",
     news_open_article: "기사 원문 읽기 (메디칼타임즈)",
@@ -528,7 +528,7 @@ function executeCLICommand(cmd) {
           <div>• Brigadier General Commendation, 7th Special Forces Brigade - Nov. 2019</div>
           <div>• Engineer Information Processing (정보처리기사) - Nov. 2019</div>
           <div>• Board Certified Specialist in Plastic & Reconstructive Surgery - Mar. 2019</div>
-          <div>• 3rd Place, National Resident Knowledge Competition (PRS Korea 2017) - Nov. 2017</div>
+          <div>• 3rd Place, Plastic Surgery Resident Quiz Bowl (PRS Korea 2017) - Nov. 2017</div>
         `;
       } else if (targetFile === 'reviewer' || targetFile === 'reviewers' || targetFile === 'editorial') {
         responseHTML = `
@@ -672,7 +672,7 @@ function executeCLICommand(cmd) {
         <div>• Brigadier General Commendation, 7th Special Forces Brigade - Nov. 2019</div>
         <div>• Engineer Information Processing (정보처리기사) - Nov. 2019</div>
         <div>• Board Certified Specialist in Plastic & Reconstructive Surgery - Mar. 2019</div>
-        <div>• 3rd Place, National Resident Knowledge Competition (PRS Korea 2017) - Nov. 2017</div>
+        <div>• 3rd Place, Plastic Surgery Resident Quiz Bowl (PRS Korea 2017) - Nov. 2017</div>
         <div style="margin-top:6px;"><strong class="cli-highlight">Peer Reviewer Activities:</strong></div>
         <div>• BioMedInformatics [ORCID Verified]</div>
         <div>• Current Oncology [ORCID Verified]</div>
