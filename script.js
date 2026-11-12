@@ -112,6 +112,8 @@ const TRANSLATIONS = {
     award_army_commend: "Brigadier General Commendation for Meritorious Service",
     award_golden_bell: "3rd Place, National Plastic Surgery Resident Knowledge Competition (Golden Bell Quiz)",
     award_golden_bell_sub: "Nov. 2017 — PRS Korea 2017",
+    award_news_badge: "News",
+    news_open_article: "Read Article (Medical Times)",
     cv_ksprs_sub: "PRS Korea 2017",
     award_hygiene: "Hospital Infection Control & Hand Hygiene Excellence Award",
     cert_fkwa: "Fellow of the Korean Wound Academy (FKWA)",
@@ -242,6 +244,8 @@ const TRANSLATIONS = {
     award_army_commend: "여단장 표창 (공로상)",
     award_golden_bell: "전국 성형외과 전공의 지식경진대회 3위 (골든벨 퀴즈)",
     award_golden_bell_sub: "2017년 11월 — PRS Korea 2017",
+    award_news_badge: "기사",
+    news_open_article: "기사 원문 읽기 (메디칼타임즈)",
     cv_ksprs_sub: "PRS Korea 2017",
     award_hygiene: "손위생 우수직원상",
     cert_fkwa: "대한창상학회 창상전문가(FKWA)",
@@ -959,6 +963,15 @@ function setupCertModal() {
       closeModal();
     }
   });
+
+  const newsTrigger = document.getElementById('news-goldenbell-trigger');
+  if (newsTrigger) {
+    newsTrigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        window.open('https://www.medicaltimes.com/Main/News/NewsView.html?ID=1115024', '_blank', 'noopener,noreferrer');
+      }
+    });
+  }
 }
 
 function setupEmailProtection() {

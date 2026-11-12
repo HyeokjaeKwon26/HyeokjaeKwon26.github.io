@@ -601,6 +601,29 @@ section[id] {
   transform: translateY(-1px);
 }
 
+/* News Badge Variant */
+.cert-news-badge {
+  background: rgba(2, 132, 199, 0.08);
+  color: #0284c7;
+  border-color: rgba(2, 132, 199, 0.25);
+  text-decoration: none;
+}
+
+[data-theme="dark"] .cert-news-badge {
+  background: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.cert-preview-trigger:hover .cert-news-badge,
+.cert-preview-trigger:focus-visible .cert-news-badge,
+.cert-news-badge:hover {
+  background: #0284c7;
+  color: #ffffff;
+  border-color: #0284c7;
+  transform: translateY(-1px);
+}
+
 /* Floating Certificate Popover */
 .cert-popover {
   position: absolute;
@@ -715,6 +738,31 @@ section[id] {
   justify-content: center;
   gap: 4px;
   font-weight: 500;
+}
+
+.cert-news-action {
+  background: #f0f9ff;
+  color: #0284c7;
+  border-radius: 4px;
+  padding: 5px 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+[data-theme="dark"] .cert-news-action {
+  background: rgba(2, 132, 199, 0.15);
+  color: #38bdf8;
+}
+
+.cert-news-action:hover {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .cert-news-action:hover {
+  background: #0284c7;
+  color: #ffffff;
 }
 
 /* Certificate Lightbox Modal */
