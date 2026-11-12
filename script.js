@@ -533,6 +533,7 @@ function executeCLICommand(cmd) {
       } else if (targetFile === 'reviewer' || targetFile === 'reviewers' || targetFile === 'editorial') {
         responseHTML = `
           <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>
+          <div>• Reviewer, Sinusitis [ORCID Verified]</div>
           <div>• Reviewer, BioMedInformatics [ORCID Verified]</div>
           <div>• Reviewer, Current Oncology [ORCID Verified]</div>
           <div>• Reviewer, International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
@@ -674,6 +675,7 @@ function executeCLICommand(cmd) {
         <div>• Board Certified Specialist in Plastic & Reconstructive Surgery - Mar. 2019</div>
         <div>• 3rd Place, Plastic Surgery Resident Quiz Bowl (PRS Korea 2017) - Nov. 2017</div>
         <div style="margin-top:6px;"><strong class="cli-highlight">Peer Reviewer Activities:</strong></div>
+        <div>• Sinusitis [ORCID Verified]</div>
         <div>• BioMedInformatics [ORCID Verified]</div>
         <div>• Current Oncology [ORCID Verified]</div>
         <div>• International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
@@ -689,6 +691,7 @@ function executeCLICommand(cmd) {
     case 'editorial':
       responseHTML = `
         <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>
+        <div>• Reviewer, Sinusitis [ORCID Verified]</div>
         <div>• Reviewer, BioMedInformatics [ORCID Verified]</div>
         <div>• Reviewer, Current Oncology [ORCID Verified]</div>
         <div>• Reviewer, International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>

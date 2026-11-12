@@ -48,7 +48,9 @@ ISSN_JOURNAL_MAP = {
     "2077-0383": "Journal of Clinical Medicine (JCM)",
     "2227-9032": "Healthcare",
     "2586-0402": "Journal of Wound Management and Research (JWMR)",
-    "2234-6171": "Archives of Plastic Surgery (APS)"
+    "2234-6171": "Archives of Plastic Surgery (APS)",
+    "2673-351x": "Sinusitis",
+    "2673-351X": "Sinusitis"
 }
 
 def expand_journal_name(journal_str):
