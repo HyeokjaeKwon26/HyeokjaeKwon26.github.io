@@ -1,25 +1,17 @@
 [
   {
-    "journal": "Sinusitis",
+    "journal": "Archives of Plastic Surgery (APS)",
     "role": "Reviewer",
-    "issn": "2673-351x",
-    "source": "ORCID",
-    "verified": true,
-    "completion_date": "2026-11-11",
-    "put_code": 30033579
-  },
-  {
-    "journal": "International Wound Journal",
-    "role": "Reviewer",
-    "issn": "1742-481x",
+    "issn": "2234-6171",
+    "url": "https://www.thieme-connect.com/products/ejournals/journal/10.1055/s-00051611",
     "source": "Manual",
-    "verified": true,
-    "completion_date": "2026-11"
+    "verified": true
   },
   {
     "journal": "BioMedInformatics",
     "role": "Reviewer",
     "issn": "2673-7426",
+    "url": "https://www.mdpi.com/journal/biomedinformatics",
     "source": "ORCID",
     "verified": true,
     "completion_date": "2026-10-22",
@@ -29,56 +21,74 @@
     "journal": "Current Oncology",
     "role": "Reviewer",
     "issn": "1718-7729",
+    "url": "https://www.mdpi.com/journal/curroncol",
     "source": "ORCID",
     "verified": true,
     "completion_date": "2026-10-12",
     "put_code": 29500818
   },
   {
+    "journal": "Healthcare",
+    "role": "Reviewer",
+    "issn": "2227-9032",
+    "url": "https://www.mdpi.com/journal/healthcare",
+    "source": "ORCID",
+    "verified": true,
+    "completion_date": "2026-09-18"
+  },
+  {
     "journal": "International Journal of Environmental Research and Public Health (IJERPH)",
     "role": "Reviewer",
     "issn": "1660-4601",
+    "url": "https://www.mdpi.com/journal/ijerph",
     "source": "ORCID",
     "verified": true,
     "completion_date": "2026-10-02",
     "put_code": 29348034
   },
   {
+    "journal": "International Wound Journal",
+    "role": "Reviewer",
+    "issn": "1742-481x",
+    "url": "https://onlinelibrary.wiley.com/journal/1742481x",
+    "source": "Manual",
+    "verified": true,
+    "completion_date": "2026-11"
+  },
+  {
     "journal": "Journal of Clinical Medicine (JCM)",
     "role": "Reviewer",
     "issn": "2077-0383",
+    "url": "https://www.mdpi.com/journal/jcm",
     "source": "ORCID",
     "verified": true,
     "completion_date": "2026-09-26"
   },
   {
-    "journal": "Healthcare",
+    "journal": "Journal of Wound Management and Research (JWMR)",
     "role": "Reviewer",
-    "issn": "2227-9032",
-    "source": "ORCID",
-    "verified": true,
-    "completion_date": "2026-09-18"
+    "issn": "2586-0402",
+    "url": "https://www.jwmr.org/",
+    "source": "Manual",
+    "verified": true
   },
   {
     "journal": "Nursing Open",
     "role": "Reviewer",
     "issn": "2054-1058",
+    "url": "https://onlinelibrary.wiley.com/journal/20541058",
     "source": "Manual",
     "verified": true,
     "completion_date": "2025-02"
   },
   {
-    "journal": "Journal of Wound Management and Research (JWMR)",
+    "journal": "Sinusitis",
     "role": "Reviewer",
-    "issn": "2586-0402",
-    "source": "Manual",
-    "verified": true
-  },
-  {
-    "journal": "Archives of Plastic Surgery (APS)",
-    "role": "Reviewer",
-    "issn": "2234-6171",
-    "source": "Manual",
-    "verified": true
+    "issn": "2673-351x",
+    "url": "https://www.mdpi.com/journal/sinusitis",
+    "source": "ORCID",
+    "verified": true,
+    "completion_date": "2026-11-11",
+    "put_code": 30033579
   }
 ]

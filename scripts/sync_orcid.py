@@ -6,6 +6,7 @@ import difflib
 import sys
 import shutil
 import subprocess
+import html
 
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
@@ -586,22 +587,43 @@ def update_cv_html_publications(pubs):
     print("Successfully updated cv.html publications list.")
 
 def update_reviewers_in_html(reviewers):
+    sorted_reviewers = sorted(reviewers, key=lambda r: r.get('journal', '').lower())
+
     # 1. Update index.html
     if os.path.exists(INDEX_HTML_FILE):
         with open(INDEX_HTML_FILE, 'r', encoding='utf-8') as f:
             idx_content = f.read()
-            
+
         items = []
-        for r in reviewers:
-            j_title = r.get('journal', '')
-            items.append(f'''            <li>
-              <strong data-i18n="reviewer_role">Reviewer</strong>
-              <div class="subtext">{j_title}</div>
-            </li>''')
+        for r in sorted_reviewers:
+            j_title = html.escape(r.get('journal', ''))
+            j_url = html.escape(r.get('url', '').strip(), quote=True)
+            if j_url:
+                items.append(
+                    f'''            <li>
+              <a href="{j_url}" target="_blank" rel="noopener noreferrer" class="reviewer-chip">
+                <span>{j_title}</span>
+                <i class="ri-external-link-line" aria-hidden="true"></i>
+              </a>
+            </li>'''
+                )
+            else:
+                items.append(
+                    f'''            <li>
+              <span class="reviewer-chip">
+                <span>{j_title}</span>
+              </span>
+            </li>'''
+                )
         idx_block = "\n" + "\n".join(items) + "\n            "
-        
+
         pattern = r'(<!-- REVIEWER_LIST_START -->)(.*?)(<!-- REVIEWER_LIST_END -->)'
         new_idx = re.sub(pattern, r'\g<1>' + idx_block + r'\g<3>', idx_content, flags=re.DOTALL)
+        new_idx = re.sub(
+            r'(<span class="reviewer-count-pill" id="reviewer-count-pill">)(.*?)(</span>)',
+            rf'\g<1>{len(sorted_reviewers)} Journals\g<3>',
+            new_idx
+        )
         with open(INDEX_HTML_FILE, 'w', encoding='utf-8') as f:
             f.write(new_idx)
         print("Successfully updated index.html reviewers list.")
@@ -610,13 +632,13 @@ def update_reviewers_in_html(reviewers):
     if os.path.exists(CV_HTML_FILE):
         with open(CV_HTML_FILE, 'r', encoding='utf-8') as f:
             cv_content = f.read()
-            
+
         items = []
-        for r in reviewers:
-            j_title = r.get('journal', '')
+        for r in sorted_reviewers:
+            j_title = html.escape(r.get('journal', ''))
             items.append(f'        <div>Reviewer, {j_title}</div>')
         cv_block = "\n" + "\n".join(items) + "\n        "
-        
+
         pattern = r'(<!-- CV_REVIEWER_LIST_START -->)(.*?)(<!-- CV_REVIEWER_LIST_END -->)'
         new_cv = re.sub(pattern, r'\g<1>' + cv_block + r'\g<3>', cv_content, flags=re.DOTALL)
         with open(CV_HTML_FILE, 'w', encoding='utf-8') as f:
@@ -631,7 +653,7 @@ def update_reviewers_in_html(reviewers):
         cli_rev_items_1 = []
         cli_rev_items_2 = []
         cli_rev_items_3 = []
-        for r in reviewers:
+        for r in sorted_reviewers:
             j_title = r.get('journal', '')
             badge = ' [ORCID Verified]' if r.get('source') == 'ORCID' else ''
             cli_rev_items_1.append(f'          <div>• Reviewer, {j_title}{badge}</div>')
@@ -827,6 +849,7 @@ def sync_peer_reviews():
             has_changes = True
 
     if has_changes or not os.path.exists(REVIEWERS_FILE):
+        existing_reviewers.sort(key=lambda r: r.get('journal', '').lower())
         with open(REVIEWERS_FILE, 'w', encoding='utf-8') as f:
             json.dump(existing_reviewers, f, ensure_ascii=False, indent=2)
         print(f"Saved updated reviewers.json ({len(existing_reviewers)} records).")

@@ -506,6 +506,7 @@ section[id] {
   border: 1px solid var(--border-color);
   border-radius: 6px;
   padding: 20px 24px;
+  min-width: 0;
 }
 
 .academic-card h3 {
@@ -536,6 +537,86 @@ section[id] {
   font-size: 0.85rem;
   color: var(--text-muted);
   margin-top: 2px;
+}
+
+/* Editorial & Reviewer Journal Chips */
+.reviewer-summary-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.reviewer-count-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 2px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .reviewer-count-pill {
+  background: rgba(59, 130, 246, 0.14);
+  border-color: rgba(147, 197, 253, 0.35);
+}
+
+.reviewer-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  min-width: 0;
+}
+
+.reviewer-chip-list li {
+  max-width: 100%;
+}
+
+.reviewer-chip {
+  display: inline-block;
+  font-size: 0.795rem;
+  line-height: 1.38;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-dark);
+  border-radius: 6px;
+  padding: 4px 9px;
+  text-decoration: none;
+  max-width: 100%;
+  transition: var(--transition);
+}
+
+a.reviewer-chip:hover,
+a.reviewer-chip:focus-visible {
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  background: #f0f6ff;
+  outline: none;
+}
+
+[data-theme="dark"] a.reviewer-chip:hover,
+[data-theme="dark"] a.reviewer-chip:focus-visible {
+  background: rgba(59, 130, 246, 0.14);
+}
+
+.reviewer-chip i {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-left: 4px;
+  vertical-align: -1px;
+  transition: var(--transition);
+}
+
+a.reviewer-chip:hover i,
+a.reviewer-chip:focus-visible i {
+  color: var(--accent-blue);
 }
 
 /* Award Certificate Preview & Tooltip Popover */

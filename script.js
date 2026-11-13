@@ -125,6 +125,7 @@ const TRANSLATIONS = {
     cert_license: "Medical Doctor (M.D.) License",
     member_regular: "Regular Member",
     reviewer_role: "Reviewer",
+    reviewer_summary_role: "Ad-hoc Peer Reviewer",
     org_cnu_grad: "Graduate School of Chungnam National University",
     kwms_name: "Korean Wound Management Society",
     kosmi_name: "Korea Society of Medical Informatics (KOSMI)",
@@ -258,6 +259,7 @@ const TRANSLATIONS = {
     cert_license: "의사 면허증",
     member_regular: "정회원",
     reviewer_role: "심사위원 (Reviewer)",
+    reviewer_summary_role: "학술지 동료 심사위원 (Ad-hoc Peer Reviewer)",
     org_cnu_grad: "충남대학교 대학원",
     kwms_name: "대한창상학회",
     kosmi_name: "대한의료정보학회",
@@ -535,16 +537,16 @@ function executeCLICommand(cmd) {
       } else if (targetFile === 'reviewer' || targetFile === 'reviewers' || targetFile === 'editorial') {
         responseHTML = `
           <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>
-          <div>• Reviewer, Sinusitis [ORCID Verified]</div>
-          <div>• Reviewer, International Wound Journal</div>
+          <div>• Reviewer, Archives of Plastic Surgery (APS)</div>
           <div>• Reviewer, BioMedInformatics [ORCID Verified]</div>
           <div>• Reviewer, Current Oncology [ORCID Verified]</div>
-          <div>• Reviewer, International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
-          <div>• Reviewer, Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
           <div>• Reviewer, Healthcare [ORCID Verified]</div>
-          <div>• Reviewer, Nursing Open</div>
+          <div>• Reviewer, International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
+          <div>• Reviewer, International Wound Journal</div>
+          <div>• Reviewer, Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
           <div>• Reviewer, Journal of Wound Management and Research (JWMR)</div>
-          <div>• Reviewer, Archives of Plastic Surgery (APS)</div>
+          <div>• Reviewer, Nursing Open</div>
+          <div>• Reviewer, Sinusitis [ORCID Verified]</div>
         `;
       } else if (targetFile === 'orcid') {
         responseHTML = `<div>https://orcid.org/0000-0002-1418-3448</div>`;
@@ -679,16 +681,16 @@ function executeCLICommand(cmd) {
         <div>• Board Certified Specialist in Plastic & Reconstructive Surgery - Mar. 2019</div>
         <div>• 3rd Place, Plastic Surgery Resident Quiz Bowl (PRS Korea 2017) - Nov. 2017</div>
         <div style="margin-top:6px;"><strong class="cli-highlight">Peer Reviewer Activities:</strong></div>
-        <div>• Sinusitis [ORCID Verified]</div>
-        <div>• International Wound Journal</div>
+        <div>• Archives of Plastic Surgery (APS)</div>
         <div>• BioMedInformatics [ORCID Verified]</div>
         <div>• Current Oncology [ORCID Verified]</div>
-        <div>• International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
-        <div>• Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
         <div>• Healthcare [ORCID Verified]</div>
-        <div>• Nursing Open</div>
+        <div>• International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
+        <div>• International Wound Journal</div>
+        <div>• Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
         <div>• Journal of Wound Management and Research (JWMR)</div>
-        <div>• Archives of Plastic Surgery (APS)</div>
+        <div>• Nursing Open</div>
+        <div>• Sinusitis [ORCID Verified]</div>
       `;
       break;
 
@@ -697,16 +699,16 @@ function executeCLICommand(cmd) {
     case 'editorial':
       responseHTML = `
         <div class="cli-highlight">Editorial & Peer Reviewer Activities:</div>
-        <div>• Reviewer, Sinusitis [ORCID Verified]</div>
-        <div>• Reviewer, International Wound Journal</div>
+        <div>• Reviewer, Archives of Plastic Surgery (APS)</div>
         <div>• Reviewer, BioMedInformatics [ORCID Verified]</div>
         <div>• Reviewer, Current Oncology [ORCID Verified]</div>
-        <div>• Reviewer, International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
-        <div>• Reviewer, Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
         <div>• Reviewer, Healthcare [ORCID Verified]</div>
-        <div>• Reviewer, Nursing Open</div>
+        <div>• Reviewer, International Journal of Environmental Research and Public Health (IJERPH) [ORCID Verified]</div>
+        <div>• Reviewer, International Wound Journal</div>
+        <div>• Reviewer, Journal of Clinical Medicine (JCM) [ORCID Verified]</div>
         <div>• Reviewer, Journal of Wound Management and Research (JWMR)</div>
-        <div>• Reviewer, Archives of Plastic Surgery (APS)</div>
+        <div>• Reviewer, Nursing Open</div>
+        <div>• Reviewer, Sinusitis [ORCID Verified]</div>
       `;
       break;
 
@@ -1078,6 +1080,14 @@ function applyLanguage(lang) {
   if (allTab) {
     const count = publications.length || 26;
     allTab.innerText = `${dict['tab_all']} (${count})`;
+  }
+
+  // Update reviewer journal count pill
+  const revCountPill = document.getElementById('reviewer-count-pill');
+  const revSublist = document.getElementById('reviewer-sublist');
+  if (revCountPill && revSublist) {
+    const revCount = revSublist.querySelectorAll('li').length;
+    revCountPill.innerText = lang === 'kr' ? `${revCount}개 학술지` : `${revCount} Journals`;
   }
 
   const primaryTab = document.querySelector('.tab-btn[data-filter="primary"]');
