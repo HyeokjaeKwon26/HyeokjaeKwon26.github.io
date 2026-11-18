@@ -229,6 +229,7 @@ KNOWN_PRIMARY_DOIS = {
     '10.1007/s10877-023-00988-5',
     '10.3390/healthcare14172866',
     '10.3390/medicina62112054',
+    '10.3390/jcm15229035',
 }
 
 def check_direct_doi_corresponding(clean_doi):
